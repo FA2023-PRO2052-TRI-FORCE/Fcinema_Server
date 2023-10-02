@@ -1,0 +1,77 @@
+body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    background-color: #e9ecef;
+
+  }
+  
+  html {
+    height: -webkit-fill-available;
+  }
+  
+  .main-slidebar {
+    min-height: 100vh;
+    height: -webkit-fill-available;
+    max-height: 100vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .navbar{
+    background-color: #FFF !important;
+    min-height: 64px;
+  }
+  .nav-pills{
+    padding: .25rem .5rem;
+    font-weight: 600;
+    color: #7c7575;
+    background-color: transparent;
+  }
+  .nav-link{
+    width: 200px;
+    margin: 5px;
+  }
+  .nav-link, .dropdown-toggle{
+    padding: .25rem .5rem;
+    font-weight: 600;
+    color: black;
+    background-color: transparent;
+  }
+  .dropdown{
+    margin-right: 50px;
+  }
+  .link-body-emphasis{
+    margin: 2px;
+    list-style-type: none !important;
+  }
+  .btn-toggle:hover,
+  .btn-toggle:focus,
+  .nav-link:hover,
+  .nav-link:focus,
+  .btn-toggle-nav a:hover,
+  .btn-toggle-nav a:focus {
+    color: rgba(var(--bs-emphasis-color-rgb), .85);
+    background-color: #CCCCCC;
+  }
+  .conten-wrapper{
+    padding: 20px;
+
+  }
+  .breadcrumb {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    list-style: none;
+    border-radius: 0.25rem;
+  }
+  .card-title{
+    text-transform: uppercase;
+    font-size: medium;
+    padding: 10px;
+  }
+  
+  
+  
