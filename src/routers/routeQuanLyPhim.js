@@ -5,7 +5,6 @@ const qlPhim=require('../app/controller/quanLyPhim');
 
 router.get('/phim/quanlyphim',qlPhim.getDSPhim);
 router.get('/login',qlPhim.gotoLogin)
-router.get('/phim/loaiphim',qlPhim.gotoQLLP)
 router.get('/tongquan',qlPhim.goToTQ)
 
 
