@@ -5,6 +5,7 @@ const qlThonTin=require('../app/controller/quanlythongtin');
 
 
 router.get('/managerAdmin',qlThonTin.goToManager)
+router.get('/changePassAdmin',qlThonTin.goToChangePass)
 
 
 
