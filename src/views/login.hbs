@@ -12,69 +12,72 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Merienda:wght@500&family=Notable&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
-    <div class="containerLogin row">
-        <article class="col-sm-7" style="background-color: antiquewhite">
-            <h1 style="margin-top: 100px">Welcome to FStore's Management</h1>
-            <h1>Login now!</h1>
-        </article>
-
-        <aside class="col-sm-5">
-            <div class="form-custom">
-                <h2>Login</h2>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="text-align: center; background-color: #fff; border-color: #fff;">
-                    {{#each validateLogin}}
-                        <strong>{{err}}</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    {{/each}}
-                </div>
-
-                <form method="post" action="/login-account">
-                    <div class="form-group form-group-custom">
-                        <input
-                            required
-                            type="email"
-                            class="form-control"
-                            name="email"
-                            id="email"
-                            aria-describedby="helpId"
-                            placeholder="Enter your email"
-                            value="{{email}}"
-                        />
-                        <small id="helpId" class="form-text text-muted"></small>
-                    </div>
-
-                    <div class="form-group form-group-custom">
-                        <input
-                            required
-                            type="password"
-                            class="form-control"
-                            name="password"
-                            id="password"
-                            placeholder="Enter your password"
-                            value="{{password}}"
-                        />
-                    </div>
-
-                    <div class="form-group-custom">
-                        <button type="submit" class="btn btn-primary buttonLogin" action="/login-account">
-                            Login
-                        </button>
-                    </div>
-                    <a href="/phim/quanlyphim" target="_self" style="color: black">
-                        <p style="text-align: center; margin: 15px 0 10px 0">
-                            Don't have an account? Register now
-                        </p>
-                    </a>
-                </form>
-            </div>
-        </aside>
+    <div style="height: 50px;">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" style="text-align: end; background-color: #fff; border-color: #fff;">
+        {{#each validateLogin}}
+            <strong>{{err}}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        {{/each}}
     </div>
+    </div>
+
+    <div class="col-sm-12 mx-auto" style="margin: 0 auto; display: flex; justify-content: center; align-items: center;">
+        <div class="form-custom">
+            <div class="row">
+                <div class="col-sm-6">
+                    <img src="../img/poly.webp" style="width: 150px;">
+                </div>
+                <div class="col-sm-6 text-center">
+                    <div>
+                        <h6 style="font-family: Notable; color: black; margin-bottom: 0; margin-top: 15px;">FCinema</h6>
+                        <span style="font-family: Merienda; color: black; font-size: 10px;">"Mua vé, Trải nghiệm, Thư giãn."</span>
+                    </div>
+                </div>
+            </div>
+
+            <form method="post" action="/login-account" style="margin-top: 40px;">
+                <div style="margin-top: 100px !important;">
+                    <input
+                        required
+                        type="email"
+                        class="form-control"
+                        name="email"
+                        id="email"
+                        aria-describedby="helpId"
+                        placeholder="Nhập tên đăng nhập"
+                        value="{{email}}"
+                    />
+                </div>
+                <div>
+                    <input
+                        required
+                        type="password"
+                        class="form-control"
+                        name="password"
+                        id="password"
+                        placeholder="Nhập mật khẩu"
+                        value="{{password}}"
+                    />
+                </div>
+                <div class="form-group-custom">
+                    <button type="submit" class="btn btn-primary buttonLogin" action="/login-account">
+                        Đăng nhập
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery, Popper.js, Bootstrap JS -->
