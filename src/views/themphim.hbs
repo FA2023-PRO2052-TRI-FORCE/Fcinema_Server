@@ -1,0 +1,81 @@
+  <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;    -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
+    box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+    <li class="breadcrumb-item"><a href="#">Quản Lý Phim</a></li>
+    <li class="breadcrumb-item"><a href="/quanlyphim/phim">Phim</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Thêm Phim Mới</li>
+  </ol> 
+<div class="container" style="margin: 10px; border-radius: 4px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);">
+    <h6  style="padding: 10px 20px; font-weight: bold;">Thêm phim mới</h6>
+    <hr>  
+    <form action="/add-product/store" method="POST" class="container-form-add mx-auto" style="max-width: 900px;" enctype="multipart/form-data">
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="mb-3">
+                    <label class="form-label" for="name">Tên phim</label>
+                    <input required type="text" class="form-control" name="name" id="name" aria-describedby="helpId" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="category">Thể loại</label>
+                    <select id="category" name="category" class="form-control">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="price">Ngôn ngữ</label>
+                    <input class="form-control" name="price" id="price" aria-describedby="helpId" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="price">Hãng sản xuất</label>
+                    <input class="form-control" name="price" id="price" aria-describedby="helpId" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="price">Nước sản xuất</label>
+                    <input class="form-control" name="price" id="price" aria-describedby="helpId" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="price">Thời Lượng</label>
+                    <input class="form-control" name="price" id="price" aria-describedby="helpId" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="price">Đạo diễn</label>
+                    <input class="form-control" name="price" id="price" aria-describedby="helpId" />
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="mb-3">
+                    <label class="form-label" for="img">Chọn ảnh</label>
+                    <input required type="file" class="form-control" name="img" accept="image/*" id="fileInput" aria-describedby="helpImg" onchange="" />
+                </div>
+
+                <div id="output" class="rounded mx-auto d-block" style="width: 200px; height: 200px; background-color: aliceblue;">
+                    <img id="img-preview" src="" alt="Ảnh xem trước" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="description">Mô tả</label>
+                    <textarea required class="form-control" name="description" id="description" rows="4"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="status">Trạng thái</label>
+                    <select id="status" name="status" class="form-control">
+                        <option value="Phim mới">Phim mới</option>
+                        <option value="Đang chiếu">Đang chiếu</option>
+                        <option value="Đã chiếu">Đã chiếu</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="year">Năm sản xuất</label>
+                    <input class="form-control" name="year" id="year" aria-describedby="helpYear" />
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button name="add" class="btn btn-primary" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px;">Thêm mới</button>
+        </div>
+    </form>
+</div>
