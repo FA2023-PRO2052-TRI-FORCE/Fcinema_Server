@@ -1,0 +1,64 @@
+
+<!-- Danh sách phòng -->
+
+<div class="container mt-5">
+    <div class="p-3 bg-white shadow-sm rounded">
+  <h3>Danh sách phòng chiếu</h3>
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Tên phòng</th>
+        <th scope="col">Số chỗ ngồi</th>
+        {{!-- <th scope="col">Khu vực</th>
+        <th scope="col">Hệ thống</th>
+        <th scope="col">Tình trạng</th> --}}
+        <th scope="col">Thao tác</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Phòng 1</td>
+        <td>100</td>
+        {{!-- <td>A</td>
+        <td>2K</td>
+        <td>Hoạt động</td> --}}
+        <td>
+          {{!-- <button class="btn btn-primary btn-sm">Chi tiết</button>
+          <button class="btn btn-warning btn-sm">Sửa</button>
+          <button class="btn btn-danger btn-sm" data-target="#deleteModal">Xoá</button> --}}
+          <a href="" class="btn btn-warning btn-sm" style="border-radius: 50px;">chi tiết</a>
+          <a href="" class="btn btn-primary btn-sm" style="border-radius: 50px;">Sửa</a>
+          <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" style="border-radius: 50px;">Xóa</a>
+        </td>
+      </tr>
+      ...
+    </tbody>
+    
+  </table>
+  </div>
+</div>
+
+{{!-- modal xóa  --}}
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Bạn có chắc chắn muốn xóa phòng này không?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-danger">Xóa</button>
+      </div>
+    </div>
+  </div>
+</div>
