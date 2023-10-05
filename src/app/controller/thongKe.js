@@ -1,6 +1,6 @@
 class thongKe{
     async dsThongKe(req,res){
-        res.render('thongKe');
+        res.render('thongKe', { title: 'Thống kê' });
     }
 
 }
