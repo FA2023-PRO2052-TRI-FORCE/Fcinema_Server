@@ -7,6 +7,9 @@ const thongBao=require('./routeThongBao');
 const khachHang = require('./routeKhachHang');
 const nhanVien = require('./routeNhanVien');
 const phongChieu = require('./routeQuanLyPhongChieu');
+const lichChieu=require('./routeQuanLyLichChieu');
+
+const veDat=require('./routeQuanLyVeDat');
 
 function route(app) {
   app.use('/', phim);
@@ -17,6 +20,9 @@ function route(app) {
   app.use('/',khachHang);
   app.use('/',nhanVien);
   app.use('/',phongChieu)
+  app.use('/',lichChieu)
+
+  app.use('/',veDat)
 }
 
 module.exports = route;
