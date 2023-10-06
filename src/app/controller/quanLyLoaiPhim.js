@@ -1,10 +1,10 @@
 class qlLoaiPhim{
 
     async dsLoaiPhim(req,res){
-        res.render('loaiPhim');
+        res.render('loaiPhim', { title: 'Loại Phim' });
     }
     async themLoaiPhim(req,res){
-        res.render('themLoaiPhim');
+        res.render('themLoaiPhim', { title: 'Thêm Loại Phim' });
     }    
 
 }
