@@ -4,7 +4,7 @@ class qlNhanVien{
     // Ví dụ ở màn hình nhân viên tôi sẽ truy vấn lấy tất cả nhân viên có hienThi=1 và gửi list json nhân viên đó vào màn hình nhân viên
     async goToScreen(req,res){
 
-        const querry=`SELECT * FROM NhanVien WHERE hienThi=1`;
+        const querry=`SELECT * FROM NhanVien WHERE hienThi=1 AND vaiTro!= 'admin'`;
         connection.query(querry,(err,result)=>{
             // kiểm tra truy vấn nếu có lỗi thì sẽ log lỗi ra và return không thực hiện các câu lệnh dưới
             if(err){
