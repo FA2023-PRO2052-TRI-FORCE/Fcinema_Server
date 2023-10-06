@@ -4,6 +4,7 @@ const path = require('path');
 const morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+const moment = require('moment');
 
 const app = express();
 const port = 3000;
@@ -30,9 +31,11 @@ app.engine(
     partialsDir: __dirname + '\\src\\views\\',
     helpers: {
       sum: (a, b) => a + b,
+      formatDate:(date) => moment(date).format('MM/DD/YYYY'),
     },
   })
 );
+
 
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '\\src\\views\\');
