@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS`NhanVien`(
     `idNhanVien` varchar(255) PRIMARY KEY NOT NULL,
     `hoTen` varchar(255) DEFAULT NULL,
     `matKhau` varchar(255) NOT NULL,
+    `email` varchar(255) NOT NULL,    
     `dienThoai` varchar(255) DEFAULT NULL,
     `anh` LONGBLOB DEFAULT NULL,
     `vaiTro`VARCHAR(255),
