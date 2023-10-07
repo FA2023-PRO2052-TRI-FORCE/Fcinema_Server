@@ -1,9 +1,9 @@
 class qlVeDat{
     async dsVeDaDat(req,res){
-        res.render('veDat', { title: 'Vé đã đặt' })
+        res.render('tickets/veDat', { title: 'Vé đã đặt' })
     }
     async themVeMoi(req,res){
-        res.render('themVeMoi', { title: 'Thêm vé mới' })
+        res.render('tickets/themVeMoi', { title: 'Thêm vé mới' })
     }
 
 }
