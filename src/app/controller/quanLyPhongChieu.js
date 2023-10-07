@@ -1,13 +1,13 @@
 
 class quanLyKhachHang{
     async goToScreen(req,res){
-        res.render('phongChieu', { title: 'Phòng Chiếu' })
+        res.render('others/phongChieu', { title: 'Phòng Chiếu' })
     }
     async goToAdd(req,res){
-        res.render('themKhachHang')
+        res.render('users/themKhachHang')
     }
     async goToList(req,res){
-        res.render('khachHang')
+        res.render('users/khachHang')
     }
 }
 module.exports = new quanLyKhachHang()
