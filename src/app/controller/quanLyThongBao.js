@@ -1,6 +1,6 @@
 class qlthongBao{
     async dsThongBao(req,res){
-        res.render('thongBao', { title: 'Thông Báo' })
+        res.render('others/thongBao', { title: 'Thông Báo' })
     }
 
 }

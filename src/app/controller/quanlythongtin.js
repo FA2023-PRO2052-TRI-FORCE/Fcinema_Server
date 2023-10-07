@@ -1,10 +1,10 @@
 
 class quanlythongtin{
     async goToManager(req,res){
-        res.render('managerAdmin', { title: 'Thông tin tài khoản' })
+        res.render('account/managerAdmin', { title: 'Thông tin tài khoản' })
     }
     async goToChangePass(req,res){
-        res.render('changePassAdmin', { title: 'Thay đổi mật khẩu' })
+        res.render('account/changePassAdmin', { title: 'Thay đổi mật khẩu' })
     }
 }
 module.exports = new quanlythongtin()

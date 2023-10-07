@@ -16,12 +16,12 @@ class qlNhanVien{
             // Tiếp theo ở phần view của màn hình nhân viên tôi sẽ lấy dữ liệu nhân viên đổ lên table
             console.log("========");
             console.log("",result);
-            res.render('nhanvien', { listNhanVien: result,title: 'Nhân Viên' });
+            res.render('employees/nhanvien', { listNhanVien: result,title: 'Nhân Viên' });
         })
         
     }
     async goToAdd(req,res){
-        res.render('themNhanVien', { title: 'Thêm Nhân Viên' })
+        res.render('employees/themNhanVien', { title: 'Thêm Nhân Viên' })
     }
 
 }
