@@ -108,3 +108,30 @@ VALUES
     ('Admin', 'Lê Văn C', '213456', '0987654320', 'admin', '1992-03-03', 'Đà Nẵng', 'Nam', 1),
     ('NV004', 'Đinh Thị D', '321456', '0123456788', 'Nhân viên', '1993-04-04', 'Cần Thơ', 'Nữ', 1),
     ('NV005', 'Phạm Văn E', '4321456', '0987654327', 'Nhân viên', '1994-05-05', 'Hải Phòng', 'Nam', 1);
+--  DỮ LIỆU MẪU THỂ LOẠI PHIM
+INSERT INTO TheLoai (tenTheLoai) VALUES
+('Hành động'),
+('Chính kịch'),
+('Trinh thám');
+--Dữ liệu mẫu của PHIM
+INSERT INTO Phim (tenPhim, anh, ngonNgu, moTa, hangSX, nuocSX, namSX, thoiLuong, daoDien, idTheLoai,hienThi,trangThai) VALUES
+('The Nun II', '', 'Tiếng Anh', 'Đây là mô tả của phim 1', 'Hãng sản xuất 1', 'Nước sản xuất 1', '2023', '120 phút', 'Đạo diễn 1', 1,1,1),
+('Avenger', '', 'Tiếng Anh', 'Đây là mô tả của phim 2', 'Hãng sản xuất 2', 'Nước sản xuất 2', '2022', '100 phút', 'Đạo diễn 2', 2,1,1),
+('Trivio', '', 'Tiếng Nhật', 'Đây là mô tả của phim 3', 'Hãng sản xuất 3', 'Nước sản xuất 3', '2021', '90 phút', 'Đạo diễn 3', 3,1,1);
+INSERT INTO Phim (tenPhim, anh, ngonNgu, moTa, hangSX, nuocSX, namSX, thoiLuong, daoDien, idTheLoai, hienThi, trangThai) VALUES
+('Avatar (2009)', '', 'Tiếng Anh', 'Đây là mô tả của phim 1', 'Hãng sản xuất 1', 'Nước sản xuất 1', '2009', '162 phút', 'James Cameron', 1, 1, 1),
+('Biệt Đội Siêu Anh Hùng - The Avengers (2012 - 2019)', '', 'Tiếng Anh', 'Đây là mô tả của phim 2', 'Hãng sản xuất 2', 'Nước sản xuất 2', '2012', '143 phút', 'Joss Whedon', 2, 1, 1),
+('Kẻ Huỷ Diệt - The Terminator (1984)', '', 'Tiếng Anh', 'Đây là mô tả của phim 3', 'Hãng sản xuất 3', 'Nước sản xuất 3', '1984', '107 phút', 'James Cameron', 3, 1, 1),
+('Ma Trận - The Matrix (1999)', '', 'Tiếng Anh', 'Đây là mô tả của phim 4', 'Hãng sản xuất 4', 'Nước sản xuất 4', '1999', '136 phút', 'The Wachowskis', 1, 1, 1),
+('Fast & Furious (2001)', '', 'Tiếng Anh', 'Đây là mô tả của phim 5', 'Hãng sản xuất 5', 'Nước sản xuất 5', '2001', '106 phút', 'Rob Cohen', 2, 1, 1),
+('Nhà tù Shawshank - The Shawshank Redemption(1994)', '', 'Tiếng Anh', 'Đây là mô tả của phim 6', 'Hãng sản xuất 6', 'Nước sản xuất 6', '1994', '142 phút', 'Frank Darabont', 3, 1, 1),
+('Những Kẻ Khờ Mộng Mơ - La La Land (2016)', '', 'Tiếng Anh', 'Đây là mô tả của phim 7', 'Hãng sản xuất 7', 'Nước sản xuất 7', '2016', '128 phút', 'Damien Chazelle', 1, 1, 1);
+
+--  DỮ LIỆU MẪU CỦA PHÒNG CHHIẾU
+INSERT INTO PhongChieu (tenPhongChieu, soLuongGhe, trangThai)
+VALUES ('Phòng 1', 20, 1),
+       ('Phòng 2', 20, 0),
+       ('Phòng 3', 20, 1),
+       ('Phòng 4', 20, 1),
+       ('Phòng 5', 30, 0),
+       ('Phòng 6', 40, 1);
