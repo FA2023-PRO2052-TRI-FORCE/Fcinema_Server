@@ -1,5 +1,5 @@
-// const mysql = require('mysql');
-const mysql = require('mysql2');
+const mysql = require('mysql');
+// const mysql = require('mysql2');
 
 const connection = mysql.createConnection({
   host: 'localhost',   
@@ -7,7 +7,6 @@ const connection = mysql.createConnection({
   database: 'f_cinema', 
   port:3306
 });
-
 // Connect to MySQL
 connection.connect((err) => {
   if (err) {
