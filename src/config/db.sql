@@ -135,3 +135,11 @@ VALUES ('Phòng 1', 20, 1),
        ('Phòng 4', 20, 1),
        ('Phòng 5', 30, 0),
        ('Phòng 6', 40, 1);
+    --    DỮ LIỆU MẪU BẢNG NGƯỜI DÙNG 
+    INSERT INTO NguoiDung (email, hoTen, matKhau, dienThoai, anh, ngaySinh, diaChi, hienThi)
+VALUES
+    ('nguoidung1@example.com', 'Người dùng 1', '123456', '0123456789', NULL, '2000-01-01', 'Hà Nội', 1),
+    ('nguoidung2@example.com', 'Người dùng 2', '654321', '0987654321', NULL, '2001-02-02', 'Hồ Chí Minh', 1),
+    ('nguoidung3@example.com', 'Người dùng 3', 'abcdef', '01234567890', NULL, '2002-03-03', 'Đà Nẵng', 1),
+    ('nguoidung4@example.com', 'Người dùng 4', 'qwerty', '09876543210', NULL, '2003-04-04', 'Hải Phòng', 1),
+    ('nguoidung5@example.com', 'Người dùng 5', 'zxcvbn', '012345678901', NULL, '2004-05-05', 'Cần Thơ', 1);
