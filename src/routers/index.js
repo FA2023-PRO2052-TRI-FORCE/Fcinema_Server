@@ -22,7 +22,7 @@ function route(app) {
   app.use('/',nhanVien);
   app.use('/',phongChieu)
   app.use('/',lichChieu)
-  // app.use('/',routeApp);
+  app.use('/',routeApp);
 
   app.use('/',veDat)
 }
