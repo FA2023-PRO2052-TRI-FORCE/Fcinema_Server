@@ -5,6 +5,9 @@ const morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 const moment = require('moment');
+const paginateHelper = require('express-handlebars-paginate');
+const flash = require('express-flash');
+const session = require('express-session');
 
 const app = express();
 const port = 3000;
@@ -22,6 +25,14 @@ app.use(express.static(path.join(__dirname, 'src', 'resources')));
 // http logger
 app.use(morgan('combined'));
 
+app.use(session({
+  secret: 'get-message',
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(flash());
+
+
 app.engine(
   'hbs',
   handlebars.engine({
@@ -29,9 +40,24 @@ app.engine(
     extname: '.hbs',
     layoutsDir: __dirname + '\\src\\views\\layouts\\',
     partialsDir: __dirname + '\\src\\views\\',
+    runtimeOptions:{allowProtoPropertiesByDefault:true,
+    allowedProtoMethodsByDefault:true},        
     helpers: {
       sum: (a, b) => a + b,
-      formatDate:(date) => moment(date).format('MM/DD/YYYY'),
+      formatDate:(date) => moment(date).format('DD/MM/YYYY'),
+      paginate: paginateHelper.createPagination,
+      formatCurrency: (number, currencyCode) => {
+        const formatter = new Intl.NumberFormat('vi-VN', {
+          style: 'currency',
+          currency: currencyCode,
+        });
+        return formatter.format(number);
+      },
+      eq(val1, val2, options) {
+        return val1 === val2 ? options.fn(this) : options.inverse(this);
+      },
+      
+
     },
   })
 );

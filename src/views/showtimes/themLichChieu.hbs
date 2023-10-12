@@ -1,65 +1,94 @@
 <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;    -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
     box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
     <li class="breadcrumb-item"><a href="/lichchieu">Lịch Chiếu</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Thêm Lịch Chiếu</li>
+    <li class="breadcrumb-item active" aria-current="page">Thêm Lịch Chiếu</li>  
 </ol> 
 <div class="container" style="margin: 10px; border-radius: 4px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);">
     <h6 style="padding: 10px 20px; font-weight: bold;">Thêm Lịch Chiếu</h6>
     <hr>  
-    <form action="/add-product/store" method="POST" class="container-form-add mx-auto" style="max-width: 900px;" enctype="multipart/form-data">
+    <form action="/lichchieu/them/luu" method="POST" class="container-form-add mx-auto" style="max-width: 900px;">
         <div class="row">
             <div class="col-sm-12">
                 <div class="mb-3">
-                    <label class="form-label" for="category">Tên Phim</label>
-                    <select id="category" name="category" class="form-control">
-                        <option value=""></option>
+                    <label class="form-label" for="idPhim">Tên Phim</label>
+                    <select id="idPhim" name="idPhim" class="form-control">
+                        {{#each listPhim}}
+                        <option
+                        name="{{this.idPhim}}"
+                        value="{{this.idPhim}}"
+                        {{#eq this.idPhim @root.idPhim}}selected{{/eq}}
+                        >{{this.tenPhim}}</option>                        
+                        {{/each}}
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="cinema">Phòng chiếu</label>
-                    <select id="cinema" name="cinema" class="form-control">
-                        <option value=""></option>
+                    <label class="form-label" for="idPhongChieu">Phòng chiếu</label>
+                    <select id="idPhongChieu" value="{{idPhongChieu}}" name="idPhongChieu" class="form-control">
+                        {{#each listPC}}
+                        <option name="{{this.idPhongChieu}}"
+                         value="{{this.idPhongChieu}}"
+                        {{#eq this.idPhongChieu @root.idPhongChieu}}selected{{/eq}}                         
+                          >{{this.tenPhongChieu}}</option>                        
+                        {{/each}}
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label d-block">Chọn ca chiếu</label>
-                    <div class="form-check" style="display: inline-block; margin-right: 20px;">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
-                        <label class="form-check-label" for="flexCheckDefault1">
-                            Ca 1
-                        </label>
-                    </div>
-                    <div class="form-check" style="display: inline-block; margin-right: 20px;">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
-                        <label class="form-check-label" for="flexCheckDefault2">
-                            Ca 2
-                        </label>
-                    </div>
-                    <div class="form-check" style="display: inline-block; margin-right: 20px;">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
-                        <label class="form-check-label" for="flexCheckDefault3">
-                            Ca 3
-                        </label>
-                    </div>
-                    <div class="form-check" style="display: inline-block; margin-right: 20px;">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4">
-                        <label class="form-check-label" for="flexCheckDefault4">
-                            Ca 4
-                        </label>
-                    </div>
-                </div>
+                    <label class="form-label" for="caChieu">Ca Chiếu</label>
+                    <select id="caChieu" name="caChieu"  class="form-control">
+                        <option value="Ca 1: 8-10h" {{#eq "Ca 1: 8-10h" @root.caChieu}}selected{{/eq}}>Ca 1: 8-10h</option>
+                        <option value="Ca 2: 13h-15h" {{#eq "Ca 2: 13h-15h" @root.caChieu}}selected{{/eq}}>Ca 2: 13h-15h</option>
+                        <option value="Ca 3: 16-19h30" {{#eq "Ca 3: 16-19h30" @root.caChieu}}selected{{/eq}}>Ca 3: 16-19h30</option>
+                        <option value="Ca 4: 20-23h" {{#eq "Ca 4: 20-23h" @root.caChieu}}selected{{/eq}}>Ca 4: 20-23h</option>
+                    </select>
+                </div>                              
                 <div class="mb-3">
                     <label class="form-label" for="showDate">Ngày chiếu</label>
-                    <input class="form-control" name="showDate" id="showDate" aria-describedby="helpId" />
+                    <input class="form-control" value="{{ngayChieu}}" name="ngayChieu" required name="ngayChieu" id="ngayChieu" type="date" data-date="" data-date-format="DD MMMM YYYY"  aria-describedby="helpId" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="price">Giá phim</label>
-                    <input class="form-control" name="price" id="price" aria-describedby="helpId" />
+                    <input class="form-control" value="{{giaPhim}}" required type="number" name="giaPhim" id="giaPhim" aria-describedby="helpId" />
                 </div>
             </div>
         </div>
         <div class="text-center">
-            <button name="add" class="btn btn-primary" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px;">Thêm mới</button>
+            <button class="btn btn-primary" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px 0px 40px 0;">Thêm mới</button>
         </div>
     </form>
 </div>
+<div class="">
+    {{#if notificationErr.length}}
+        <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+            {{#each notificationErr}}
+                <strong>{{err}}</strong>
+            {{/each}}
+        </div>
+    {{/if}}
+
+    {{#if notificationSuccess.length}}
+        <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+            {{#each notificationSuccess}}
+                <strong style="text-align: center;">{{success}}</strong>
+            {{/each}}
+        </div>
+    {{/if}}
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('.alert').addClass("show");
+        $('.alert').removeClass("hide");
+        $('.alert').addClass("showAlert");
+        setTimeout(function(){
+            $('.alert').removeClass("show");
+            $('.alert').addClass("hide");
+        },3000);
+    });
+
+</script>
+
+
+
+
+
+

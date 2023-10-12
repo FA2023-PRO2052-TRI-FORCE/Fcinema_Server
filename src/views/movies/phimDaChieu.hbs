@@ -12,57 +12,75 @@
       <div class="col-12">
         {{!-- Search --}}
         <div class="input-group" style="display: flex; justify-content: end; margin: 20px;">
-        {{!-- <div class="form-outline" style="display: flex;">
-            <input type="search" id="form1" class="form-control" style="min-width: 400px;" placeholder="Tên phim.." />
-            <a type="button" class="btn btn-primary" style="margin-left: 5px;">
-                <i class="fas fa-search"></i> Tìm
-            </a>            
-        </div> --}}
+
         </div>        
         {{!-- Add --}}
 
+        <div style="height: 700px; overflow-y: scroll;">
         <table class="table table-bordered">
           <thead class="thead-dark">
             <tr>
-              <th class="align-middle" scope="col">#</th>
-              <th class="align-middle" scope="col">Tên phim</th>
-              <th class="align-middle" scope="col">Poster</th>
-              <th class="align-middle" scope="col">Thể Loại</th> 
-              <th class="align-middle" scope="col">Thời Lượng</th>
-              <th class="align-middle" scope="col">Nước Sản Xuất</th>
-              <th class="align-middle" scope="col">Năm Sản Xuất</th>
-              <th class="align-middle" scope="col">Mô Tả</th>
-              <th class="align-middle" scope="col">Trạng thái</th>              
-              <th class="align-middle" scope="col">Hành động</th>
+              <th class="text-center align-middle" scope="col">#</th>
+              <th class="text-center align-middle" scope="col">Tên phim</th>
+              <th class="text-center align-middle" scope="col">Poster</th>
+              <th class="text-center align-middle" scope="col">Thể Loại</th> 
+              <th class="text-center align-middle" scope="col">Thời Lượng</th>
+              <th class="text-center align-middle" scope="col">Nước Sản Xuất</th>
+              <th class="text-center align-middle" scope="col">Năm Sản Xuất</th>
+              <th class="text-center align-middle" scope="col">Mô Tả</th>
+              <th class="text-center align-middle" scope="col">Trạng thái</th>              
+              <th class="text-center align-middle" scope="col">Hành động</th>
             </tr>
           </thead>
           <tbody>
+            {{#each listDaChieu}}
             <tr>
-              <th class="align-middle" scope="row">{{sum 1 @index }}</th>
-              <td class="align-middle" style="width: 100px;">Tên phim</td>
-              <td class="w-25 align-middle"><img src="#" class="img-thumbnail" alt=""></td>
-              <td class="align-middle" style="width: 100px;">Thể loại</td>
-              <td class="align-middle">Thời lượng</td>
-              <td class="align-middle">Nước sản xuất</td>
-              <td class="align-middle">Năm sản xuất</td>
-              <td class="align-middle">Mô tả</td>    
-              <td class="align-middle">Trạng thái</td>              
-              <td class="align-middle">
-                <a href="" type="button" style="margin-bottom: 10px; width: 90px;" class="btn btn-success">Chi tiết</a>
-                <a type="button" data-bs-toggle="modal" data-bs-target="#delete-phim-modal" style="margin-bottom: 10px; width: 90px;" class="btn btn-danger">Xoá</a>
+              <th class="text-center align-middle" scope="row">{{sum 1 @index }}</th>
+              <td class="p-2 text-center align-middle" style="width: 100px;">{{this.tenPhim}}</td>
+              <td class="p-2 text-center w-25 align-middle"><img src="#" class="img-thumbnail" alt=""></td>
+              <td class="p-2 text-center align-middle" style="width: 100px;">Thể loại</td>
+              <td class="p-2 text-center align-middle">{{this.thoiLuong}}</td>
+              <td class="p-2 text-center align-middle">{{this.nuocSX}}</td>
+              <td class="p-2 text-center align-middle">{{this.namSX}}</td>
+              <td class="p-2 text-center align-middle">{{this.moTa}}</td>    
+              <td class="p-2 text-center align-middle">Phim đã chiếu</td>              
+              <td class="p-2 text-center align-middle">
+                <a href="/quanlyphim/phimdachieu/{{this.idPhim}}" type="button" style="margin-bottom: 10px; width: 90px;" class="btn btn-success">Chi tiết</a>
+                <a type="button" data-bs-toggle="modal" data-id-phim-dc="{{this.idPhim}}" data-bs-target="#delete-phim-dc-modal" data-target="#delete-phim-dc-modal" style="margin-bottom: 10px; width: 90px;" class="btn btn-danger">Xoá</a>
               </td>
             </tr>
+            {{/each}}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   </div>
 </div>
+<div class="">
+    {{#if notificationErr.length}}
+        <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+            {{#each notificationErr}}
+                <strong>{{err}}</strong>
+            {{/each}}
+        </div>
+    {{/if}}
 
+    {{#if notificationSuccess.length}}
+        <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+            {{#each notificationSuccess}}
+                <strong style="text-align: center;">{{success}}</strong>
+            {{/each}}
+        </div>
+    {{/if}}
+</div>
+
+{{!-- form delete phim --}}
+<form name="form-del-phim" method="POST"></form>
 
 
 <!--modal xác nhận xoá -->
-<div class="modal fade" tabindex="-1" role="dialog" id="delete-phim-modal">
+<div class="modal fade" tabindex="-1" role="dialog" id="delete-phim-dc-modal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -73,9 +91,37 @@
         <p>Bạn có chắc chắn muốn xóa phim này?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" id="btn-delete-product" class="btn btn-danger">Xóa</button>
+        <button type="button" id="btn-delete-phim-dc" class="btn btn-danger">Xóa</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded",function(){
+    var idPhim;
+    var btnDelPhim=document.getElementById("btn-delete-phim-dc");
+    var deleteForm=document.forms["form-del-phim"];
+
+    $("#delete-phim-dc-modal").on("show.bs.modal",function(event){
+      var button=$(event.relatedTarget);
+      idPhim=button.data("id-phim-dc");
+    
+    })
+    btnDelPhim.onclick=function(){
+      deleteForm.action="/quanlyphim/phimdachieu/"+idPhim+"?_method=PUT"
+      deleteForm.submit();
+    }
+  })
+
+    $(document).ready(function() {
+    $('.alert').addClass("show");
+    $('.alert').removeClass("hide");
+    $('.alert').addClass("showAlert");
+    setTimeout(function(){
+        $('.alert').removeClass("show");
+        $('.alert').addClass("hide");
+    },3000);
+    });
+</script>
