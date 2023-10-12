@@ -1,0 +1,84 @@
+<link rel="stylesheet" href="/src/resources/css/slidebar.css">
+<ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;    -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
+    box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+    <li class="breadcrumb-item"><a href="/lichchieu">Lịch Chiếu</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Cập nhật lịch chiếu</li>  
+</ol> 
+<div class="container" style="margin: 10px; border-radius: 4px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);">
+    <h6 style="padding: 10px 20px; font-weight: bold;">Chi tiết lịch chiếu</h6>
+    <hr>  
+    {{#each objectLichChhieu}}
+    <form action="/lichchieu/sua/luu/{{this.idLichChieu}}?_method=PUT" method="POST" class="container-form-add mx-auto" style="max-width: 900px;">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="mb-3">
+                    <label class="form-label" for="idPhim">Tên Phim</label>
+                    <input type="text" class="form-control" disabled value="{{this.tenPhim}}">
+                    
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="idPhongChieu">Phòng chiếu</label>
+                    <input type="text" name="" class="form-control" disabled value="{{this.tenPhongChieu}}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="caChieu">Ca Chiếu</label>
+                    {{!-- <select id="caChieu" name="caChieu"  class="form-control" >
+                        <option value="Ca 1: 8-10h" {{#eq "Ca 1: 8-10h" this.caChieu}}selected{{/eq}}>Ca 1: 8-10h</option>
+                        <option value="Ca 2: 13h-15h" {{#eq "Ca 2: 13h-15h" this.caChieu}}selected{{/eq}}>Ca 2: 13h-15h</option>
+                        <option value="Ca 3: 16-19h30" {{#eq "Ca 3: 16-19h30" this.caChieu}}selected{{/eq}}>Ca 3: 16-19h30</option>
+                        <option value="Ca 4: 20-23h" {{#eq "Ca 4: 20-23h" this.caChieu}}selected{{/eq}}>Ca 4: 20-23h</option>
+                    </select> --}}
+                    <input type="text" class="form-control" disabled value="{{this.caChieu}}" name="" id="">
+                </div>                                
+                <div class="mb-3">
+                    <label class="form-label" for="showDate">Ngày chiếu</label>
+                    <input class="form-control" value="{{ formatDate this.ngayChieu}}" disabled name="ngayChieu" required name="ngayChieu" id="ngayChieu"  data-date-format="DD MMMM YYYY"  aria-describedby="helpId" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="price">Giá phim</label>
+                    <input class="form-control" value="{{ this.giaPhim}}" required type="number" name="giaPhim" id="giaPhim" aria-describedby="helpId" />
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px;">Cập nhật lịch chiếu</button>
+        </div>
+    </form>
+    {{/each}}
+</div>
+<div class="">
+    {{#if notificationErr.length}}
+        <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+            {{#each notificationErr}}
+                <strong>{{err}}</strong>
+            {{/each}}
+        </div>
+    {{/if}}
+    {{#if notificationSuccess.length}}
+        <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+            {{#each notificationSuccess}}
+                <strong style="text-align: center;">{{success}}</strong>
+            {{/each}}
+        </div>
+    {{/if}}
+</div>
+
+
+<script>
+  $(document).ready(function() {
+    $('.alert').addClass("show");
+    $('.alert').removeClass("hide");
+    $('.alert').addClass("showAlert");
+    setTimeout(function(){
+        $('.alert').removeClass("show");
+        $('.alert').addClass("hide");
+    },3000);
+    });
+</script>
+
+
+
+
+
+
+
