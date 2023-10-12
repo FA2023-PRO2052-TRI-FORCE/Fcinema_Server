@@ -8,6 +8,7 @@ const khachHang = require('./routeKhachHang');
 const nhanVien = require('./routeNhanVien');
 const phongChieu = require('./routeQuanLyPhongChieu');
 const lichChieu=require('./routeQuanLyLichChieu');
+const routeApp=require('./routeAPP');
 
 const veDat=require('./routeQuanLyVeDat');
 
@@ -21,6 +22,7 @@ function route(app) {
   app.use('/',nhanVien);
   app.use('/',phongChieu)
   app.use('/',lichChieu)
+  // app.use('/',routeApp);
 
   app.use('/',veDat)
 }
