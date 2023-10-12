@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS`Ve`(
     `tongTien` FLOAT not null,
     `ngayThanhToan` DATE NOT NULL,
     `trangThai` INT NOT NULL,
-    `email` VARCHAR(255) NOT NULL,
+    `email` VARCHAR(255) ,
     `idNhanVien` varchar(255) not null,
     `idLichChieu` INT NOT NULL,
     FOREIGN KEY (`email`) REFERENCES NguoiDung(`email`),
