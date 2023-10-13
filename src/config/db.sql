@@ -74,6 +74,7 @@ CREATE TABLE IF NOT EXISTS`Ve`(
     `tongTien` FLOAT not null,
     `ngayThanhToan` DATE NOT NULL,
     `trangThai` INT NOT NULL,
+    `phuongThucTT`  VARCHAR(255) NOT NULL,
     `email` VARCHAR(255) NOT NULL,
     `idNhanVien` varchar(255) not null,
     `idLichChieu` INT NOT NULL,
@@ -143,3 +144,61 @@ VALUES
     ('nguoidung3@example.com', 'Người dùng 3', 'abcdef', '01234567890', NULL, '2002-03-03', 'Đà Nẵng', 1),
     ('nguoidung4@example.com', 'Người dùng 4', 'qwerty', '09876543210', NULL, '2003-04-04', 'Hải Phòng', 1),
     ('nguoidung5@example.com', 'Người dùng 5', 'zxcvbn', '012345678901', NULL, '2004-05-05', 'Cần Thơ', 1);
+SELECT v.idVe, p.tenPhim, l.ngayChieu,l.caChieu,t.tenPhongChieu,v.soVe,v.ngayMua,v.tongTien,v.trangThai,f.tenGhe FROM ve v, lichchieu l,phim p, phongchieu t, vitrighe f
+WHERE p.idPhim=l.idPhim AND l.idPhongChieu=t.idPhongChieu AND v.idLichChieu=l.idLichChieu AND v.idVe=f.idVe;
+-- 
+SELECT
+    *
+FROM (
+  SELECT
+    v.idVe,
+    p.tenPhim,
+    l.ngayChieu,
+    l.caChieu,
+    t.tenPhongChieu,
+    v.soVe,
+    v.ngayMua,
+    v.tongTien,
+    v.trangThai
+  FROM ve v
+  JOIN lichchieu l ON v.idLichChieu = l.idLichChieu
+  JOIN phim p ON l.idPhim = p.idPhim
+  JOIN phongchieu t ON l.idPhongChieu = t.idPhongChieu
+) AS ticket_info
+JOIN vitrighe f ON ticket_info.idVe = f.idVe;
+-- 
+SELECT
+  v.idVe AS ticket_id,
+  p.tenPhim AS movie_title,
+  l.ngayChieu AS screening_date,
+  l.caChieu AS showtime,
+  t.tenPhongChieu AS cinema_hall_name,
+  v.soVe AS number_of_tickets,
+  v.ngayMua AS purchase_date,
+  v.tongTien AS total_price,
+  v.trangThai AS ticket_status,
+  f.tenGhe AS seat_name
+FROM ve v
+INNER JOIN lichchieu l ON v.idLichChieu = l.idLichChieu
+INNER JOIN phim p ON l.idPhim = p.idPhim
+INNER JOIN phongchieu t ON l.idPhongChieu = t.idPhongChieu
+INNER JOIN vitrighe f ON v.idVe = f.idVe
+ORDER BY v.idVe;
+-- 
+SELECT
+  v.idVe AS ticket_id,
+  p.tenPhim AS movie_title,
+  l.ngayChieu AS screening_date,
+  l.caChieu AS showtime,
+  t.tenPhongChieu AS cinema_hall_name,
+  v.soVe AS number_of_tickets,
+  v.ngayMua AS purchase_date,
+  v.tongTien AS total_price,
+  v.trangThai AS ticket_status,
+  CONCAT(f.tenGhe, ' (', f.idVe, ', ', f.idPhongChieu, ')') AS seat_info
+FROM ve v
+INNER JOIN lichchieu l ON v.idLichChieu = l.idLichChieu
+INNER JOIN phim p ON l.idPhim = p.idPhim
+INNER JOIN phongchieu t ON l.idPhongChieu = t.idPhongChieu
+INNER JOIN vitrighe f ON v.idVe = f.idVe
+ORDER BY v.idVe;
