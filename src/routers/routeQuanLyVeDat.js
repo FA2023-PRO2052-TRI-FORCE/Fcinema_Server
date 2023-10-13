@@ -3,7 +3,7 @@ const router=express.Router();
 
 const veDat=require('../app/controller/quanLyVeDat');
 
-router.get('/ve',veDat.dsVeDaDat);
-router.get('/ve/them',veDat.themVeMoi);
+router.get('/ve',veDat.getAllVeDaDat);
+router.get('/ve/them',veDat.addNewVe);
 
 module.exports=router;

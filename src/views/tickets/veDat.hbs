@@ -30,22 +30,24 @@
             </tr>
           </thead>
           <tbody>
+            {{#each listVe}}
             <tr>
               <th class="align-middle" scope="row">{{sum 1 @index }}</th>
-              <th class="align-middle" scope="col">Mã vé</th>
-              <th class="align-middle" scope="col">Tên phim</th>
-              <th class="align-middle" scope="col">Ngày chiếu</th> 
-              <th class="align-middle" scope="col">Ca chiếu</th>
-              <th class="align-middle" scope="col">Phòng chiếu</th>
-              <th class="align-middle" scope="col">Số ghế</th>
-              <th class="align-middle" scope="col">Ngày đặt vé</th>
-              <th class="align-middle" scope="col">Tổng tiền</th>
+              <th class="align-middle" scope="col">{{this.idVe}}</th>
+              <th class="align-middle" scope="col">{{this.tenPhim}}</th>
+              <th class="align-middle" scope="col">{{formatDate this.ngayChieu}}</th> 
+              <th class="align-middle" scope="col">{{this.caChieu}}</th>
+              <th class="align-middle" scope="col">{{this.tenPhongChieu}}</th>
+              <th class="align-middle" scope="col">{{this.soVe}}</th>
+              <th class="align-middle" scope="col">{{formatDate this.ngayMua}}</th>
+              <th class="align-middle" scope="col">{{this.tongTien}}</th>
               <th class="align-middle" scope="col">Trạng thái</th>          
               <td class="align-middle">
                 <a href="" type="button" style="margin-bottom: 10px; width: 90px;" class="btn btn-success">Cập nhật</a>
                 <a type="button" data-bs-toggle="modal" data-bs-target="#delete-ve-dat" style="margin-bottom: 10px; width: 90px;" class="btn btn-danger">Lưu trữ</a>
               </td>
             </tr>
+            {{/each}}
           </tbody>
         </table>
       </div>
