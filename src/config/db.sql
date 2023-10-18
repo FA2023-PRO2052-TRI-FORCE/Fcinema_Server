@@ -68,15 +68,15 @@ CREATE TABLE IF NOT EXISTS`LichChieu`(
     FOREIGN KEY (idPhongChieu) REFERENCES PhongChieu(idPhongChieu)
 );
 CREATE TABLE IF NOT EXISTS`Ve`(
-    `idVe` int auto_increment primary key not null ,
+    `idVe` VARCHAR primary key not null ,
     `soVe` int not null,
     `ngayMua` DATE not null,
     `tongTien` FLOAT not null,
     `ngayThanhToan` DATE NOT NULL,
     `trangThai` INT NOT NULL,
     `phuongThucTT`  VARCHAR(255) NOT NULL,
-    `email` VARCHAR(255) NOT NULL,
-    `idNhanVien` varchar(255) not null,
+    `email` VARCHAR(255) ,
+    `idNhanVien` varchar(255) ,
     `idLichChieu` INT NOT NULL,
     FOREIGN KEY (`email`) REFERENCES NguoiDung(`email`),
     FOREIGN KEY (`idNhanVien`) references NhanVien(`idNhanVien`),
@@ -86,10 +86,10 @@ CREATE TABLE IF NOT EXISTS`Ve`(
 
 CREATE TABLE IF NOT EXISTS`ViTriGhe`(
     `idViTriGhe`  INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    `tenGhe` varchar(255) NOT NULL,
+    `tenGhe` JSON NOT NULL,
     `trangThai` INT NOT NULL,
     `idPhongChieu` INT NOT NULL,
-    `idVe`  int not null,
+    `idVe`  VARCHAR,
     FOREIGN KEY (`idPhongChieu`) REFERENCES `PhongChieu`(`idPhongChieu`),
     FOREIGN KEY (`idVe`) REFERENCES Ve(`idVe`) 
 );
