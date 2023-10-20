@@ -24,5 +24,7 @@ class qlNhanVien{
         res.render('employees/themNhanVien', { title: 'Thêm Nhân Viên' })
     }
 
+
+
 }
 module.exports = new qlNhanVien();
