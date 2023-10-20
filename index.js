@@ -27,7 +27,7 @@ app.use(morgan('combined'));
 
 app.use(session({
   secret: 'get-message',
-  resave: false,
+  resave: true,
   saveUninitialized: true
 }));
 app.use(flash());
@@ -56,8 +56,16 @@ app.engine(
       eq(val1, val2, options) {
         return val1 === val2 ? options.fn(this) : options.inverse(this);
       },
-      
-
+      json:function (context) {
+        return JSON.stringify(context);
+      },
+      object:function (context) {
+        return JSON.parse(context);
+      },
+      convertTT:function(trangThai) {
+        return trangThai === 1 ? 'Đang hoạt động' : 'Không hoạt động';
+      },
+  
     },
   })
 );
@@ -65,7 +73,6 @@ app.engine(
 
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '\\src\\views\\');
-
 
 route(app);
 
