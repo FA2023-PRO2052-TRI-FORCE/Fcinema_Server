@@ -1,6 +1,4 @@
-const { json } = require("body-parser");
 const connection = require("../../../config/connection");
-const { format } = require("date-fns");
 const postDatVe = (req, res) => {
   const ve = req.body.mVeModel;
   const ghe = req.body.mViTriGheModel;
