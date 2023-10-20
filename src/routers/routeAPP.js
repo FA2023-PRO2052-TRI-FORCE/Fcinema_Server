@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const taiKhoanND = require("../app/controller/apiApp/taiKhoanController");
+const PhimController=require('../app/controller/apiApp/PhimController');
+const VeController=require('../app/controller/apiApp/VeController');
 
 router.post("/nguoidung/dangky", taiKhoanND.registerNguoiDung);
 router.post("/nguoidung/dangnhap", taiKhoanND.loginNguoiDung);
@@ -20,6 +22,6 @@ router.get("/phimSC", PhimController.getAllPhimSC);
 router.get("/ghe/:id", PhimController.getViTriGheById);
 ///apiApp/ve
 router.post("/ve", VeController.postDatVe);
-router.get("/ve", VeController.getVeDat);
+router.get("/ve/dsve", VeController.getVeDat);
 
 module.exports = router;
