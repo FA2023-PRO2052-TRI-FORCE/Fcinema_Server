@@ -159,6 +159,7 @@ class qlNhanVien {
     });
   }
 
+
   // async updateEmployee(req, res) {
   //   upload.single("anh")(req, res, async function (err) {
   //     if (err) {

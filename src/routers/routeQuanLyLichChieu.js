@@ -2,14 +2,15 @@ const express=require('express');
 const router=express.Router();
 
 const qlLichChieu=require('../app/controller/quanLyLichChieu');
+const authMiddleware=require('../middleware/authMiddleware');
 
-router.get('/lichchieu',qlLichChieu.getAllLichChieu);
-router.get('/lichchieu/them',qlLichChieu.getNewLichChieu);
-router.post('/lichchieu/them/luu',qlLichChieu.addNewLichChieu);
-router.get('/lichchieu/sua/:idLichChieu',qlLichChieu.getChiTietLichChieu);
-router.post('/lichchieu/tim/:tenPhim',qlLichChieu.searchLichChieu);
-router.put('/lichchieu/sua/luu/:idLichChieu',qlLichChieu.updateLichChieu);
-router.put('/lichchieu/luutru/:idLichChieu',qlLichChieu.deleteLichChieu);
+router.get('/lichchieu',authMiddleware,qlLichChieu.getAllLichChieu);
+router.get('/lichchieu/them',authMiddleware,qlLichChieu.getNewLichChieu);
+router.post('/lichchieu/them/luu',authMiddleware,qlLichChieu.addNewLichChieu);
+router.get('/lichchieu/sua/:idLichChieu',authMiddleware,qlLichChieu.getChiTietLichChieu);
+router.post('/lichchieu/tim/:tenPhim',authMiddleware,qlLichChieu.searchLichChieu);
+router.put('/lichchieu/sua/luu/:idLichChieu',authMiddleware,qlLichChieu.updateLichChieu);
+router.put('/lichchieu/luutru/:idLichChieu',authMiddleware,qlLichChieu.deleteLichChieu);
 
 
 

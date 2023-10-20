@@ -1,0 +1,70 @@
+<ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; border-radius: 0; -webkit-box-shadow: 0 0 13px 0 rgba(82, 63, 105, .05); box-shadow: 0 0 13px 0 rgba(82, 63, 105, .05);">
+    <li class="breadcrumb-item"><a href="/ve">Vé Đặt</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Chi tiết Vé Đặt</li>
+</ol>
+
+<div class="container" style="margin: 10px; border-radius: 4px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);">
+    <h6 style="padding: 10px 20px; font-weight: bold;">Chi tiết Vé Đặt</h6>
+    <hr>
+    <div class="row">
+        {{#each objectVe}}
+        <div class="col-sm-6">
+            <div class="mb-3">
+                <label for="" class="form-label">Mã vé</label>
+                <input class="form-control" disabled type="text" value="{{this.idVe}}">
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Tên Phim</label>
+                <input class="form-control" disabled type="text" value="{{this.tenPhim}}">
+            </div> 
+            <div class="mb-3">
+                <label for="" class="form-label">Ngày chiếu</label>
+                <input class="form-control" disabled type="text" value="{{formatDate this.ngayChieu}}">
+            </div>              
+            <div class="mb-3">
+                <label for="" class="form-label">Ca chiếu</label>
+                <input class="form-control" disabled type="text" value="{{this.caChieu}}">
+            </div> 
+            <div class="mb-3">
+                <label for="" class="form-label">Phòng chiếu</label>
+                <input class="form-control" disabled type="text" value="{{this.tenPhongChieu}}">
+            </div> 
+            <div class="mb-3">
+                <label for="" class="form-label">Nhân viên bán vé</label>
+                <input class="form-control" disabled type="text" value="">
+            </div>                                                             
+
+        </div>
+        <div class="col-sm-6">
+            <div class="mb-3">
+                <label for="" class="form-label">Số ghế</label>
+                <input class="form-control" disabled type="text" value="{{this.soVe}}">
+            </div>             
+            <div class="mb-3">
+                <label for="" class="form-label">Ghế</label>
+                <input class="form-control" disabled type="text" value="{{this.tenGhe}}">
+            </div> 
+            <div class="mb-3">
+                <label for="" class="form-label">Hình thức thanh toán</label>
+                <input class="form-control" disabled type="text" value="{{this.phuongThucTT}}">
+            </div>  
+            <div class="mb-3">
+                <label for="" class="form-label">Tổng</label>
+                <input class="form-control" disabled type="text" value="{{formatCurrency this.tongTien 'vnd'}}">
+            </div>  
+            <div class="mb-3">
+                <label for="" class="form-label">Ngày mua vé</label>
+                <input class="form-control" disabled type="text" value="{{formatDate this.ngayMua}}">
+            </div>   
+            <div class="mb-3">
+                <label for="" class="form-label">Trạng thái</label>
+                <input class="form-control" disabled type="text" value="">
+            </div>                         
+                                                   
+        </div>        
+    {{/each}}
+
+    </div>
+
+    
+</div>

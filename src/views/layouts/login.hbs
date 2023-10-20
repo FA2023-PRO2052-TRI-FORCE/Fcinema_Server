@@ -19,19 +19,18 @@
     <link rel="stylesheet" href="../css/login.css">
     <link rel="icon" type="image/x-icon" href="../../resources/img/Group 1.png">
 
+
 </head>
 <body>
     <div style="height: 50px;">
-    <div class="alert alert-warning alert-dismissible fade " role="alert" style="text-align: end;">
-        {{#each validateLogin}}
-            <strong>{{err}}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        {{/each}}
+    {{#if message.length}}
+        <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+            {{#each message}}
+                <strong>{{err}}</strong>
+            {{/each}}
+        </div>
+    {{/if}}
     </div>
-    </div>
-
     <div class="col-sm-12 mx-auto" style="margin: 0 auto; display: flex; justify-content: center; align-items: center;">
         <div class="form-custom">
             <div class="row">
@@ -50,13 +49,12 @@
                 <div style="margin-top: 100px !important;">
                     <input
                         required
-                        type="email"
                         class="form-control"
-                        name="email"
-                        id="email"
+                        name="idNhanVien"
+                        id="idNhanVien"
                         aria-describedby="helpId"
                         placeholder="Nhập tên đăng nhập"
-                        value="{{email}}"
+                        value="{{idNhanVien}}"
                     />
                 </div>
                 <div style="display: flex;">
@@ -64,23 +62,33 @@
                         required
                         type="password"
                         class="form-control"
-                        name="password"
-                        id="password"
+                        name="matKhau"
+                        id="matKhau"
                         placeholder="Nhập mật khẩu"
-                        value="{{password}}"
+                        value="{{matKhau}}"
                     />
                     
                 </div>
                 <div class="form-group-custom">
-                    <a type="submit" class="btn btn-primary buttonLogin" href="/tongquan">
+                    <button type="submit" class="btn btn-primary buttonLogin">
                         Đăng nhập
-                    </a>
+                    </button>
                 </div>
             </form>
         </div>
     </div>
-  
 
+<script>
+  $(document).ready(function() {
+    $('.alert').addClass("show");
+    $('.alert').removeClass("hide");
+    $('.alert').addClass("showAlert");
+    setTimeout(function(){
+        $('.alert').removeClass("show");
+        $('.alert').addClass("hide");
+    },3000);
+  });
+</script>
     <!-- Optional JavaScript -->
     <!-- jQuery, Popper.js, Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -3,6 +3,7 @@ const express = require("express");
 
 const upload = require("../../../src/uploads/uploadService");
 
+
 let dsTheLoai = [];
 class quanLyPhim {
   async dsPhim(req, res) {
@@ -155,7 +156,6 @@ class quanLyPhim {
         const anh = req.file
           ? req.file.filename
           : "url_cua_hinh_anh_mac_dinh.jpg";
-
         connection.query(
           "INSERT INTO Phim (tenPhim, anh, ngonNgu, moTa, hangSX, nuocSX, namSX, thoiLuong, daoDien, hienThi, trangThai, idTheLoai) VALUES (? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
           [

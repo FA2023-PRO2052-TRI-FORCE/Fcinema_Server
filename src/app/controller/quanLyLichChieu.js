@@ -6,6 +6,8 @@ let dsPC=[];
 class lichChieu{
     // GET[]/lichchieu
     async getAllLichChieu(req,res){
+        const hoTenND=req.session.user[0].hoTen;
+
         const selectedQuerry=`SELECT p.tenPhim,p.anh,p.thoiLuong,t.idLichChieu,t.ngayChieu,t.caChieu,t.giaPhim,t.ngayThem, c.tenPhongChieu FROM lichchieu t, Phim p , phongchieu c
         WHERE t.idPhim=p.idPhim and t.idPhongChieu=c.idPhongChieu and t.hienThi=1 ORDER BY t.ngayChieu ASC`;
         
@@ -16,7 +18,12 @@ class lichChieu{
             }
             const notificationSuccess = req.flash('notificationSuccess');
             const notificationErr = req.flash('notificationErr');
-            res.render('showtimes/lichChieu', { title: 'Lịch Chiếu Phim' ,listLC:result,notificationErr,notificationSuccess})
+            res.render('showtimes/lichChieu', { 
+                title: 'Lịch Chiếu Phim' ,
+                hoTenND:hoTenND,
+                listLC:result,
+                notificationErr,
+                notificationSuccess})
 
         })
         
@@ -25,6 +32,7 @@ class lichChieu{
     async searchLichChieu(req,res){
         try{
         const tenPhimSearch=req.body["tenPhimSearch"];
+        const hoTenND=req.session.user[0].hoTen;
         const selectedQuerry=`SELECT p.tenPhim,p.anh,p.thoiLuong,t.idLichChieu,t.ngayChieu,t.caChieu,t.giaPhim,t.ngayThem, c.tenPhongChieu FROM lichchieu t, Phim p , phongchieu c
         WHERE t.idPhim=p.idPhim and t.idPhongChieu=c.idPhongChieu and t.hienThi=1 and p.tenPhim=?`
         connection.query(selectedQuerry,[tenPhimSearch],(err,results)=>{
@@ -38,6 +46,7 @@ class lichChieu{
             }
             res.render('showtimes/lichchieu',{
                 title:'Danh sách phim',
+                hoTenND:hoTenND,
                 listLC: results,
             })
         })
@@ -51,6 +60,7 @@ class lichChieu{
     // GET[]/lichchieu/them
     async getNewLichChieu(req,res){
         try {
+            const hoTenND=req.session.user[0].hoTen;
             const queryPhim = 'SELECT * FROM Phim WHERE hienThi=1 AND trangThai=1';
             const queryPC = 'SELECT * FROM PhongChieu WHERE trangThai=1';
     
@@ -61,6 +71,7 @@ class lichChieu{
                     dsPC=resultPC;
                     res.render('showtimes/themLichChieu', {
                         title: 'Thêm Lịch Chiếu Phim',
+                        hoTenND:hoTenND,
                         listPhim: dsPhim,
                         listPC: dsPC
                     });
@@ -75,7 +86,7 @@ class lichChieu{
     // POST[]/lichchieu/them/luu
     async addNewLichChieu(req, res) {  
         let notificationErr=[];
-        let notificationSuccess=[];      
+        const hoTenND=req.session.user[0].hoTen;
         const ngayChieu = req.body.ngayChieu;
         const caChieu = req.body.caChieu;
         const giaPhim = req.body.giaPhim;
@@ -92,6 +103,7 @@ class lichChieu{
                     title: 'Thêm Lịch Chiếu Phim',
                     listPhim:dsPhim,
                     listPC:dsPC,
+                    hoTenND:hoTenND,
                     notificationErr:notificationErr,
                     ngayChieu: req.body.ngayChieu,
                     caChieu: req.body.caChieu,
@@ -105,15 +117,7 @@ class lichChieu{
                 const insertQuery = `INSERT INTO LichChieu (ngayChieu, caChieu, giaPhim, ngayThem, hienThi, idPhongChieu, idPhim)
                 VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
-                const insertValues = [
-                    ngayChieu,
-                    caChieu,
-                    giaPhim,
-                    new Date(),
-                    1, 
-                    idPhongChieu,
-                    idPhim
-                ];                
+                const insertValues = [ngayChieu,caChieu,giaPhim,new Date(),1, idPhongChieu,idPhim];                
             
                 connection.query(insertQuery, insertValues, (err, results) => {
                     if (err) {
@@ -123,6 +127,7 @@ class lichChieu{
                             title: 'Thêm Lịch Chiếu Phim',
                             listPhim:dsPhim,
                             listPC:dsPC,
+                            hoTenND:hoTenND,
                             notificationErr:notificationErr,
                             ngayChieu: req.body.ngayChieu,
                             caChieu: req.body.caChieu,
@@ -155,6 +160,7 @@ class lichChieu{
     // GET[]/lichchieu/sua/:idLichChieu
     async getChiTietLichChieu(req,res){
         try{
+            const hoTenND=req.session.user[0].hoTen;
             const idLichChieu=req.params.idLichChieu;
             const selectedQuerry=`SELECT p.tenPhim,t.idLichChieu,t.ngayChieu,t.caChieu,t.giaPhim,t.ngayThem, c.tenPhongChieu FROM lichchieu t, Phim p , phongchieu c
             WHERE t.idPhim=p.idPhim and t.idPhongChieu=c.idPhongChieu and t.idLichChieu=?`;
@@ -163,10 +169,11 @@ class lichChieu{
                     console.error('Lỗi',err.message);
                     return;
                 }
-                console.log('Chi tiết',JSON.parse(JSON.stringify(results)));
+                const objLC=JSON.parse(JSON.stringify(results));
                 res.render('showtimes/suaLichChieu', {
                     title: 'Sửa Lịch Chiếu Phim',
-                    objectLichChhieu: JSON.parse(JSON.stringify(results)),
+                    hoTenND:hoTenND,
+                    objectLichChhieu: objLC,
                     
                 }); 
       

@@ -18,18 +18,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../../resources//css/login.css">
+
 </head>
 <body>
-    <div style="height: 50px;">
-    <div class="alert alert-warning alert-dismissible fade show" role="alert" style="text-align: end; background-color: #fff; border-color: #fff;">
-        {{#each validateLogin}}
-            <strong>{{err}}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        {{/each}}
-    </div>
-    </div>
+
 
     <div class="col-sm-12 mx-auto" style="margin: 0 auto; display: flex; justify-content: center; align-items: center;">
         <div class="form-custom">
@@ -49,16 +42,15 @@
                 <div style="margin-top: 100px !important;">
                     <input
                         required
-                        type="email"
                         class="form-control"
-                        name="email"
-                        id="email"
+                        name="idNhanVien"
+                        id="idNhanVien"
                         aria-describedby="helpId"
                         placeholder="Nhập tên đăng nhập"
-                        value="{{email}}"
+                        value="{{idNhanVien}}"
                     />
                 </div>
-                <div>
+                <div style="display: flex;">
                     <input
                         required
                         type="password"
@@ -68,9 +60,10 @@
                         placeholder="Nhập mật khẩu"
                         value="{{password}}"
                     />
+                    
                 </div>
                 <div class="form-group-custom">
-                    <button type="submit" class="btn btn-primary buttonLogin" action="/login-account">
+                    <button type="submit" class="btn btn-primary buttonLogin">
                         Đăng nhập
                     </button>
                 </div>
