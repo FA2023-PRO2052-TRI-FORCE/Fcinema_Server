@@ -1,41 +1,30 @@
 
 <!-- Danh sách phòng -->
-
+    <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;    -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
+    box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+    <li class="breadcrumb-item active" aria-current="page">Danh sách phòng chiếu</li>
+  </ol> 
 <div class="container mt-5">
-    <div class="p-3 bg-white shadow-sm rounded">
-  <h3>Danh sách phòng chiếu</h3>
-  
+    <div class="p-3 bg-white shadow-sm rounded">  
   <table class="table">
     <thead>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Tên phòng</th>
         <th scope="col">Số chỗ ngồi</th>
-        {{!-- <th scope="col">Khu vực</th>
-        <th scope="col">Hệ thống</th>
-        <th scope="col">Tình trạng</th> --}}
-        <th scope="col">Thao tác</th>
+        <th scope="col">Trạng thái</th>
       </tr>
     </thead>
     
     <tbody>
+      {{#each listPC}}
       <tr>
-        <th scope="row">1</th>
-        <td>Phòng 1</td>
-        <td>100</td>
-        {{!-- <td>A</td>
-        <td>2K</td>
-        <td>Hoạt động</td> --}}
-        <td>
-          {{!-- <button class="btn btn-primary btn-sm">Chi tiết</button>
-          <button class="btn btn-warning btn-sm">Sửa</button>
-          <button class="btn btn-danger btn-sm" data-target="#deleteModal">Xoá</button> --}}
-          <a href="" class="btn btn-warning btn-sm" style="border-radius: 50px;">chi tiết</a>
-          <a href="" class="btn btn-primary btn-sm" style="border-radius: 50px;">Sửa</a>
-          <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" style="border-radius: 50px;">Xóa</a>
-        </td>
+        <th scope="row">{{sum 1 @index }}</th>
+        <td>{{this.tenPhongChieu}}</td>
+        <td>{{this.soLuongGhe}}</td>
+        <td>{{convertTT this.trangThai}}</td>
       </tr>
-      ...
+      {{/each}}
     </tbody>
     
   </table>
