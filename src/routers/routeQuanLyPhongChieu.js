@@ -4,7 +4,7 @@ const router=express.Router();
 const qlPhongChieu=require('../app/controller/quanLyPhongChieu');
 
 
-router.get('/phongChieu',qlPhongChieu.goToScreen)
+router.get('/phongChieu',qlPhongChieu.goToQLPC)
 
 
 
