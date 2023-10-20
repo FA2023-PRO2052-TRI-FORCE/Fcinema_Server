@@ -38,21 +38,24 @@
             </tr>
           </thead>
           <tbody>
+            {{#each listPhim}}
             <tr>
               <th class="align-middle" scope="row">{{sum 1 @index }}</th>
-              <td class="align-middle" style="width: 100px;">Tên phim</td>
+              <td class="align-middle" style="width: 100px;">{{this.tenPhim}}</td>
               <td class="w-25 align-middle"><img src="#" class="img-thumbnail" alt=""></td>
-              <td class="align-middle" style="width: 100px;">Thể loại</td>
-              <td class="align-middle">Thời lượng</td>
-              <td class="align-middle">Nước sản xuất</td>
-              <td class="align-middle">Năm sản xuất</td>
-              <td class="align-middle">Mô tả</td>    
-              <td class="align-middle">Trạng thái</td>              
+              <td class="align-middle" style="width: 100px;">{{this.tenTheLoai}}</td>
+              <td class="align-middle">{{this.thoiLuong}}</td>
+              <td class="align-middle">{{this.nuocSX}}</td>
+              <td class="align-middle">{{this.namSX}}</td>
+              <td class="align-middle">{{this.moTa}}</td>    
+              <td class="align-middle">{{this.trangThai}}</td>              
               <td class="align-middle">
-                <a href="" type="button" style="margin-bottom: 10px; width: 90px;" class="btn btn-success">Cập nhật</a>
-                <a type="button" data-bs-toggle="modal" data-bs-target="#delete-phim-modal" style="margin-bottom: 10px; width: 90px;" class="btn btn-danger">Xoá</a>
+                <a href="/quanlyphim/phim/capnhat/{{this.idPhim}}" type="button" style="margin-bottom: 10px; width: 90px;" class="btn btn-success">Cập nhật</a>
+                {{!-- <a type="button" data-bs-toggle="modal" data-bs-target="#delete-phim-modal" style="margin-bottom: 10px; width: 90px;" class="btn btn-danger">Xoá</a> --}}
+                <a href="" class="btn btn-danger " data-toggle="modal" data-target="#delete-phim" style="margin-bottom: 10px; width: 90px;" data-id-phim="{{this.idPhim}}" data-id="{{this.idPhim}}">Xóa</a>
               </td>
             </tr>
+            {{/each}}
           </tbody>
         </table>
       </div>
@@ -60,23 +63,42 @@
   </div>
 </div>
 
+<form name="del-phim-form" method="POST"></form>
 
-
-<!--modal xác nhận xoá -->
-<div class="modal" tabindex="-1" role="dialog" id="delete-phim-modal">
+<!-- Modal xóa -->
+ <div class="modal fade" id="delete-phim" tabindex="-1" role="dialog" >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Xác nhận xóa</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>        
+        <h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
-        <p>Bạn có chắc chắn muốn xóa phim này?</p>
+        Bạn có chắc chắn muốn xóa phim này?
       </div>
       <div class="modal-footer">
-        <button type="button" id="btn-delete-product" class="btn btn-danger">Xóa</button>
+        <button type="button" id="btn-del-phim" class="btn btn-danger">Xóa</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
       </div>
     </div>
   </div>
-</div>
+</div> 
+
+<script>
+   document.addEventListener("DOMContentLoaded",function(){
+      var idPhim;
+      var btnDelLC=document.getElementById("btn-del-phim");        
+      var deleteForm= document.forms["del-phim-form"];
+
+      $('#delete-phim').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget) 
+          idPhim = button.data('id-phim') 
+      })
+      btnDelLC.onclick=function(){
+          deleteForm.action="/quanlyphim/phim/xoa/"+idPhim+"?_method=PUT"
+          deleteForm.submit();
+      }
+  })
+</script>

@@ -5,8 +5,8 @@ const qlThonTin=require('../app/controller/quanlythongtin');
 
 
 router.get('/managerAdmin',qlThonTin.goToManager)
+router.post('/managerAdmin/update/:idNhanVien', qlThonTin.updateProfile);
 router.get('/changePassAdmin',qlThonTin.goToChangePass)
-
 
 
 module.exports=router;

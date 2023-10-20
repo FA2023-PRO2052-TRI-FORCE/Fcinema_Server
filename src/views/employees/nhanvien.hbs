@@ -21,7 +21,7 @@
 
       <tr class="">
         <td>{{sum 1 @index }}</td>
-        <td><img src="" style="width: 50px; height: 50px; border-radius: 00px;" alt="Mô tả hình ảnh" title="Thông tin bổ sung về hình ảnh"></td>
+        <td><img src="{{this.anh}}" style="width: 50px; height: 50px; border-radius: 00px;" alt="Mô tả hình ảnh" title="Thông tin bổ sung về hình ảnh"></td>
         <td>{{this.hoTen}}</td>
         <td>{{this.matKhau}}</td>
         <td>{{this.email}}</td>
@@ -30,19 +30,20 @@
         <td>{{this.gioiTinh}}</td>
         <td>{{formatDate this.ngaySinh "dd/MM/yyyy"}}</td>
         <td>
-          <a href="" class="btn btn-primary btn-sm" style="border-radius: 50px;">Sửa</a>
-          <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" style="border-radius: 50px;">Xóa</a>
+          <a href="/nhanvien/sua/{{this.idNhanVien}}" class="btn btn-primary btn-sm" style="border-radius: 50px;">Sửa</a>
+          <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-nhan-vien" style="border-radius: 50px;" data-id-nhan-vien="{{this.idNhanVien}}" data-id="{{this.idNhanVien}}">Xóa</a>
         </td>
       </tr>
       {{/each}}
     </tbody>
   </table>
-  <h4 class="text-center" style="margin-top: 50px;"><a href="/nhanvien/themNhanVien" class="btn btn-info">Thêm nhân viên</a></h4>
+  <h4 class="text-center" style="margin-top: 50px;"><a href="/nhanvien/them" class="btn btn-info">Thêm nhân viên</a></h4>
 </div>
 
+<form name="del-nhanvien-form" method="POST"></form>
 
 <!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+ <div class="modal fade" id="delete-nhan-vien" tabindex="-1" role="dialog" >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -55,9 +56,26 @@
         Bạn có chắc chắn muốn xóa nhân viên này?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-        <button type="button" class="btn btn-danger">Xóa</button>
+        <button type="button" id="btn-del-nhanvien" class="btn btn-danger">Xóa</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
       </div>
     </div>
   </div>
-</div>
+</div> 
+
+<script>
+   document.addEventListener("DOMContentLoaded",function(){
+      var idNhanVien;
+      var btnDelLC=document.getElementById("btn-del-nhanvien");        
+      var deleteForm= document.forms["del-nhanvien-form"];
+
+      $('#delete-nhan-vien').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget) 
+          idNhanVien = button.data('id-nhan-vien') 
+      })
+      btnDelLC.onclick=function(){
+          deleteForm.action="/nhanvien/luutru/"+idNhanVien+"?_method=PUT"
+          deleteForm.submit();
+      }
+  })
+</script>

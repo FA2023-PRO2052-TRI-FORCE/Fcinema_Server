@@ -1,0 +1,112 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="text-center">Cập nhật nhân viên</h2>
+                            <hr>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            {{#each listNhanVien}}
+                              <form action="/nhanvien/sua/luu/{{this.idNhanVien}}" method="POST"  id="nhanVienForm">
+                                {{!-- <input type="hidden" name="_method" value="PUT">  --}}
+                                  <div class="form-group row">
+                                  <label for="my-avatar" class="col-4 col-form-label">Ảnh đại diện</label> 
+                                  <div class="col-8">
+                                  <input type="file" id="anh" name="anh" class="form-control" value="{{this.anh}}">
+                                  </div>
+                                  </div>
+                                  
+                                  <div class="form-group row">
+                                    <label for="idNhanVien" class="col-4 col-form-label">Mã nhân viên</label> 
+                                    <div class="col-8">
+                                      <input id="idNhanVien" name=""   class="form-control here" type="text" disabled value="{{this.idNhanVien}}" >
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="hoTen" class="col-4 col-form-label">Họ tên</label> 
+                                    <div class="col-8">
+                                      <input id="hoTen" name="hoTen" placeholder="Họ tên" class="form-control here" type="text" value="{{this.hoTen}}">
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="matKhau" class="col-4 col-form-label">Mật khẩu</label> 
+                                    <div class="col-8">
+                                      <input id="matKhau" name=""  class="form-control here" type="text" disabled value="{{this.matKhau}}">
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="email" class="col-4 col-form-label">Email</label> 
+                                    <div class="col-8">
+                                      <input id="email" name=""  class="form-control here" required="required" type="text" disabled value="{{this.email}}">
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="dienThoai" class="col-4 col-form-label">Số điện thoại</label> 
+                                    <div class="col-8">
+                                      <input id="dienThoai" name=""  class="form-control here" type="text" disabled value="{{this.dienThoai}}">
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="diaChi" class="col-4 col-form-label">Địa chỉ</label> 
+                                    <div class="col-8">
+                                      <input id="diaChi" name="diaChi" placeholder="Địa chỉ" class="form-control here" type="text" value="{{this.diaChi}}">
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="gioiTinh" class="col-4 col-form-label">Giới tính</label> 
+                                    <div class="col-8">
+                                      <input id="gioiTinh" name="gioiTinh" placeholder="Giới tính" class="form-control here" type="text" value="{{this.gioiTinh}}">
+                                    </div>
+                                  </div>
+                                   <div class="form-group row">
+                                    <label for="ngaySinh" class="col-4 col-form-label">Ngày sinh</label> 
+                                    <div class="col-8">
+                                      <input id="ngaySinh" name="ngaySinh" placeholder="" class="form-control here" type="date" value="{{formatDate this.ngaySinh}}">
+                                    </div>
+                                  </div>
+                                   
+                                  <div class="form-group row">
+                                    <div class="offset-4 col-8">
+                                      <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                    </div>
+                                  </div>
+                              </form> 
+                            {{/each}}                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+  {{#if notificationErr.length}}
+      <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+          <strong>{{notificationErr}}</strong>
+      </div>
+  {{/if}}
+  {{#if notificationSuccess.length}}
+      <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+          <strong style="text-align: center;">{{notificationSuccess}}</strong>
+      </div>
+  {{/if}}
+</div>
+
+<script>
+    function formatDate(dateString) {
+  const date = new Date(dateString);
+  if (!isNaN(date.getTime())) {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Lưu ý: Tháng trong JavaScript bắt đầu từ 0
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+  return '';
+}
+
+</script>
