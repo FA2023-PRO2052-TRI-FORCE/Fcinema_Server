@@ -1,5 +1,8 @@
+    <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;    -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
+    box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+    <li class="breadcrumb-item active" aria-current="page">Danh sách khách hàng</li>
+  </ol> 
 <div class="container">
-  <h2 class="text-center">Khách Hàng</h2>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -15,25 +18,25 @@
       </tr>
     </thead>
     <tbody>
-      {{!-- {{#each users}} --}}
-      <tr class="{{this.status}}">
-        <td></td>
-        <td><img src="{{avatar}}" style="width: 50px; height: 50px; border-radius: 00px;" alt="Mô tả hình ảnh" title="Thông tin bổ sung về hình ảnh"></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+      {{#each listKH}}
+      <tr class="">
+        <td>{{sum 1 @index }}</td>
+        <td><img src="{{this.anh}}" style="width: 50px; height: 50px; border-radius: 00px;" alt="Mô tả hình ảnh" title="Thông tin bổ sung về hình ảnh"></td>
+        <td>{{this.hoTen}}</td>
+        <td>{{this.matKhau}}</td>
+        <td>{{this.email}}</td>
+        <td>{{this.dienThoai}}</td>
+        <td>{{this.diaChi}}</td>
+        <td>{{formatDate this.ngaySinh}}</td>
         <td>
-          <a href="" class="btn btn-primary btn-sm" style="border-radius: 50px;">Sửa</a>
+          <a href="" class="btn btn-primary btn-sm" style="border-radius: 50px;">Chi tiết</a>
           <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" style="border-radius: 50px;">Xóa</a>
         </td>
       </tr>
-      {{!-- {{/each}} --}}
+      {{/each}}
     </tbody>
   </table>
-  <h4 class="text-center" style="margin-top: 50px;"><a href="/themKhachHang" class="btn btn-info">Thêm khách hàng</a></h4>
+  {{!-- <h4 class="text-center" style="margin-top: 50px;"><a href="/themKhachHang" class="btn btn-info">Thêm khách hàng</a></h4> --}}
 </div>
 
 
