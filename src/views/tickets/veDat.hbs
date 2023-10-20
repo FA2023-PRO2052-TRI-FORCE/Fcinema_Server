@@ -8,43 +8,48 @@
     <div class="row">
         <h6 style="padding: 10px 20px; font-weight: bold;">Danh sách vé đã đặt</h6>
         <hr>
-      <div class="col-12">
-        <div class="input-group" style="display: flex; justify-content: end; margin: 20px;">
-        <a type="button" href="/ve/them" class="btn btn-primary" style="margin-right: 40px; border-radius: 5px; font-weight: bold;">Thêm Vé Mới</a>
-        </div>        
+        <div class="d-flex justify-content-center" style="align-items: center;"> 
+          <form name="search-phim-form"  method="POST" class="form-inline d-flex" style="min-width: 400px; height: 40px;">
+            <input class="form-control" id="tenPhimSearch" name="tenPhimSearch" value="{{ idVeSearch }}" type="text" placeholder="Search" aria-label="Search" style="margin: 0 10px;">
+            <div id="tenPhimSuggestions" class="autocomplete-suggestions"></div>
+            <button class="btn btn-outline-success btn btn-primary" id="btn-search-phim" type="submit" style="color: #fff;">Tìm</button>
+          </form>        
+        <div class="input-group" style="display: flex; justify-content: end; margin: 20px;">       
+        <a type="button" href="/ve/them" class="btn btn-primary" style="margin-right: 40px; border-radius: 5px; font-weight: bold;">Thêm vé mới</a>
+        </div> 
+        </div>       
 
         <table class="table table-bordered">
           <thead class="thead-dark">
             <tr>
-              <th class="align-middle" scope="col">#</th>
-              <th class="align-middle" scope="col">Mã vé</th>
-              <th class="align-middle" scope="col">Tên phim</th>
-              <th class="align-middle" scope="col">Ngày chiếu</th> 
-              <th class="align-middle" scope="col">Ca chiếu</th>
-              <th class="align-middle" scope="col">Phòng chiếu</th>
-              <th class="align-middle" scope="col">Số ghế</th>
-              <th class="align-middle" scope="col">Ngày đặt vé</th>
-              <th class="align-middle" scope="col">Tổng tiền</th>
-              <th class="align-middle" scope="col">Trạng thái</th>
-              <th class="align-middle" scope="col">Hành động</th>
+              <th class="p-2 text-center align-middle" scope="col">#</th>
+              <th class="p-2 text-center align-middle" scope="col">Mã vé</th>
+              <th class="p-2 text-center align-middle" scope="col">Tên phim</th>
+              <th class="p-2 text-center align-middle" scope="col">Ngày chiếu</th> 
+              <th class="p-2 text-center align-middle" scope="col">Ca chiếu</th>
+              <th class="p-2 text-center align-middle" scope="col">Phòng chiếu</th>
+              <th class="p-2 text-center align-middle" scope="col">Số ghế</th>
+              <th class="p-2 text-center align-middle" scope="col">Ngày đặt vé</th>
+              <th class="p-2 text-center align-middle" scope="col">Tổng tiền</th>
+              <th class="p-2 text-center align-middle" scope="col">Vị trí ghế</th>
+              <th class="p-2 text-center align-middle" scope="col">Hành động</th>
             </tr>
           </thead>
           <tbody>
             {{#each listVe}}
             <tr>
-              <th class="align-middle" scope="row">{{sum 1 @index }}</th>
-              <th class="align-middle" scope="col">{{this.idVe}}</th>
-              <th class="align-middle" scope="col">{{this.tenPhim}}</th>
-              <th class="align-middle" scope="col">{{formatDate this.ngayChieu}}</th> 
-              <th class="align-middle" scope="col">{{this.caChieu}}</th>
-              <th class="align-middle" scope="col">{{this.tenPhongChieu}}</th>
-              <th class="align-middle" scope="col">{{this.soVe}}</th>
-              <th class="align-middle" scope="col">{{formatDate this.ngayMua}}</th>
-              <th class="align-middle" scope="col">{{this.tongTien}}</th>
-              <th class="align-middle" scope="col">Trạng thái</th>          
-              <td class="align-middle">
-                <a href="" type="button" style="margin-bottom: 10px; width: 90px;" class="btn btn-success">Cập nhật</a>
-                <a type="button" data-bs-toggle="modal" data-bs-target="#delete-ve-dat" style="margin-bottom: 10px; width: 90px;" class="btn btn-danger">Lưu trữ</a>
+              <td class="align-middle" scope="row">{{sum 1 @index }}</td>
+              <td class="align-middle" scope="col">{{this.idVe}}</td>
+              <td class="align-middle" scope="col">{{this.tenPhim}}</td>
+              <td class="align-middle" scope="col">{{formatDate this.ngayChieu}}</td> 
+              <td class="align-middle" scope="col">{{this.caChieu}}</td>
+              <td class="align-middle" scope="col">{{this.tenPhongChieu}}</td>
+              <td class="align-middle" scope="col">{{this.soVe}}</td>
+              <td class="align-middle" scope="col">{{formatDate this.ngayMua}}</td>
+              <td class="align-middle" scope="col">{{formatCurrency this.tongTien 'vnd'}}</td>
+              <td class="align-middle" scope="col">{{this.tenGhe}}</td>          
+              <td class="p-2 text-center align-middle">
+                <a href="/ve/chitiet/{{this.idVe}}" type="button" style="margin-bottom: 10px; width: 90px;" class="btn btn-success">Chi tiết</a>
               </td>
             </tr>
             {{/each}}
@@ -54,6 +59,17 @@
     </div>
   </div>
 </div>
+
+{{#if notificationErr.length}}
+    <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+        <strong>{{notificationErr}}</strong>
+    </div>
+{{/if}}
+{{#if notificationSuccess.length}}
+    <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+        <strong style="text-align: center;">{{notificationSuccess}}</strong>
+    </div>
+{{/if}}</div>
 
 <!--modal xác nhận xoá -->
 <div class="modal fade" tabindex="-1" role="dialog" id="delete-ve-dat">
@@ -73,3 +89,15 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('.alert').addClass("show");
+    $('.alert').removeClass("hide");
+    $('.alert').addClass("showAlert");
+    setTimeout(function(){
+        $('.alert').removeClass("show");
+        $('.alert').addClass("hide");
+    },3000);
+  });
+</script>
