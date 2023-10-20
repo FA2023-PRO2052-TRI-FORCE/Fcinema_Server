@@ -9,67 +9,81 @@
                             <hr>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
-                                 <form action="/user/add" method="post" autocomplete="off" enctype="multipart/form-data">
-                                <input type="hidden" name="id" value="{{user._id}}">
-                                  <div class="form-group row">
-                                  <label for="my-avatar" class="col-4 col-form-label">Ảnh đại diện</label> 
-                                  <div class="col-8">
-                                  <input type="file" id="my-avatar" name="avatar"  class="form-control" value="{{avatar}}">
-                                  </div>
-                                  </div>
+                          <div class="col-md-12">
+                            
+                            <form action="/nhanvien/them/luu" method="POST"  id="nhanVienForm" enctype="multipart/form-data" >
                                   
                                   <div class="form-group row">
-                                    <label for="fullname" class="col-4 col-form-label">Họ tên</label> 
+                                    <label for="anh" class="col-4 col-form-label">Ảnh đại diện</label> 
+                                  <div class="col-8">
+                                    <input type="file" id="anh" name="anh" class="form-control" value="{{anh}}">
+                                  </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <div id="img-preview" class="rounded mx-auto d-block" style="width: 150px; height: 150px; ">
+                                      <img id="img-preview-img" src="" alt="Ảnh xem trước" style="width: 150px; height: 150px; "/>
+                                    </div>
+                                  </div>
+                               
+
+                                  <div class="form-group row">
+                                    <label for="idNhanVien" class="col-4 col-form-label">Mã nhân viên</label> 
                                     <div class="col-8">
-                                      <input id="fullname" name="fullname" placeholder="Họ tên" class="form-control here" type="text" value="">
+                                      <input id="idNhanVien" name="idNhanVien"  placeholder="Mã nhân viên" class="form-control here" type="text" >
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group row">
+                                    <label for="hoTen" class="col-4 col-form-label">Họ tên</label> 
+                                    <div class="col-8">
+                                      <input id="hoTen" name="hoTen" placeholder="Họ tên" class="form-control here" type="text">
                                     </div>
                                   </div>
                                   <div class="form-group row">
-                                    <label for="password" class="col-4 col-form-label">Mật khẩu</label> 
+                                    <label for="matKhau" class="col-4 col-form-label">Mật khẩu</label> 
                                     <div class="col-8">
-                                      <input id="password" name="password" placeholder="Mật khẩu" class="form-control here" type="text" value="">
+                                      <input id="matKhau" name="matKhau" placeholder="Mật khẩu" class="form-control here" type="text" >
                                     </div>
                                   </div>
                                   <div class="form-group row">
                                     <label for="email" class="col-4 col-form-label">Email</label> 
                                     <div class="col-8">
-                                      <input id="email" name="email" placeholder="Email" class="form-control here" required="required" type="text" value="">
+                                      <input id="email" name="email" placeholder="Email" class="form-control here" required="required" type="text" >
                                     </div>
                                   </div>
                                   <div class="form-group row">
-                                    <label for="phone" class="col-4 col-form-label">Số điện thoại</label> 
+                                    <label for="dienThoai" class="col-4 col-form-label">Số điện thoại</label> 
                                     <div class="col-8">
-                                      <input id="phone" name="phone" placeholder="Số điện thoại" class="form-control here" type="text" value="">
+                                      <input id="dienThoai" name="dienThoai" placeholder="Số điện thoại" class="form-control here" type="text" >
                                     </div>
                                   </div>
                                   <div class="form-group row">
-                                    <label for="address" class="col-4 col-form-label">Địa chỉ</label> 
+                                    <label for="diaChi" class="col-4 col-form-label">Địa chỉ</label> 
                                     <div class="col-8">
-                                      <input id="address" name="address" placeholder="Địa chỉ" class="form-control here" type="text" value="">
+                                      <input id="diaChi" name="diaChi" placeholder="Địa chỉ" class="form-control here" type="text" >
                                     </div>
                                   </div>
                                   <div class="form-group row">
-                                    <label for="address" class="col-4 col-form-label">Giới tính</label> 
+                                    <label for="gioiTinh" class="col-4 col-form-label">Giới tính</label> 
                                     <div class="col-8">
-                                      <input id="sex" name="sex" placeholder="Giới tính" class="form-control here" type="text" value="">
+                                      <input id="gioiTinh" name="gioiTinh" placeholder="Giới tính" class="form-control here" type="text" >
                                     </div>
                                   </div>
                                    <div class="form-group row">
-                                    <label for="address" class="col-4 col-form-label">Ngày sinh</label> 
+                                    <label for="ngaySinh" class="col-4 col-form-label">Ngày sinh</label> 
                                     <div class="col-8">
-                                      <input id="date" name="date" placeholder="" class="form-control here" type="date" value="">
+                                      <input id="ngaySinh" name="ngaySinh" placeholder="" class="form-control here" type="date" >
                                     </div>
                                   </div>
                                    
                                   <div class="form-group row">
                                     <div class="offset-4 col-8">
-                                      <button name="submit" type="submit" class="btn btn-primary">Thêm</button>
-                                      <a href="/nhanVien" class="btn btn-primary">Danh sách</a>
+                                      <button  type="submit" class="btn btn-primary">Thêm</button>
+                                      <a href="/nhanvien" class="btn btn-primary">Danh sách</a>
                                     </div>
                                   </div>
-                                </form>
-                            </div>
+                              </form>                            
                         </div>
                     </div>
                 </div>
@@ -77,3 +91,34 @@
         </div>
     </div>
 </div>
+<div>
+  {{#if notificationErr.length}}
+      <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+          <strong>{{notificationErr}}</strong>
+      </div>
+  {{/if}}
+  {{#if notificationSuccess.length}}
+      <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+          <strong style="text-align: center;">{{notificationSuccess}}</strong>
+      </div>
+  {{/if}}
+</div>
+
+<script>
+  // Lắng nghe sự kiện thay đổi của input file
+  document.getElementById('anh').addEventListener('change', function() {
+    // Lấy thẻ img xem trước và input file
+    var imgPreview = document.getElementById('img-preview-img');
+    var input = this;
+
+    if (input.files && input.files[0]) {
+      // Đọc tệp hình ảnh được chọn
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        // Thiết lập src của thẻ img bằng dữ liệu ảnh đã đọc
+        imgPreview.src = e.target.result;
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  });
+</script>

@@ -1,0 +1,114 @@
+  <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;    -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
+    box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+    <li class="breadcrumb-item"><a href="#">Quản Lý Phim</a></li>
+    <li class="breadcrumb-item"><a href="/quanlyphim/phim">Phim</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Sửa</li>
+  </ol> 
+<div class="container" style="margin: 10px; border-radius: 4px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);">
+    <h6  style="padding: 10px 20px; font-weight: bold;">Sửa phim</h6>
+    <hr>  
+    {{#each listPhim}}
+    <form action="/quanlyphim/phim/them/luu" method="POST" class="container-form-add mx-auto" style="max-width: 900px;" >
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="mb-3">
+                    <label class="form-label" for="tenPhim">Tên phim</label>
+                    <input  type="text" class="form-control" name="tenPhim" id="tenPhim" aria-describedby="helpId" value="{{this.tenPhim}}"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="idTheLoai">Thể loại</label>
+                    <select id="idTheLoai" name="idTheLoai" class="form-control">
+                        {{#each listTheLoai}}
+                        <option
+                        name="{{this.idTheLoai}}"
+                        value="{{this.idTheLoai}}"
+                        {{#eq this.idTheLoai @root.idTheLoai}}selected{{/eq}}
+                        >{{this.tenTheLoai}}</option>                        
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="ngonNgu">Ngôn ngữ</label>
+                    <input class="form-control" name="ngonNgu" id="ngonNgu" aria-describedby="helpId" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="hangSX">Hãng sản xuất</label>
+                    <input class="form-control" name="hangSX" id="hangSX" aria-describedby="helpId" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="nuocSX">Nước sản xuất</label>
+                    <input class="form-control" name="nuocSX" id="nuocSX" aria-describedby="helpId" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="thoiLuong">Thời Lượng</label>
+                    <input class="form-control" name="thoiLuong" id="thoiLuong" aria-describedby="helpId" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="daoDien">Đạo diễn</label>
+                    <input class="form-control" name="daoDien" id="daoDien" aria-describedby="helpId" />
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="mb-3">
+                    <label class="form-label" for="anh">Chọn ảnh</label>
+                    <input type="file" id="anh" name="anh" class="form-control" value="{{anh}}">
+                </div>
+
+                <div id="output" class="rounded mx-auto d-block" style="width: 150px; height: 150px; ">
+                    <img id="img-preview" src="" alt="Ảnh xem trước"  style="width: 150px; height: 150px;"/>
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label" for="moTa">Mô tả</label>
+                    <textarea required class="form-control" name="moTa" id="moTa" rows="4"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="trangThai">Trạng thái</label>
+                    <select id="trangThai" name="trangThai" class="form-control">
+                        <option value="Phim mới">Phim mới</option>
+                        <option value="Đang chiếu">Đang chiếu</option>
+                        <option value="Đã chiếu">Đã chiếu</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="namSX">Năm sản xuất</label>
+                    <input class="form-control" name="namSX" id="namSX" aria-describedby="helpYear" />
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button name="add" class="btn btn-primary" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px;">Cập nhật</button>
+        </div>
+    </form>
+    {{/each}}
+</div>
+<style>
+  .mb-3 label {
+    margin-bottom: 0px;
+  }
+  .mb-3 input, .mb-3 select, .mb-3 textarea {
+    margin-top: 0px; 
+  }
+</style>
+
+<script>
+    document.getElementById('anh').addEventListener('change', function() {
+    var imgPreview = document.getElementById('img-preview');
+    var input = this;
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            imgPreview.src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+});
+
+</script>

@@ -52,11 +52,7 @@ class quanlythongtin{
 
     }
 
-    // GET[]/login
-    async gotoLogin(req,res){
-        
-        res.render('account/login', { layout: 'login' });
-    }
+
     // GET[]/tongquan
     async tongQuan(req,res){
         const notificationSuccess = req.flash('notificationSuccess');
@@ -124,5 +120,54 @@ class quanlythongtin{
             
         })        
     }    
+  async updateProfile(req, res) {
+    const idNhanVien = 'Admin'
+    const hoTen = req.body.hoTen;
+    const dienThoai = req.body.dienThoai;
+    const ngaySinh = req.body.ngaySinh;
+    const diaChi = req.body.diaChi;
+    const gioiTinh = req.body.gioiTinh;
+    const vaiTro = 'admin';
+    let notificationSuccess;
+
+    let query;
+    let params;
+
+    if (req.file) {
+      const anh = req.file.path;
+      query = `
+        UPDATE NhanVien SET hoTen = ?, dienThoai = ?, anh = ?, ngaySinh = ?, diaChi = ?, gioiTinh = ? WHERE idNhanVien = ? AND vaiTro = ?`;
+      params = [hoTen , dienThoai, ngaySinh, diaChi, gioiTinh, anh, idNhanVien, vaiTro];
+    } else {
+      query = `
+        UPDATE NhanVien SET hoTen = ?, dienThoai = ?, ngaySinh = ?, diaChi = ?, gioiTinh = ? WHERE idNhanVien = ? AND vaiTro = ? `;
+      params = [hoTen, dienThoai, ngaySinh, diaChi, gioiTinh, idNhanVien, vaiTro];
+    }
+
+    connection.query(query, params, (err, result) => {
+      if (err) {
+        console.error("Lỗi", err.message);
+        let notificationErr = 'Cập nhật thất bại!';
+        res.render("account/managerAdmin", {
+          notificationErr: notificationErr,
+          title: "Admin",
+        });
+        return;
+      }
+      notificationSuccess = 'Cập nhật thành công!';
+      console.log(result)
+      console.log(req.body)
+      res.render("account/managerAdmin", {
+        notificationSuccess: notificationSuccess,
+        title: "Admin",
+      });
+    // req.flash('notificationSuccess', 'Cập nhật lịch chiếu thành công');
+    // res.redirect('/managerAdmin');
+    });
+
+  }
+
+
 }
-module.exports = new quanlythongtin()
+
+module.exports = new quanlythongtin();

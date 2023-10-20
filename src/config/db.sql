@@ -30,7 +30,8 @@ CREATE TABLE IF NOT EXISTS`NhanVien`(
 );
 CREATE TABLE IF NOT EXISTS`TheLoai`(
     `idTheLoai`  INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    `tenTheLoai` varchar(255) NOT NULL
+    `tenTheLoai` varchar(255) NOT NULL,
+    `hienThi` INT DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS`Phim`(

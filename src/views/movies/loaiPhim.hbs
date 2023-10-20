@@ -18,7 +18,7 @@
                 <i class="fas fa-search"></i> Tìm
             </a>            
         </div> --}}
-        <a type="button" href="#"  data-bs-toggle="modal" data-id="#" data-bs-target="#addloai-phim" class="btn btn-primary" style="margin-right: 40px; border-radius: 5px;">Thêm loại phim mới</a>
+        <a type="button" href="#"  data-bs-toggle="modal" data-id="#" data-bs-target="#addthe-loai" class="btn btn-primary" style="margin-right: 40px; border-radius: 5px;">Thêm loại phim mới</a>
         </div>        
         {{!-- Add --}}
 
@@ -31,14 +31,17 @@
             </tr>
           </thead>
           <tbody>
+           {{#each listTheLoai}}
             <tr>
               <th class="align-middle"style="width: 100px;" scope="row">{{sum 1 @index }}</th>
-              <td class="align-middle"style="width: 100px;"  >Tên loại phim</td>             
+              <td class="align-middle"style="width: 100px;"  >{{this.tenTheLoai}}</td>             
               <td class="align-middle mx-auto"style="width: 100px; " >
-                <a href="" type="button" style="margin-bottom: 10px; width: 90px;" class="btn btn-success">Cập nhật</a>
-                <a type="button" data-bs-toggle="modal" data-id="#" data-bs-target="#delete-loai-phim" style="margin-bottom: 10px; width: 90px;" class="btn btn-danger">Xoá</a>
+                <a href="" type="button" style="margin-bottom: 10px; width: 90px;" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#update-loai-phim-{{this.idTheLoai}}" data-id-the-loai="{{this.idTheLoai}}">Cập nhật</a>
+                {{!-- <a href="" data-toggle="modal" data-target="#delete-the-loai" style="margin-bottom: 10px; width: 90px;" class="btn btn-danger" data-id-the-loai="{{this.idTheLoai}}" data-id="{{this.idTheLoai}}">Xóa</a> --}}
+                <a href="" class="btn btn-danger " data-toggle="modal" data-target="#delete-the-loai" style="margin-bottom: 10px; width: 90px;" data-id-the-loai="{{this.idTheLoai}}" data-id="{{this.idTheLoai}}">Xóa</a>
               </td>
             </tr>
+          {{/each}}
           </tbody>
         </table>
       </div>
@@ -46,9 +49,8 @@
   </div>
 </div>
 
-
 <!-- Thêm Loại Phim Modal -->
-<div class="modal fade" tabindex="-1" role="dialog" id="addloai-phim">
+<div class="modal fade" tabindex="-1" role="dialog" id="addthe-loai">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -56,39 +58,89 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="#" method="POST" class="container-form-add mx-auto" style="max-width: 900px;" enctype="multipart/form-data">
+       <form action="/quanlyphim/loaiphim/them" method="POST" class="container-form-add mx-auto" style="max-width: 900px;">
           <div>
             <div class="mb-3 col-auto">
               <label class="form-label" for="name">Tên loại phim</label>
-              <input required type="text" class="form-control" name="name" id="name" aria-describedby="helpId" />
+              <input  type="text" class="form-control" name="tenTheLoai" id="tenTheLoai" aria-describedby="helpId" />
             </div>
           </div>
-        </form>
+           <div class="modal-footer">
+          <button type="submit" id="btn-add-loai-phim" class="btn btn-danger">Thêm</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
       </div>
-      <div class="modal-footer">
-        <button type="button" id="btn-add-loai-phim" class="btn btn-danger">Thêm</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        </form>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Trong vòng lặp, cho mỗi thể loại phim tạo một modal riêng biệt -->
+{{#each listTheLoai}}
+  <div class="modal fade" tabindex="-1" role="dialog" id="update-loai-phim-{{this.idTheLoai}}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cập nhật Thể loại phim</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         <form action="/quanlyphim/loaiphim/capnhat/luu/{{this.idTheLoai}}" method="POST">
+          <div class="mb-3">
+            <label class="form-label" for="tenTheLoai">Tên thể loại phim</label>
+            <input type="text" class="form-control" name="tenTheLoai" id="tenTheLoai" value="{{this.tenTheLoai}}" />
+          </div>
+          <input type="hidden" name="idTheLoai" value="{{this.idTheLoai}}" />
+       
 
-<!--modal xác nhận xoá -->
-<div class="modal fade" tabindex="-1" role="dialog" id="delete-loai-phim">
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" >Lưu</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        </div>
+         </form>
+      </div>
+    </div>
+  </div>
+{{/each}}
+
+
+<form name="del-theloai-form" method="POST"></form>
+
+<!-- Modal xóa -->
+ <div class="modal fade" id="delete-the-loai" tabindex="-1" role="dialog" >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Xác nhận xóa</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>        
+        <h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
-        <p>Bạn có chắc chắn muốn xóa loại phim này?</p>
+        Bạn có chắc chắn muốn xóa thể loại này?
       </div>
       <div class="modal-footer">
-        <button type="button" id="btn-delete-product" class="btn btn-danger">Xóa</button>
+        <button type="button" id="btn-del-theloai" class="btn btn-danger">Xóa</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
       </div>
     </div>
   </div>
-</div>
+</div> 
+
+<script>
+   document.addEventListener("DOMContentLoaded",function(){
+      var idTheLoai;
+      var btnDelLC=document.getElementById("btn-del-theloai");        
+      var deleteForm= document.forms["del-theloai-form"];
+
+      $('#delete-the-loai').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget) 
+          idTheLoai = button.data('id-the-loai') 
+      })
+      btnDelLC.onclick=function(){
+          deleteForm.action="/quanlyphim/loaiphim/xoa/"+idTheLoai+"?_method=PUT"
+          deleteForm.submit();
+      }
+  })
+</script>
