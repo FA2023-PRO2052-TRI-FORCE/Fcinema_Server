@@ -1,13 +1,18 @@
+const connection = require("../../config/connection");
 
-class quanLyKhachHang{
-    async goToScreen(req,res){
-        res.render('others/phongChieu', { title: 'Phòng Chiếu' })
-    }
-    async goToAdd(req,res){
-        res.render('users/themKhachHang')
-    }
-    async goToList(req,res){
-        res.render('users/khachHang')
+class quanLyPhongChieu{
+    async goToQLPC(req,res){
+        const hoTenND=req.session.user[0].hoTen;
+
+        const querry=`SELECT * FROM PhongChieu`;
+        connection.query(querry,(err,results)=>{
+            res.render('others/phongChieu', { 
+                title: 'Phòng Chiếu',
+                hoTenND:hoTenND,
+                listPC:results })
+
+        })
+        
     }
 }
-module.exports = new quanLyKhachHang()
+module.exports = new quanLyPhongChieu()
