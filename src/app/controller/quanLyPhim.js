@@ -3,11 +3,16 @@ const connection = require("../../config/connection");
 class quanLyPhim{
 
     async dsPhim(req,res){
-        res.render('movies/phim', { title: 'Phim mới' })
+        const hoTenND=req.session.user[0].hoTen;
+        res.render('movies/phim', { 
+            title: 'Phim mới',
+            hoTenND:hoTenND })
     }
     // GET[]/phim/phimdachieu
     async dsPhimDaChieu(req,res){
-        const querry=`SELECT t.*, l.tenTheLoai from Phim t, theloai l WHERE t.idTheLoai=l.idTheLoai and trangThai=2`;
+        const hoTenND=req.session.user[0].hoTen;
+        const querry=`SELECT t.*, l.tenTheLoai from Phim t, theloai l WHERE t.idTheLoai=l.idTheLoai and trangThai=0`;
+
         connection.query(querry,(err,results)=>{
             if(err){
                 console.error('Lỗi',err.message);
@@ -15,6 +20,7 @@ class quanLyPhim{
             }
             res.render('movies/phimDaChieu',{
                 title:'Phim đã chiếu',
+                hoTenND:hoTenND,
                 listDaChieu:results,
             })
 
@@ -23,7 +29,8 @@ class quanLyPhim{
     // GET[]/phim/phimdachieu/:idPhim
     async chiTietPhimDaChieu(req,res){
         const idPhim=req.params.idPhim;
-        const querry=`SELECT l.tenTheLoai, p.* from Phim p, TheLoai l where p.idTheLoai=l.idTheLoai and trangThai=2 and idPhim=?`;
+        const hoTenND=req.session.user[0].hoTen;
+        const querry=`SELECT l.tenTheLoai, p.* from Phim p, TheLoai l where p.idTheLoai=l.idTheLoai and trangThai=0 and idPhim=?`;
         connection.query(querry,[idPhim],(err,results)=>{
             if(err){
                 console.error('Lỗi',err.message);
@@ -36,6 +43,7 @@ class quanLyPhim{
     async xoaPhimDaChieu(req,res){
         let notificationErr=[];
         let notificationSuccess=[];
+        const hoTenND=req.session.user[0].hoTen;
         const idPhim=req.params.idPhim;
         const updateQuerry=`UPDATE PHIM SET hienThi=0 WHERE idPhim=?`;
         connection.query(updateQuerry,[idPhim],(err,results)=>{
@@ -54,6 +62,7 @@ class quanLyPhim{
                 }
                 res.render('movies/phimDaChieu',{
                 title:'Phim đã chiếu',
+                hoTenND:hoTenND,
                 notificationSuccess,
                 notificationErr,
                 listDaChieu:resultsRe,
@@ -64,32 +73,11 @@ class quanLyPhim{
 
     }
 
-    // GET[]/login
-    async gotoLogin(req,res){
-        
-        res.render('account/login', { layout: 'login' });
-    }
-    // GET[]/tongquan
-    async tongQuan(req,res){
-        const querry=`UPDATE LichChieu SET hienThi=0  WHERE ngayChieu<= CURRENT_DATE `;
-        connection.query(querry,(err,results)=>{
-            if(err){
-                console.error('Lỗi',err.message);
-                return;
-            }
-            const querryP=`UPDATE Phim SET trangThai=0 WHERE idPhim IN(SELECT l.idPhim FROM LichChieu l WHERE l.ngayChieu<=CURRENT_DATE)`;
-            connection.query(querryP,(err,result)=>{
-                if(err){
-                    console.error('Lỗi',err.message);
-                    return;
-                }
-                res.render('account/dasboard', { title: 'Tổng Quan' });
-            })
 
-        })
-    }
     async themPhim(req,res){
-        res.render('movies/themphim', { title: 'Thêm Phim Mới' })
+        const hoTenND=req.session.user[0].hoTen;
+
+        res.render('movies/themphim', { title: 'Thêm Phim Mới',hoTenND:hoTenND })
     }
 
 
