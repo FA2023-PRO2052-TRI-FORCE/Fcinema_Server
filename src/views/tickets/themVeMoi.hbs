@@ -7,62 +7,75 @@
     <h6 style="padding: 10px 20px; font-weight: bold;">Thêm Vé Đặt</h6>
     <hr>
 
-    <form action="/#" method="POST" class="container-form-add mx-auto" style="max-width: 900px;" enctype="multipart/form-data">
+    <form action="/ve/them/luu" method="POST" class="container-form-add mx-auto" style="max-width: 900px;">
         <div class="row">
             <div class="col-sm-6">
                 <div class="mb-3">
+                    <label class="form-label" for="idVe">Mã Vé</label>
+                    <input class="form-control" name="idVe" id="idVe" value="{{idVe}}" aria-describedby="helpId" />
+                </div>                
+                <div class="mb-3">
                     <label class="form-label" for="category">Chọn Phim</label>
-                    <select id="category" name="category" class="form-control">
-                        <option value=""></option>
+                    <select id="category" name="idLichChieu" class="form-control">
+                        {{#each listLC}}                        
+                        <option value="{{this.idLichChieu}}"
+                        data-ngaychieu="{{formatDate this.ngayChieu}}"
+                        data-cachieu="{{this.caChieu}}"
+                        data-phongchieu="{{this.tenPhongChieu}}"
+                        data-idPhongChieu="{{this.idPhongChieu}}"
+                        data-id-LichChieu="{{this.idLichChieu}}"
+                        data-giaphim="{{this.giaPhim}}">{{this.tenPhim}}</option>
+                        {{/each}}
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="price">Ngày chiếu</label>
-                    <input class="form-control" name="price" id="price" aria-describedby="helpId" />
+                    <label class="form-label" for="ngayChieu">Ngày chiếu</label>
+                    <input class="form-control"  name="ngayChieu" id="ngayChieu" aria-describedby="helpId" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="price">Phòng chiếu</label>
-                    <input class="form-control" name="price" id="price" aria-describedby="helpId" />
+                    <label class="form-label" for="phongChieu">Phòng chiếu</label>
+                    <input class="form-control"  name="phongChieu" id="phongChieu" aria-describedby="helpId" />
+                    <input type="text" class="form-control" name="idPhongChieu" id="idPhongChieu" hidden>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label d-block" for="category">Ca chiếu</label>
-                    <input class="form-control" type="text">
+                    <label class="form-label d-block"  for="category">Ca chiếu</label>
+                    <input class="form-control" id="caChieu" type="text">
                     
                 </div>
             </div>
 
             <div class="col-sm-6">
-                <div class="cinema-layout">
+                <div class="cinema-layout ">
                     <label class="form-label d-block" for="category">Chọn ghế</label>
 
                     <div class="d-flex justify-content-around">
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="A1" id="A1Checkbox">
+                            <label class=" form-check-label">
                                 A1
                             </label>
                         </div>
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="A2" id="A2Checkbox">
+                            <label class="form-check-label">
                                 A2
                             </label>
                         </div>
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="A3" id="A3Checkbox">
+                            <label class="form-check-label">
                                 A3
                             </label>
                         </div>
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="A4" id="A4Checkbox">
+                            <label class="form-check-label">
                                 A4
                             </label>
                         </div>
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="A5" id="A5Checkbox">
+                            <label class="form-check-label">
                                 A5
                             </label>
                         </div>
@@ -70,32 +83,32 @@
 
                         <div class="d-flex justify-content-around">
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="B1" id="B1Checkbox">
+                            <label class="form-check-label">
                                 B1
                             </label>
                         </div>
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="B2" id="B2Checkbox">
+                            <label class="form-check-label">
                                 B2
                             </label>
                         </div>
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="B3" id="B3Checkbox">
+                            <label class="form-check-label">
                                 B3
                             </label>
                         </div>
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="B4" id="B4Checkbox">
+                            <label class="form-check-label">
                                 B4
                             </label>
                         </div>
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="B5" id="B5Checkbox">
+                            <label class="form-check-label">
                                 B5
                             </label>
                         </div>
@@ -103,32 +116,32 @@
 
                         <div class="d-flex justify-content-around">
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="C1" id="C1Checkbox">
+                            <label class="form-check-label">
                                 C1
                             </label>
                         </div>
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="C2" id="C2Checkbox">
+                            <label class="form-check-label">
                                 C2
                             </label>
                         </div>
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="C3" id="C3Checkbox">
+                            <label class="form-check-label">
                                 C3
                             </label>
                         </div>
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="C4" id="C4Checkbox">
+                            <label class="form-check-label">
                                 C4
                             </label>
                         </div>
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="C5" id="C5Checkbox">
+                            <label class="form-check-label">
                                 C5
                             </label>
                         </div>
@@ -136,32 +149,32 @@
 
                         <div class="d-flex justify-content-around">
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="D1" id="D1Checkbox">
+                            <label class="form-check-label">
                                 D1
                             </label>
                         </div>
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="D2" id="D2Checkbox">
+                            <label class="form-check-label">
                                 D2
                             </label>
                         </div>
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="D3" id="D3Checkbox">
+                            <label class="form-check-label">
                                 D3
                             </label>
                         </div>
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="D4" id="D4Checkbox">
+                            <label class="form-check-label">
                                 D4
                             </label>
                         </div>
                         <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input seat-checkbox" type="checkbox" value="D5" id="D5Checkbox">
+                            <label class="form-check-label">
                                 D5
                             </label>
                         </div>
@@ -170,18 +183,23 @@
 
                 <div class="mb-3">
                     <label class="form-label" for="price">Giá phim</label>
-                    <input class="form-control" name="price" id="price" aria-describedby="helpId" />
+                    <input class="form-control" name="price" id="giaPhim" aria-describedby="helpId" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="category">Phương thức thanh toán</label>
-                    <select id="category" name="category" class="form-control">
-                        <option value=""></option>
+                    <label class="form-label" for="phuongThucTT">Phương thức thanh toán</label>
+                    <select id="phuongThucTT" name="phuongThucTT" class="form-control">
+                        <option value="Tiền mặt">Tiền mặt</option>
+                        <option value="Zalo pay">Zalo pay</option>
                     </select>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="price">Tổng tiền</label>
-                    <input class="form-control" name="price" id="price" aria-describedby="helpId" />
+                    <input class="form-control" name="tongTien" id="tongTien" aria-describedby="helpId" />
                 </div>
+                <div class="mb-3">
+                    <label class="form-label" for="">Tên ghế</label>
+                    <input class="form-control" name="tenGhe" id="tenGhe" aria-describedby="helpId" />
+                </div>                
             </div>
         </div>
 
@@ -190,3 +208,94 @@
         </div>
     </form>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.js"></script>
+
+<script>
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const giaPhimInput = document.getElementById('giaPhim');
+    const tongTienInput = document.getElementById('tongTien'); 
+    const gheSelected= document.getElementById('tenGhe');
+
+    document.getElementById("category").addEventListener("change", function() {
+        var selectedIndex = this.selectedIndex;
+        var selectedOption = this.options[selectedIndex];
+        var ngayChieu = selectedOption.getAttribute("data-ngaychieu");
+        var caChieu = selectedOption.getAttribute("data-cachieu");
+        var phongChieu = selectedOption.getAttribute("data-phongchieu");
+        var giaPhim = selectedOption.getAttribute("data-giaphim");
+        var idPhongChieu = selectedOption.getAttribute("data-idPhongChieu");
+        var idLichChieu=selectedOption.getAttribute("data-id-LichChieu")
+      
+
+        document.getElementById("ngayChieu").value = ngayChieu;
+        document.getElementById("caChieu").value = caChieu;
+        document.getElementById("phongChieu").value = phongChieu;
+        document.getElementById("giaPhim").value = giaPhim;
+        document.getElementById('idPhongChieu').value=idPhongChieu;
+ 
+       checkboxes.forEach(function (checkbox) {
+            checkbox.checked = false;
+
+        }); 
+        tongTienInput.value=''; 
+        gheSelected.value ='';
+        
+    });
+
+    function getCurrentDateTimeString() {
+        const now = new Date();
+
+        const year = now.getFullYear();
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        const day = now.getDate().toString().padStart(2, '0');
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+
+        return `${year}${month}${day}${hours}${minutes}${seconds}`;
+    }
+
+    const currentDateTimeString = getCurrentDateTimeString();
+    document.getElementById('idVe').value = 'VE'+currentDateTimeString;  
+   
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function () {
+                const tenGhe = this.value; 
+                console.log('Đã chọn ghế:', tenGhe);
+
+                const giaPhim = Number(giaPhimInput.value);
+                const tongTien = Number(tongTienInput.value);
+                let newTongTien;
+
+                if (this.checked) {
+                    const giaGhe = giaPhim;
+                    const newTongTien = Number(tongTien + giaGhe);
+                    tongTienInput.value = newTongTien;
+                console.log('Tổng tiền:', newTongTien);
+                    if (gheSelected.value === '') {
+                        gheSelected.value = tenGhe;
+                    } else {
+                         gheSelected.value += ', ' + tenGhe;
+                    }                
+
+                } else {
+                    const giaGhe = giaPhim;
+                    const newTongTien = tongTien - giaGhe;
+                    tongTienInput.value = newTongTien;
+                    gheSelected.value = gheSelected.value.replace(new RegExp(',?\\s?' + tenGhe), '');
+
+                console.log('Tổng tiền:', newTongTien);
+                
+                }
+                
+        });
+     });
+          
+</script>
+
+
+
+
+
+
+
