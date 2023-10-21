@@ -25,17 +25,17 @@
         <table class="table table-bordered">
           <thead class="thead-dark">
             <tr>
-              <th class="align-middle" scope="col">#</th>
-              <th class="align-middle" scope="col" >Tên Loại</th>
-              <th class="align-middle" scope="col">Hành động</th>
+              <th class="p-2 text-center align-middle" scope="col">#</th>
+              <th class="p-2 text-center align-middle" scope="col" >Tên Loại</th>
+              <th class="p-2 text-center align-middle" scope="col">Hành động</th>
             </tr>
           </thead>
           <tbody>
            {{#each listTheLoai}}
             <tr>
-              <th class="align-middle"style="width: 100px;" scope="row">{{sum 1 @index }}</th>
-              <td class="align-middle"style="width: 100px;"  >{{this.tenTheLoai}}</td>             
-              <td class="align-middle mx-auto"style="width: 100px; " >
+              <th class="p-2 text-center align-middle"style="width: 100px;" scope="row">{{sum 1 @index }}</th>
+              <td class="p-2 text-center align-middle"style="width: 100px;"  >{{this.tenTheLoai}}</td>             
+              <td class="p-2 text-center align-middle mx-auto"style="width: 100px; " >
                 <a href="" type="button" style="margin-bottom: 10px; width: 90px;" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#update-loai-phim-{{this.idTheLoai}}" data-id-the-loai="{{this.idTheLoai}}">Cập nhật</a>
                 {{!-- <a href="" data-toggle="modal" data-target="#delete-the-loai" style="margin-bottom: 10px; width: 90px;" class="btn btn-danger" data-id-the-loai="{{this.idTheLoai}}" data-id="{{this.idTheLoai}}">Xóa</a> --}}
                 <a href="" class="btn btn-danger " data-toggle="modal" data-target="#delete-the-loai" style="margin-bottom: 10px; width: 90px;" data-id-the-loai="{{this.idTheLoai}}" data-id="{{this.idTheLoai}}">Xóa</a>
