@@ -8,6 +8,8 @@ const moment = require('moment');
 const paginateHelper = require('express-handlebars-paginate');
 const flash = require('express-flash');
 const session = require('express-session');
+const fs = require('fs');
+
 
 const app = express();
 const port = 3000;
@@ -64,6 +66,10 @@ app.engine(
       },
       convertTT:function(trangThai) {
         return trangThai === 1 ? 'Đang hoạt động' : 'Không hoạt động';
+      },
+      bufferToBlob:function (buffer, mimeType) {
+        const blob = new Blob([buffer], { type: mimeType });
+        return URL.createObjectURL(blob);
       },
   
     },
