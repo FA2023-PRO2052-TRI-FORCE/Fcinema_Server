@@ -1,43 +1,44 @@
 const connection = require("../../config/connection");
 const express = require("express");
-
 const upload = require("../../../src/uploads/uploadService");
 
 
 let dsTheLoai = [];
+
+
+  
 class quanLyPhim {
-  async dsPhim(req, res) {
-    // const querry =
-    //   "SELECT p.idPhim, p.tenPhim, p.anh, p.ngonNgu, p.moTa, p.hangSX, p.nuocSX, p.namSX, p.thoiLuong, p.daoDien, p.trangThai, p.hienThi, t.tenTheLoai FROM Phim p INNER JOIN TheLoai t ON p.idTheLoai = t.idTheLoai WHERE p.hienThi = 1";
-    const querry = `
-    SELECT p.idPhim, p.tenPhim, p.anh, p.ngonNgu, p.moTa, p.hangSX, p.nuocSX, p.namSX, p.thoiLuong, p.daoDien, 
-    CASE
-        WHEN p.trangThai = 0 THEN 'Phim mới'
-        WHEN p.trangThai = 1 THEN 'Đang chiếu'
-        WHEN p.trangThai = 2 THEN 'Đã chiếu'
-        ELSE 'Không rõ'
-    END AS trangThai,
-    p.hienThi, t.tenTheLoai
-    FROM Phim p
+  async getdsPhim(req, res) {
+    const querry = `SELECT p.*, t.tenTheLoai FROM Phim p
     INNER JOIN TheLoai t ON p.idTheLoai = t.idTheLoai
-    WHERE p.hienThi = 1;
+    WHERE p.hienThi = 1 and p.trangThai=1;
 `;
-    connection.query(querry, (err, result) => {
+    connection.query(querry, async(err, result) => {
       // kiểm tra truy vấn nếu có lỗi thì sẽ log lỗi ra và return không thực hiện các câu lệnh dưới
       if (err) {
         console.error("Lỗi", err.message);
         return;
       }
-      console.log("========");
-      console.log("", result);
+
+      result.forEach((phim) => {
+        const bufferData = phim.anh; // Đây là dữ liệu Buffer
+
+        const base64Data = bufferData.toString('base64');
+        const imageUrl = `data:image/jpeg;base64,${base64Data}`;
+        
+        phim.urlAnh = imageUrl;
+      });
+
+  
+      console.log(result);
+
       res.render("movies/phim", {
         listPhim: result,
       });
     });
-    // res.render('/quanlyphim/phim', { title: 'Phim mới' })
   }
   // GET[]/phim/phimdachieu
-  async dsPhimDaChieu(req, res) {
+  async getdsPhimDaChieu(req, res) {
     const querry = `SELECT t.*, l.tenTheLoai from Phim t, theloai l WHERE t.idTheLoai=l.idTheLoai and trangThai=2`;
     connection.query(querry, (err, results) => {
       if (err) {
@@ -65,7 +66,6 @@ class quanLyPhim {
   // PUT[]/quanlyphim/phimdachieu/:idPhim
   async xoaPhimDaChieu(req, res) {
     let notificationErr = [];
-    let notificationSuccess = [];
     const idPhim = req.params.idPhim;
     const updateQuerry = `UPDATE PHIM SET hienThi=0 WHERE idPhim=?`;
     connection.query(updateQuerry, [idPhim], (err, results) => {
@@ -74,28 +74,13 @@ class quanLyPhim {
         notificationErr.push({ err: err.message });
         return;
       }
-      notificationSuccess.push({ success: "Lưu trữ thành công" });
+      req.flash("notificationSuccess", "Xóa phim thành công");
+      res.redirect('/quanlyphim/phimdachieu');
 
-      const querry = `SELECT t.*, l.tenTheLoai from Phim t, theloai l WHERE t.idTheLoai=l.idTheLoai and trangThai=2`;
-      connection.query(querry, (errRe, resultsRe) => {
-        if (errRe) {
-          console.error("Lỗi", errRe.message);
-          return;
-        }
-        res.render("movies/phimDaChieu", {
-          title: "Phim đã chiếu",
-          notificationSuccess,
-          notificationErr,
-          listDaChieu: resultsRe,
-        });
-      });
     });
   }
 
-  // GET[]/login
-  async gotoLogin(req, res) {
-    res.render("account/login", { layout: "login" });
-  }
+
   // GET[]/tongquan
   async tongQuan(req, res) {
     const querry = `UPDATE LichChieu SET hienThi=0  WHERE ngayChieu<= CURRENT_DATE `;
@@ -123,6 +108,7 @@ class quanLyPhim {
     });
   }
 
+//   GET[]/dsTheloai
   async getDanhSachTheLoai(req, res) {
     return new Promise((resolve, reject) => {
       connection.query("SELECT * FROM TheLoai", (err, results) => {
@@ -135,6 +121,7 @@ class quanLyPhim {
     });
   }
 
+//   POST[]/phim/them/luu
   async themPhim(req, res) {
     upload.single("anh")(req, res, async function (err) {
       if (err) {
@@ -150,12 +137,13 @@ class quanLyPhim {
         const thoiLuong = req.body.thoiLuong;
         const daoDien = req.body.daoDien;
         const idTheLoai = req.body.idTheLoai;
-        const trangThai = req.body.trangThai;
+        const trangThai = 1;
         const hienThi = 1;
 
         const anh = req.file
           ? req.file.filename
           : "url_cua_hinh_anh_mac_dinh.jpg";
+
         connection.query(
           "INSERT INTO Phim (tenPhim, anh, ngonNgu, moTa, hangSX, nuocSX, namSX, thoiLuong, daoDien, hienThi, trangThai, idTheLoai) VALUES (? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
           [
@@ -188,9 +176,9 @@ class quanLyPhim {
     });
   }
 
+//   PUT[]/phim/xoa/idPhim
   async xoaPhim(req, res) {
     const idPhim = req.params.idPhim;
-    // Đọc giá trị từ form, ví dụ: 0 để ẩn, 1 để hiển thị
 
     connection.query(
       "UPDATE Phim SET hienThi = 0 WHERE idPhim = ?",
