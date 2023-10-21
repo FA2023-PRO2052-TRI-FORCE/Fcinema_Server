@@ -1,11 +1,24 @@
 const connection=require('../../config/connection')
 class quanlythongtin{
     async goToManager(req,res){
-        const hoTenND=req.session.user[0].hoTen;
-        res.render('account/managerAdmin', { 
-            title: 'Thông tin tài khoản',
-        hoTenND:hoTenND })
+        const hoTen=req.session.user[0].hoTen;
+        const idNhanVien=req.session.user[0].idNhanVien; 
+        const querry=`SELECT * FROM NhanVien WHERE idNhanVien=?`;
+        connection.query(querry,[idNhanVien],(err,results)=>{
+
+            const objNV=JSON.parse(JSON.stringify(results));
+            res.render('account/managerAdmin', { 
+                title: 'Thông tin tài khoản',
+                hoTenND:hoTen,
+                objNhanVien:objNV, 
+             })
+        })
     }
+    // GET[]/login
+    async gotoLogin(req,res){
+        
+        res.render('account/login', { layout: 'login' });
+    }    
     // GET[]/changepass
     async goToChangePass(req,res){
         const matKhau=req.session.user[0].matKhau;
@@ -121,13 +134,13 @@ class quanlythongtin{
         })        
     }    
   async updateProfile(req, res) {
-    const idNhanVien = 'Admin'
+    const idNhanVien=req.session.user[0].idNhanVien; 
     const hoTen = req.body.hoTen;
     const dienThoai = req.body.dienThoai;
     const ngaySinh = req.body.ngaySinh;
     const diaChi = req.body.diaChi;
     const gioiTinh = req.body.gioiTinh;
-    const vaiTro = 'admin';
+    const vaiTro=req.session.user[0].vaiTro; 
     let notificationSuccess;
 
     let query;

@@ -6,10 +6,8 @@ class qlLoaiPhim {
     connection.query("SELECT * FROM TheLoai WHERE hienThi = 1", (err, result) => {
         if (err) {
             console.error("Lỗi", err.message);
-            res.status(500).send("Lỗi trong quá trình truy vấn dữ liệu.");
             return;
         }
-        console.log("Danh sách thể loại phim:");
         console.log(result);
         res.render("movies/loaiPhim", {
             listTheLoai: result,
@@ -40,7 +38,7 @@ class qlLoaiPhim {
   }
 
   async xoaLoaiPhim(req, res) {
-    const idTheLoai = req.params.idTheLoai; // Lấy ID thể loại từ đường dẫn
+    const idTheLoai = req.params.idTheLoai; 
 
     connection.query(
         "UPDATE TheLoai SET hienThi = 0 WHERE idTheLoai = ?",
@@ -56,43 +54,6 @@ class qlLoaiPhim {
     );
 }
 
-
-  // async getCapNhatLoaiPhim(req, res) {
-  //   const idTheLoai = req.params.idTheLoai
-
-  //   const query = "SELECT * FROM TheLoai WHERE idTheLoai = "
-  //   connection.query(query,[idTheLoai],(err, result) => {
-  //     if (err) {
-  //       // Xử lý lỗi
-  //       console.error(err);
-  //       res.status(500).send("Lỗi khi lấy thông tin thể loại phim");
-  //     } else {
-  //       if (result.length > 0) {
-  //         console.log(result);
-  //         res.render("/movies/loaiphim", {
-  //           listTheLoai: JSON.parse(JSON.stringify(result)),
-  //         });
-  //       } else {
-  //         res.status(404).send("Không tìm thấy thể loại phim");
-  //       }
-  //     }
-  //   })
-  // }
-
-  // async capNhatLoaiPhim(req, res) { 
-  //   const idTheLoai = req.params.idTheLoai;
-  //   const tenTheLoai = req.body.tenTheLoai;
-  
-  //   const query = "UPDATE TheLoai SET tenTheLoai = ? WHERE idTheLoai = ?";
-  //   connection.query(query, [tenTheLoai, idTheLoai], (err, result) => {
-  //     if (err) {
-  //       console.error(err);
-  //       res.status(500).send("Lỗi khi cập nhật thể loại");
-  //     } else {
-  //       res.redirect("/quanlyphim/loaiphim");
-  //     }
-  //   });
-  // }  
 
   
   async getCapNhatLoaiPhim(req, res) {

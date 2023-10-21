@@ -1,13 +1,16 @@
+<ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;    -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
+    box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+    <li class="breadcrumb-item"><a href="/tongquan">Tổng quan</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Thay đổi thông tin</li>  
+</ol> 
 <div class="container" >
-    <h1>Thông tin cá nhân</h1>
     <hr>
     <div class="row">
       <form class="form-horizontal" role="form" action="/managerAdmin/update/:{{idNhanVien}}" method="POST" enctype="multipart/form-data">
-      {{#each Admin}}
+      {{#each objNhanVien}}
             <div class="col-md-3">
-              <div class="text-center">
-                  <img src="{{anh}}" class="avatar img-circle" alt="avatar" style="border-radius: 50px; width: 100px; height: 100px;">
-                  <h6>Tải lên một bức ảnh khác...</h6>
+              <div class="" style="width: 150px; height: 150px;">
+                  <img src="{{anh}}" class="avatar img-circle" alt="avatar" style="border-radius: 50px; width: 150px; height: 150px;">
                   <input type="file" name="avatar" class="form-control" value="{{anh}}">
               </div>
             </div>
@@ -15,7 +18,7 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Họ tên</label>
                     <div class="col-lg-8">
-                        <input class="form-control" type="text" name="hoTen" value="{{this.hoTen}}">
+                        <input class="form-control" type="text" name="hoTen" value="{{hoTen}}">
                     </div>
                 </div>
                 <div class="form-group">
@@ -39,7 +42,7 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label">Ngày sinh</label>
                     <div class="col-md-8">
-                        <input class="form-control" type="date" name="ngaySinh" value="{{ngaySinh}}">
+                        <input class="form-control" type="date" name="ngaySinh" value="{{formatDate ngaySinh}}">
                     </div>
                 </div>
                 <div class="form-group">
