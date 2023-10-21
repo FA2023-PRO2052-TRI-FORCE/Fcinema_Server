@@ -5,7 +5,7 @@ const qlNhanVien = require('../app/controller/quanLyNhanVien');
 const authMiddleware=require('../middleware/authMiddleware');
 
 router.get('/nhanVien',authMiddleware,qlNhanVien.goToScreen);
-router.get('/nhanvien/themNhanVien',authMiddleware,qlNhanVien.goToAdd);
+router.get('/nhanvien/themNhanVien',authMiddleware,qlNhanVien.add);
 
 router.post('/nhanvien/them/luu', qlNhanVien.addEmployee);
 router.get('/nhanvien/them',qlNhanVien.add)
