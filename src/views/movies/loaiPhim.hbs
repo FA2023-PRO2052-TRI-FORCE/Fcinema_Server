@@ -49,6 +49,31 @@
   </div>
 </div>
 
+<div>
+  {{#if notificationSuccess}}
+    <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+      <strong style="text-align: center;">{{notificationSuccess}}</strong>
+    </div>
+  {{/if}}
+  {{#if notificationErr}}
+    <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+      <strong>{{notificationErr}}</strong>
+    </div>
+  {{/if}}
+</div>
+
+<script>
+    $(document).ready(function() {
+    $('.alert').addClass("show");
+    $('.alert').removeClass("hide");
+    $('.alert').addClass("showAlert");
+    setTimeout(function(){
+        $('.alert').removeClass("show");
+        $('.alert').addClass("hide");
+    },3000);
+  }); 
+</script>
+
 <!-- Thêm Loại Phim Modal -->
 <div class="modal fade" tabindex="-1" role="dialog" id="addthe-loai">
   <div class="modal-dialog" role="document">
