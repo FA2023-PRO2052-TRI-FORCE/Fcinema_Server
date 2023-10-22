@@ -5,7 +5,6 @@ class quanlythongtin{
         const idNhanVien=req.session.user[0].idNhanVien; 
         const querry=`SELECT * FROM NhanVien WHERE idNhanVien=?`;
         connection.query(querry,[idNhanVien],(err,results)=>{
-
             const objNV=JSON.parse(JSON.stringify(results));
             res.render('account/managerAdmin', { 
                 title: 'Thông tin tài khoản',
@@ -150,7 +149,7 @@ class quanlythongtin{
       const anh = req.file.path;
       query = `
         UPDATE NhanVien SET hoTen = ?, dienThoai = ?, anh = ?, ngaySinh = ?, diaChi = ?, gioiTinh = ? WHERE idNhanVien = ? AND vaiTro = ?`;
-      params = [hoTen , dienThoai, ngaySinh, diaChi, gioiTinh, anh, idNhanVien, vaiTro];
+      params = [hoTen , dienThoai,anh, ngaySinh, diaChi, gioiTinh, idNhanVien, vaiTro];
     } else {
       query = `
         UPDATE NhanVien SET hoTen = ?, dienThoai = ?, ngaySinh = ?, diaChi = ?, gioiTinh = ? WHERE idNhanVien = ? AND vaiTro = ? `;
@@ -174,8 +173,6 @@ class quanlythongtin{
         notificationSuccess: notificationSuccess,
         title: "Admin",
       });
-    // req.flash('notificationSuccess', 'Cập nhật lịch chiếu thành công');
-    // res.redirect('/managerAdmin');
     });
 
   }
