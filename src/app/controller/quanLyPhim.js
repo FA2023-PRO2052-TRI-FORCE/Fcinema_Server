@@ -1,44 +1,41 @@
 const connection = require("../../config/connection");
 const express = require("express");
-const upload = require("../../../src/uploads/uploadService");
-
+const upload = require("../../utils/uploadService");
+const fs = require('fs');
+const path = require('path');
 
 let dsTheLoai = [];
-
+const defaultImg= path.join(__dirname,'../../resources/upload/cinema_logo_4x.png');
 
   
 class quanLyPhim {
   async getdsPhim(req, res) {
+    const hoTenND=req.session.user[0].hoTen;
     const querry = `SELECT p.*, t.tenTheLoai FROM Phim p
     INNER JOIN TheLoai t ON p.idTheLoai = t.idTheLoai
-    WHERE p.hienThi = 1 and p.trangThai=1;
-`;
+    WHERE p.hienThi = 1 and p.trangThai=1;`;
+
     connection.query(querry, async(err, result) => {
       // kiểm tra truy vấn nếu có lỗi thì sẽ log lỗi ra và return không thực hiện các câu lệnh dưới
       if (err) {
         console.error("Lỗi", err.message);
         return;
       }
-
-      result.forEach((phim) => {
-        const bufferData = phim.anh; // Đây là dữ liệu Buffer
-
-        const base64Data = bufferData.toString('base64');
-        const imageUrl = `data:image/jpeg;base64,${base64Data}`;
-        
-        phim.urlAnh = imageUrl;
-      });
-
-  
-      console.log(result);
-
+      const notificationSuccess = req.flash('notificationSuccess');
+      const notificationErr = req.flash('notificationErr');      
+      
       res.render("movies/phim", {
+        title:'Danh sách phim mới',
         listPhim: result,
+        hoTenND:hoTenND,
+        notificationErr,
+        notificationSuccess
       });
     });
   }
   // GET[]/phim/phimdachieu
   async getdsPhimDaChieu(req, res) {
+    const hoTenND=req.session.user[0].hoTen;
     const querry = `SELECT t.*, l.tenTheLoai from Phim t, theloai l WHERE t.idTheLoai=l.idTheLoai and trangThai=2`;
     connection.query(querry, (err, results) => {
       if (err) {
@@ -48,12 +45,15 @@ class quanLyPhim {
       res.render("movies/phimDaChieu", {
         title: "Phim đã chiếu",
         listDaChieu: results,
+        hoTenND:hoTenND,
+        
       });
     });
   }
   // GET[]/phim/phimdachieu/:idPhim
   async chiTietPhimDaChieu(req, res) {
     const idPhim = req.params.idPhim;
+    const hoTenND=req.session.user[0].hoTen;
     const querry = `SELECT l.tenTheLoai, p.* from Phim p, TheLoai l where p.idTheLoai=l.idTheLoai and trangThai=2 and idPhim=?`;
     connection.query(querry, [idPhim], (err, results) => {
       if (err) {
@@ -65,13 +65,13 @@ class quanLyPhim {
   }
   // PUT[]/quanlyphim/phimdachieu/:idPhim
   async xoaPhimDaChieu(req, res) {
-    let notificationErr = [];
     const idPhim = req.params.idPhim;
     const updateQuerry = `UPDATE PHIM SET hienThi=0 WHERE idPhim=?`;
     connection.query(updateQuerry, [idPhim], (err, results) => {
       if (err) {
         console.error("Lỗi", err.message);
-        notificationErr.push({ err: err.message });
+        req.flash("notificationErr", "Xóa phim thất bại");
+        res.redirect('/quanlyphim/phimdachieu');        
         return;
       }
       req.flash("notificationSuccess", "Xóa phim thành công");
@@ -81,30 +81,17 @@ class quanLyPhim {
   }
 
 
-  // GET[]/tongquan
-  async tongQuan(req, res) {
-    const querry = `UPDATE LichChieu SET hienThi=0  WHERE ngayChieu<= CURRENT_DATE `;
-    connection.query(querry, (err, results) => {
-      if (err) {
-        console.error("Lỗi", err.message);
-        return;
-      }
-      const querryP = `UPDATE Phim SET trangThai=0 WHERE idPhim IN(SELECT l.idPhim FROM LichChieu l WHERE l.ngayChieu<=CURRENT_DATE)`;
-      connection.query(querryP, (err, result) => {
-        if (err) {
-          console.error("Lỗi", err.message);
-          return;
-        }
-        res.render("account/dasboard", { title: "Tổng Quan" });
-      });
-    });
-  }
+  // GET/phim/them
   async getThemPhim(req, res) {
+    const hoTenND=req.session.user[0].hoTen;
     const queryTheLoai = "SELECT * FROM TheLoai WHERE hienThi = 1";
 
     connection.query(queryTheLoai, (err, result) => {
       dsTheLoai = result;
-      res.render("movies/themphim", { listTheLoai: dsTheLoai });
+      res.render("movies/themphim", { 
+        title:'Thêm phim mới',
+        listTheLoai: dsTheLoai,
+        hoTenND:hoTenND });
     });
   }
 
@@ -122,60 +109,65 @@ class quanLyPhim {
   }
 
 //   POST[]/phim/them/luu
-  async themPhim(req, res) {
-    upload.single("anh")(req, res, async function (err) {
-      if (err) {
-        // Xử lý lỗi tải lên hình ảnh ở đây
-        console.error(err);
+async themPhim(req, res) {
+  upload.single("anh")(req, res, async function (err) {
+    if (err) {
+      // Xử lý lỗi tải lên hình ảnh ở đây
+      console.error(err);
+    } else {
+      const tenPhim = req.body.tenPhim;
+      const ngonNgu = req.body.ngonNgu;
+      const moTa = req.body.moTa;
+      const hangSX = req.body.hangSX;
+      const nuocSX = req.body.nuocSX;
+      const namSX = req.body.namSX;
+      const thoiLuong = req.body.thoiLuong;
+      const daoDien = req.body.daoDien;
+      const idTheLoai = req.body.idTheLoai;
+      const trangThai = 1;
+      const hienThi = 1;
+      var anhStringBase64;
+
+
+      if (req.file) {
+        var anh = fs.readFileSync(req.file.path);
+        anhStringBase64 = anh.toString("base64");
       } else {
-        const tenPhim = req.body.tenPhim;
-        const ngonNgu = req.body.ngonNgu;
-        const moTa = req.body.moTa;
-        const hangSX = req.body.hangSX;
-        const nuocSX = req.body.nuocSX;
-        const namSX = req.body.namSX;
-        const thoiLuong = req.body.thoiLuong;
-        const daoDien = req.body.daoDien;
-        const idTheLoai = req.body.idTheLoai;
-        const trangThai = 1;
-        const hienThi = 1;
+        var anhDefault=fs.readFileSync(defaultImg)
+        anhStringBase64 =anhDefault.toString("base64"); 
+      }       
 
-        const anh = req.file
-          ? req.file.filename
-          : "url_cua_hinh_anh_mac_dinh.jpg";
-
-        connection.query(
-          "INSERT INTO Phim (tenPhim, anh, ngonNgu, moTa, hangSX, nuocSX, namSX, thoiLuong, daoDien, hienThi, trangThai, idTheLoai) VALUES (? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-          [
-            tenPhim,
-            anh,
-            ngonNgu,
-            moTa,
-            hangSX,
-            nuocSX,
-            namSX,
-            thoiLuong,
-            daoDien,
-            hienThi,
-            trangThai,
-            idTheLoai,
-          ],
-          (err, results) => {
-            if (err) {
-              console.log(err.message);
-              req.flash("notificationErr", "Lỗi khi thêm phim: " + err.message);
-              res.redirect("/quanlyphim/phim");
-            } else {
-              console.log(results);
-              req.flash("notificationSuccess", "Thêm phim mới thành công");
-              res.redirect("/quanlyphim/phim");
-            }
+      connection.query(
+        "INSERT INTO Phim (tenPhim, anh, ngonNgu, moTa, hangSX, nuocSX, namSX, thoiLuong, daoDien, hienThi, trangThai, idTheLoai) VALUES (? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [
+          tenPhim,
+          anhStringBase64,
+          ngonNgu,
+          moTa,
+          hangSX,
+          nuocSX,
+          namSX,
+          thoiLuong,
+          daoDien,
+          hienThi,
+          trangThai,
+          idTheLoai,
+        ],
+        (err, results) => {
+          if (err) {
+            console.log(err.message);
+            req.flash("notificationErr", "Lỗi khi thêm phim: " + err.message);
+            res.redirect("/quanlyphim/phim");
+          } else {
+            console.log(results);
+            req.flash("notificationSuccess", "Thêm phim mới thành công");
+            res.redirect("/quanlyphim/phim");
           }
-        );
-      }
-    });
-  }
-
+        }
+      );
+    }
+  });
+}
 //   PUT[]/phim/xoa/idPhim
   async xoaPhim(req, res) {
     const idPhim = req.params.idPhim;
@@ -185,7 +177,7 @@ class quanLyPhim {
       [idPhim],
       (err, result) => {
         if (err) {
-          req.flash("notificationErr", "Xóa phim thất bại: " + err.message);
+          req.flash("notificationErr", "Xóa phim thất bại: ");
         } else {
           req.flash("notificationSuccess", "Xóa phim thành công");
         }
@@ -194,7 +186,7 @@ class quanLyPhim {
     );
   }
 
-
+// GET/phim/capnhat/:idPhim
   async getCapNhatPhim(req, res) {
     const idPhim = req.params.idPhim;
 

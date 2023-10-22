@@ -42,7 +42,7 @@
             <tr>
               <th class="align-middle" scope="row">{{sum 1 @index }}</th>
               <td class="align-middle" style="width: 100px;">{{this.tenPhim}}</td>
-              <td class=" align-middle"><img src="{{urlAnh}}" style="width: 100px; background-color: antiquewhite;" class="img-thumbnail" alt=""></td>
+              <td class=" align-middle" style="width: 100px; height: 100px;"><img src="data:image/png;base64,{{this.anh}}"  style="width: 100px; background-color: antiquewhite;" class="img-thumbnail" alt=""></td>
               <td class="align-middle" style="width: 100px;">{{this.tenTheLoai}}</td>
               <td class="align-middle">{{this.thoiLuong}}</td>
               <td class="align-middle">{{this.nuocSX}}</td>
@@ -50,7 +50,6 @@
               <td class="align-middle">{{this.moTa}}</td>    
               <td class="align-middle">
                 <a href="/quanlyphim/phim/capnhat/{{this.idPhim}}" type="button" style="margin-bottom: 10px; width: 90px;" class="btn btn-success">Cập nhật</a>
-                {{!-- <a type="button" data-bs-toggle="modal" data-bs-target="#delete-phim-modal" style="margin-bottom: 10px; width: 90px;" class="btn btn-danger">Xoá</a> --}}
                 <a href="" class="btn btn-danger " data-toggle="modal" data-target="#delete-phim" style="margin-bottom: 10px; width: 90px;" data-id-phim="{{this.idPhim}}" data-id="{{this.idPhim}}">Xóa</a>
               </td>
             </tr>
@@ -61,6 +60,19 @@
       </div>
     </div>
   </div>
+</div>
+
+<div>
+  {{#if notificationSuccess}}
+    <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+      <strong style="text-align: center;">{{notificationSuccess}}</strong>
+    </div>
+  {{/if}}
+  {{#if notificationErr}}
+    <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+      <strong>{{notificationErr}}</strong>
+    </div>
+  {{/if}}
 </div>
 
 <form name="del-phim-form" method="POST"></form>
@@ -86,6 +98,7 @@
   </div>
 </div> 
 
+
 <script>
    document.addEventListener("DOMContentLoaded",function(){
       var idPhim;
@@ -100,5 +113,16 @@
           deleteForm.action="/quanlyphim/phim/xoa/"+idPhim+"?_method=PUT"
           deleteForm.submit();
       }
-  })
+  }) 
+</script>
+<script>
+    $(document).ready(function() {
+    $('.alert').addClass("show");
+    $('.alert').removeClass("hide");
+    $('.alert').addClass("showAlert");
+    setTimeout(function(){
+        $('.alert').removeClass("show");
+        $('.alert').addClass("hide");
+    },3000);
+  }); 
 </script>
