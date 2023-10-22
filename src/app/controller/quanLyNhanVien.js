@@ -1,20 +1,17 @@
 const connection = require("../../config/connection");
 const express = require("express");
 
-const upload = require("../../../src/uploads/uploadService");
+const upload = require("../../utils/uploadService");
 
 class qlNhanVien {
-  // Ví dụ ở màn hình nhân viên tôi sẽ truy vấn lấy tất cả nhân viên có hienThi=1 và gửi list json nhân viên đó vào màn hình nhân viên
+  // GET[]/nhanvien
   async goToScreen(req, res) {
     const querry = `SELECT * FROM NhanVien WHERE hienThi=1 AND vaiTro!= 'admin'`;
     connection.query(querry, (err, result) => {
-      // kiểm tra truy vấn nếu có lỗi thì sẽ log lỗi ra và return không thực hiện các câu lệnh dưới
       if (err) {
         console.error("Lỗi", err.message);
         return;
       }
-      console.log("========");
-      console.log("", result);
       res.render("employees/nhanvien", {
         listNhanVien: result,
         title: "Nhân Viên",
@@ -25,47 +22,6 @@ class qlNhanVien {
     res.render("employees/themNhanVien");
   }
 
-  // async addEmployee(req, res) {
-  //   const idNhanVien = req.body.idNhanVien;
-  //   const hoTen = req.body.hoTen;
-  //   const matKhau = req.body.matKhau;
-  //   const email = req.body.email;
-  //   const dienThoai = req.body.dienThoai;
-  //   const gioiTinh = req.body.gioiTinh;
-  //   const ngaySinh = req.body.ngaySinh;
-  //   const diaChi = req.body.diaChi;
-  //   const vaiTro = "Nhân viên";
-  //   const hienThi = 1;
-
-  //   upload.single('anh')
-  //   connection.query(
-  //     "INSERT INTO NhanVien ( idNhanVien, hoTen, matKhau, email, dienThoai, vaiTro, ngaySinh, diaChi, gioiTinh, hienThi) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-  //     [
-  //       idNhanVien,
-  //       hoTen,
-  //       matKhau,
-  //       email,
-  //       dienThoai,
-  //       vaiTro,
-  //       ngaySinh,
-  //       diaChi,
-  //       gioiTinh,
-  //       hienThi,
-  //     ],
-  //     (err, results) => {
-  //       if (err) {
-  //         req.flash(
-  //           "notificationErr",
-  //           "Lỗi khi thêm nhân viên: " + err.message
-  //         );
-  //         res.redirect("/nhanvien");
-  //       } else {
-  //         req.flash("notificationSuccess", "Thêm nhân viên thành công");
-  //         res.redirect("/nhanvien");
-  //       }
-  //     }
-  //   );
-  // }
 
   async addEmployee(req, res) {
     upload.single("anh")(req, res, async function (err) {
@@ -136,7 +92,7 @@ class qlNhanVien {
   }
   
   async getUpdateEmployee(req, res) {
-    const idNhanVien = req.params.id;
+    const idNhanVien = req.params.idNhanVien;
     const selectEmployeeQuery = "SELECT * FROM NhanVien WHERE idNhanVien = ?";
 
     connection.query(selectEmployeeQuery, [idNhanVien], (err, results) => {
@@ -159,41 +115,6 @@ class qlNhanVien {
     });
   }
 
-
-  // async updateEmployee(req, res) {
-  //   upload.single("anh")(req, res, async function (err) {
-  //     if (err) {
-  //       // Xử lý lỗi tải lên hình ảnh ở đây
-  //       console.error(err);
-  //       res.status(500).send("Lỗi khi tải lên hình ảnh");
-  //     } else {
-  //       const idNhanVien = req.params.id; // Thay đổi lấy id từ tham số của URL
-  //       const hoTen = req.body.hoTen;
-  //       const gioiTinh = req.body.gioiTinh;
-  //       const ngaySinh = req.body.ngaySinh;
-  //       const diaChi = req.body.diaChi;
-        
-  //       // Lấy đường dẫn hình ảnh đã tải lên từ req.file.path và sử dụng nó trong truy vấn SQL
-  //       const anh = req.file ? req.file.filename : null; // Đây là đường dẫn tạm thời đến hình ảnh đã tải lên
-        
-  //       const updateEmployeeQuery = `UPDATE NhanVien SET hoTen = ?, gioiTinh = ?, ngaySinh = ?, diaChi = ?, anh = ? WHERE idNhanVien = ?`;
-        
-  //       connection.query(
-  //         updateEmployeeQuery,
-  //         [hoTen, gioiTinh, ngaySinh, diaChi, anh, idNhanVien],
-  //         (err, results) => {
-  //           if (err) {
-  //             // Xử lý lỗi
-  //             console.error(err);
-  //             res.status(500).send("Lỗi khi cập nhật nhân viên");
-  //           } else {
-  //             res.redirect("/nhanvien");
-  //           }
-  //         }
-  //       );
-  //     }
-  //   });
-  // }
   
   async updateEmployee(req, res) {
     const idNhanVien = req.params.id;
