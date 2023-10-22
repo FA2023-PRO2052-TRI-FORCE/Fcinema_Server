@@ -115,8 +115,8 @@ class nguoiDung{
         const email=req.body.email;
         const matKhau=req.body.matKhau;
         
-        const querry=`SELECT *  FROM NguoiDung WHERE email=? and matKhau=? and hienThi=1`;
-        const values=[email,matKhau];
+        const querry=`SELECT *  FROM NguoiDung WHERE email=? and hienThi=1`;
+        const values=[email];
         connection.query(querry,values,(err,results)=>{
             if(err){
                 console.error('Lỗi',err.message);
