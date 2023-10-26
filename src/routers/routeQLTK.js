@@ -3,7 +3,8 @@ const router=express.Router();
 
 const qlThonTin=require('../app/controller/quanlythongtin');
 
-router.get('/login',qlThonTin.gotoLogin)
+router.get('/login',qlThonTin.gotoLogin);
+router.get('/logout',qlThonTin.logoutAccount);
 router.get('/tongquan',qlThonTin.tongQuan)
 router.get('/managerAdmin',qlThonTin.goToManager)
 router.post('/managerAdmin/update/:idNhanVien', qlThonTin.updateProfile);
