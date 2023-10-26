@@ -8,7 +8,6 @@ const moment = require('moment');
 const paginateHelper = require('express-handlebars-paginate');
 const flash = require('express-flash');
 const session = require('express-session');
-const fs = require('fs');
 
 
 const app = express();
@@ -85,6 +84,5 @@ route(app);
 app.listen(port, () => {
   console.log('port: ' + port);
   console.log("PATH:" + __dirname + "\\src\\views");
-
 
 });

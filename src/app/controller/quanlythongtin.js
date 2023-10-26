@@ -131,7 +131,15 @@ class quanlythongtin{
             
             
         })        
-    }    
+    }
+    // GET[]/logout
+    async logoutAccount(req,res){
+        if (req.session.user) {
+            req.session.destroy();
+        }    
+        res.redirect('/login')
+
+    }
   async updateProfile(req, res) {
     const idNhanVien=req.session.user[0].idNhanVien; 
     const hoTen = req.body.hoTen;

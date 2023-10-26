@@ -17,6 +17,9 @@ const getAllPhimSC = (req, res) => {
     "select a.anh, a.tenPhim, a.nuocSX, a.namSX, a.thoiLuong, a.ngonNgu, a.daoDien, b.tenTheLoai from phim a join theLoai b on a.idTheLoai = b.idTheLoai where trangThai = 1",
     (err, result) => {
       if (err) throw err;
+    
+      console.log(result)
+
       res.send(result);
     }
   );

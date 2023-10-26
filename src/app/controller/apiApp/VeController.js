@@ -24,7 +24,7 @@ const postDatVe = (req, res) => {
 
 const getVeDat = (req, res) => {
   connection.query(
-    "select a.tenPhim, b.giaPhim, b.caChieu, b.ngayChieu, d.tenPhongChieu, c.trangThai, c.idVe, c.soVe, C.tongTien, e.tenGhe " +
+    "select a.tenPhim, b.giaPhim, b.caChieu, b.ngayChieu, d.tenPhongChieu,c.ngayMua,c.phuongThucTT, c.trangThai, c.idVe, c.soVe, C.tongTien, e.tenGhe " +
       "from phim a join lichChieu b on a.idPhim = b.idPhim join ve c on b.idLichChieu=c.idLichChieu join phongChieu d on b.idPhongChieu = d.idPhongChieu " +
       "join vitrighe e on e.idVe=c.idVe",
     (err, result) => {
