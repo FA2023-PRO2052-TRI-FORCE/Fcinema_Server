@@ -23,7 +23,8 @@ class lichChieu{
                 hoTenND:hoTenND,
                 listLC:result,
                 notificationErr,
-                notificationSuccess})
+                notificationSuccess
+            })
 
         })
         
