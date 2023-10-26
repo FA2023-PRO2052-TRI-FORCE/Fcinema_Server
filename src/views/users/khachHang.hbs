@@ -21,7 +21,7 @@
       {{#each listKH}}
       <tr class="">
         <td>{{sum 1 @index }}</td>
-        <td><img src="{{this.anh}}" style="width: 50px; height: 50px; border-radius: 00px;" alt="Mô tả hình ảnh" title="Thông tin bổ sung về hình ảnh"></td>
+        <td><img src="data:image/png;base64,{{this.anh}}" style="width: 50px; height: 50px; border-radius: 00px;" alt="Mô tả hình ảnh" title="Thông tin bổ sung về hình ảnh"></td>
         <td>{{this.hoTen}}</td>
         <td>{{this.matKhau}}</td>
         <td>{{this.email}}</td>
