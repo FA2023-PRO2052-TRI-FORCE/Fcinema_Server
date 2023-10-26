@@ -2,7 +2,7 @@ const connection = require("../../../config/connection");
 const postDatVe = (req, res) => {
   const ve = req.body.mVeModel;
   const ghe = req.body.mViTriGheModel;
-  const data = JSON.stringify(req.body.mJsonArray);
+  const data = req.body.mJsonArray;
   connection.query(
     "insert into ve (idVe, soVe, ngayMua, tongTien, ngayThanhToan, trangThai, idLichChieu) values (?, ?, ?, ?, ?, ?, ?)",
     [ve.idVe, ve.soVe, ve.ngayMua, ve.tongTien, ve.ngayTT, 1, ve.idLichChieu],
@@ -11,7 +11,7 @@ const postDatVe = (req, res) => {
       else {
         connection.query(
           "insert into vitrighe (tenGhe, idPhongChieu, idVe, trangThai) values (?, ?, ?, ?)",
-          [data, ghe.idPhongChieu, ghe.idVe, 1],
+          [JSON.stringify(data), ghe.idPhongChieu, ghe.idVe, 1],
           (err, result) => {
             if (err) throw err;
             res.status(200).send("them du lieu thanh cong");
