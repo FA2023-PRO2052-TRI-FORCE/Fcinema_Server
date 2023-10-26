@@ -6,8 +6,9 @@ const resetCode = Math.floor(100000 + Math.random() * 900000);
 class nguoiDung{
     // POST[]/nguoidung/dangky
     async registerNguoiDung(req,res){
-        const email=req.body.email;
-        const matKhau=req.body.matKhau;
+        const {email,matKhau,hoTen,dienThoai,anh,ngaySinh,diaChi}=req.body;
+
+
         const checkQuerry=`SELECT COUNT(*) as count FROM NguoiDung WHERE email=?`;
         connection.query(checkQuerry,[email],(checkErr,checkResult)=>{
             if(checkErr){
@@ -17,9 +18,10 @@ class nguoiDung{
             if(checkResult[0].count>0){
                 res.status(404).json({message:'Email đã người dùng đã tồn tại'})
             }else{
-                const registQuerry=`INSERT INTO NguoiDung (email,matKhau,hienThi) 
-                VALUES(?, ?, 1)`;
-                connection.query(registQuerry,[email,matKhau],(insertErr,result)=>{
+                const registQuerry=`INSERT INTO NguoiDung (email,hoTen,matKhau,dienThoai,anh,ngaySinh,diaChi,hienThi) 
+                VALUES(?, ?, ?, ?, ? , ?, ?,  1)`;
+                const registValues=[email,hoTen,matKhau,dienThoai,anh,new Date(ngaySinh),diaChi,1]
+                connection.query(registQuerry,registValues,(insertErr,result)=>{
                     if(insertErr){
                         console.error('Lỗi',err.message);
                         res.status(405).json({message:'Lỗi'})
@@ -43,7 +45,7 @@ class nguoiDung{
                 return;                
             }
             if(checkResult.length===0){
-                res.status(404).json({err:"Email không tồn tại"})
+                res.status(404).json({message:"Email không tồn tại"})
             }else{
                 try{
                 const transporter = nodemailer.createTransport({
@@ -72,7 +74,7 @@ class nguoiDung{
                 });  
                 
             }catch(err){
-                console.log(error);
+                console.log(err);
                 res.status(500).json({ message: "Lỗi" });                
             }
 
@@ -144,7 +146,7 @@ class nguoiDung{
                 console.error('Lỗi',err.message);
                 return;
             }
-            const NguoiDung=results[0];
+            const NguoiDung=results[0];            
             res.json(NguoiDung);
         })
     }
