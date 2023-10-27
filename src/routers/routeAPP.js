@@ -26,7 +26,7 @@ router.get("/phimDC/:id", PhimController.getPhimDCByTheLoai);
 
 ///apiApp/ve
 router.post("/ve", VeController.postDatVe);
-router.get("/ve/dsve", VeController.getVeDat);
+router.get("/ve/dsve/:email", VeController.getVeDat);
 
 ///apiApp/theLoai
 router.get("/theLoai", TheLoaiController.getTheLoai);
