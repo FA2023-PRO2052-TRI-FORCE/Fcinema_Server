@@ -62,7 +62,7 @@ class lichChieu{
     async getNewLichChieu(req,res){
         try {
             const hoTenND=req.session.user[0].hoTen;
-            const queryPhim = 'SELECT * FROM Phim WHERE hienThi=1 AND trangThai=1';
+            const queryPhim = 'SELECT * FROM Phim WHERE hienThi=1';
             const queryPC = 'SELECT * FROM PhongChieu WHERE trangThai=1';
     
             connection.query(queryPhim,(err,resultsPhim)=>{
