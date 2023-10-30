@@ -12,16 +12,19 @@ class qlNhanVien {
         console.error("Lỗi", err.message);
         return;
       }
+      const notificationSuccess = req.flash("notificationSuccess");
+      const notificationErr = req.flash("notificationErr");
       res.render("employees/nhanvien", {
         listNhanVien: result,
         title: "Nhân Viên",
+        notificationErr,
+        notificationSuccess,
       });
     });
   }
   async add(req, res) {
     res.render("employees/themNhanVien");
   }
-
 
   async addEmployee(req, res) {
     upload.single("anh")(req, res, async function (err) {
@@ -82,64 +85,71 @@ class qlNhanVien {
       if (err) {
         // Xử lý lỗi nếu có
         console.error(err);
-        res.status(500).send("Lỗi khi xóa nhân viên.");
+        req.flash(
+          "notificationErr",
+          "Lỗi khi xóa nhân viên: " + err.message
+        );
       } else {
         // Xóa thành công
         console.log(results);
+        req.flash("notificationSuccess", "Xóa nhân viên thành công");
         res.redirect("/nhanvien"); // Hoặc thực hiện bất kỳ hành động nào sau khi xóa
       }
     });
   }
-  
+
+
   async getUpdateEmployee(req, res) {
-    const idNhanVien = req.params.idNhanVien;
+    const idNhanVien = req.params.id;
     const selectEmployeeQuery = "SELECT * FROM NhanVien WHERE idNhanVien = ?";
 
     connection.query(selectEmployeeQuery, [idNhanVien], (err, results) => {
       if (err) {
         // Xử lý lỗi
         console.error(err);
-        res.status(500).send("Lỗi khi lấy thông tin nhân viên");
+        req.flash("notificationErr", "Lỗi khi lấy thông tin nhân viên");
       } else {
         if (results.length > 0) {
-          // const listNhanVien = results[0];
-          // Render trang cập nhật với dữ liệu nhân viên
           res.render("employees/suaNhanVien", {
             listNhanVien: JSON.parse(JSON.stringify(results)),
           });
         } else {
-          // Xử lý trường hợp không tìm thấy nhân viên
-          res.status(404).send("Không tìm thấy nhân viên");
+          req.flash("notificationErr", "Không tìm thấy nhân viên");
+          res.redirect("/nhanvien");
         }
       }
     });
   }
 
-  
   async updateEmployee(req, res) {
-    const idNhanVien = req.params.id;
-    const hoTen = req.body.hoTen;
-    const gioiTinh = req.body.gioiTinh;
-    const ngaySinh = req.body.ngaySinh;
-    const diaChi = req.body.diaChi;
-    const anh = req.body.anh; // Sử dụng trường anh từ biểu mẫu
-  
-    const updateEmployeeQuery = `UPDATE NhanVien SET hoTen = ?, gioiTinh = ?, ngaySinh = ?, diaChi = ?, anh = ? WHERE idNhanVien = ?`;
-  
-    connection.query(
-      updateEmployeeQuery,
-      [hoTen, gioiTinh, ngaySinh, diaChi, anh, idNhanVien],
-      (err, results) => {
-        if (err) {
-          console.error(err);
-          res.status(500).send("Lỗi khi cập nhật nhân viên");
-        } else {
-          res.redirect("/nhanvien");
-        }
+    upload.single('anh')(req, res, function(err) {
+      if (err) {
+        console.log(err);
+      }else {
+        const idNhanVien = req.params.id;
+        const hoTen = req.body.hoTen;
+        const gioiTinh = req.body.gioiTinh;
+        const ngaySinh = req.body.ngaySinh;
+        const diaChi = req.body.diaChi;
+        const anh = req.file ? req.file.filename : null;
+        const updateEmployeeQuery = `UPDATE NhanVien SET hoTen = ?, gioiTinh = ?, ngaySinh = ?, diaChi = ?, anh = ? WHERE idNhanVien = ?`;
+
+        connection.query(
+          updateEmployeeQuery,
+          [hoTen, gioiTinh, ngaySinh, diaChi, anh, idNhanVien],
+          (err, results) => {
+            if (err) {
+              console.error(err);
+              req.flash("notificationErr", "Lỗi cập nhật ");
+            } else {
+              req.flash("notificationSuccess", "Cập nhật thành công");
+              console.log("Sửa thành công");
+              res.redirect("/nhanvien");
+            }
+          }
+        );
       }
-    );
+    });
   }
-  
-  
 }
 module.exports = new qlNhanVien();

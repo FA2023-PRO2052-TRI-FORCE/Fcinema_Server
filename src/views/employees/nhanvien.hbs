@@ -21,7 +21,7 @@
 
       <tr class="">
         <td>{{sum 1 @index }}</td>
-        <td><img src="{{this.anh}}" style="width: 50px; height: 50px; border-radius: 00px;" alt="Mô tả hình ảnh" title="Thông tin bổ sung về hình ảnh"></td>
+        <td><img src="/resources/upload/{{this.anh}}" style="width: 50px; height: 50px; border-radius: 50px;" alt="Mô tả hình ảnh" title="Thông tin bổ sung về hình ảnh"></td>
         <td>{{this.hoTen}}</td>
         <td>{{this.matKhau}}</td>
         <td>{{this.email}}</td>
@@ -79,3 +79,16 @@
       }
   })
 </script>
+
+<div>
+  {{#if notificationSuccess}}
+    <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+      <strong style="text-align: center;">{{notificationSuccess}}</strong>
+    </div>
+  {{/if}}
+  {{#if notificationErr}}
+    <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+      <strong>{{notificationErr}}</strong>
+    </div>
+  {{/if}}
+</div>

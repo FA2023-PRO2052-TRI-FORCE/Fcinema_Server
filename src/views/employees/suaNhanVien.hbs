@@ -11,7 +11,7 @@
                         <div class="row">
                           <div class="col-md-12">
                             {{#each listNhanVien}}
-                              <form action="/nhanvien/sua/luu/{{this.idNhanVien}}" method="POST"  id="nhanVienForm">
+                              <form action="/nhanvien/sua/luu/{{this.idNhanVien}}" method="POST"  id="nhanVienForm"  >
                                 {{!-- <input type="hidden" name="_method" value="PUT">  --}}
                                   <div class="form-group row">
                                   <label for="my-avatar" class="col-4 col-form-label">Ảnh đại diện</label> 
@@ -20,6 +20,12 @@
                                   </div>
                                   </div>
                                   
+                                  <div class="form-group row">
+                                    <div id="img-preview" class="rounded mx-auto d-block" style="width: 150px; height: 150px; ">
+                                      <img id="img-preview-img" src="" alt="Ảnh xem trước" style="width: 150px; height: 150px; "/>
+                                    </div>
+                                  </div>
+
                                   <div class="form-group row">
                                     <label for="idNhanVien" class="col-4 col-form-label">Mã nhân viên</label> 
                                     <div class="col-8">
@@ -109,4 +115,23 @@
   return '';
 }
 
+</script>
+
+<script>
+  // Lắng nghe sự kiện thay đổi của input file
+  document.getElementById('anh').addEventListener('change', function() {
+    // Lấy thẻ img xem trước và input file
+    var imgPreview = document.getElementById('img-preview-img');
+    var input = this;
+
+    if (input.files && input.files[0]) {
+      // Đọc tệp hình ảnh được chọn
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        // Thiết lập src của thẻ img bằng dữ liệu ảnh đã đọc
+        imgPreview.src = e.target.result;
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  });
 </script>

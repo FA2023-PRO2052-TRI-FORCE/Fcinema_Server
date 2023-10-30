@@ -4,7 +4,7 @@ const getAllPhimDC = (req, res) => {
   connection.query(
     "select a.tenPhim, a.anh, a.nuocSX, a.namSX, a.thoiLuong, a.ngonNgu," +
       "a.idPhim, a.moTa, b.idLichChieu, b.giaPhim, b.ngayChieu, b.caChieu, c.tenTheLoai, d.idPhongChieu, d.tenPhongChieu from phim a join lichChieu b on a.idPhim = b.idPhim" +
-      " join theLoai c on a.idTheLoai = c.idTheLoai join phongChieu d on b.idPhongChieu = d.idPhongChieu where  b.hienThi=1",
+      " join theLoai c on a.idTheLoai = c.idTheLoai join phongChieu d on b.idPhongChieu = d.idPhongChieu where b.hienThi = 1 ",
     (err, result) => {
       if (err) throw err;
       res.send(result);
@@ -14,11 +14,11 @@ const getAllPhimDC = (req, res) => {
 
 const getAllPhimSC = (req, res) => {
   connection.query(
-    "select a.anh, a.tenPhim, a.nuocSX, a.namSX, a.thoiLuong, a.ngonNgu, a.daoDien, a.moTa, b.tenTheLoai from phim a join theLoai b on a.idTheLoai = b.idTheLoai where trangThai = 1",
+    "select a.anh, a.tenPhim, a.nuocSX, a.namSX, a.thoiLuong, a.ngonNgu, a.daoDien, b.tenTheLoai from phim a join theLoai b on a.idTheLoai = b.idTheLoai where a.trangThai = 1 and b.hienThi = 1",
     (err, result) => {
       if (err) throw err;
-    
-      console.log(result)
+
+      console.log(result);
 
       res.send(result);
     }
@@ -55,7 +55,7 @@ const getPhimDCByTheLoai = (req, res) => {
   connection.query(
     "select a.tenPhim, a.anh, a.nuocSX, a.namSX, a.thoiLuong, a.ngonNgu," +
       "a.idPhim, a.moTa, b.idLichChieu, b.giaPhim, b.ngayChieu, b.caChieu, c.tenTheLoai, d.idPhongChieu, d.tenPhongChieu from phim a join lichChieu b on a.idPhim = b.idPhim" +
-      " join theLoai c on a.idTheLoai = c.idTheLoai join phongChieu d on b.idPhongChieu = d.idPhongChieu where a.trangThai = 2 and c.idTheLoai = ?",
+      " join theLoai c on a.idTheLoai = c.idTheLoai join phongChieu d on b.idPhongChieu = d.idPhongChieu where b.hienThi = 1 and c.idTheLoai = ?",
     [id],
     (err, result) => {
       if (err) throw err;
