@@ -42,7 +42,7 @@ const getPhimByTheLoai = (req, res) => {
   const id = req.params.id;
   console.log("check id", id);
   connection.query(
-    "select a.anh, a.tenPhim, a.nuocSX, a.namSX, a.thoiLuong, a.ngonNgu, a.daoDien, b.tenTheLoai from phim a join theLoai b on a.idTheLoai = b.idTheLoai where a.trangThai = 1 and b.idTheLoai = ?",
+    "select a.anh, a.tenPhim, a.nuocSX, a.namSX, a.thoiLuong, a.ngonNgu, a.daoDien, b.tenTheLoai from phim a join theLoai b on a.idTheLoai = b.idTheLoai where a.trangThai = 1 and b.idTheLoai = ? and b.hienThi=1",
     [id],
     (err, result) => {
       if (err) throw err;

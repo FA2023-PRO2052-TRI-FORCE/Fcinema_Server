@@ -150,7 +150,7 @@ class quanlythongtin {
                 console.error('Lỗi',err.message);
                 return;
             }
-            const querryP=`UPDATE Phim SET trangThai=0 WHERE idPhim IN(SELECT l.idPhim FROM LichChieu l WHERE l.ngayChieu<=CURRENT_DATE)`;
+            const querryP=`UPDATE Phim SET trangThai=0 WHERE idPhim IN(SELECT l.idPhim FROM LichChieu l WHERE l.ngayChieu < CURRENT_DATE)`;
             connection.query(querryP,(err,result)=>{
                 if(err){
                     console.error('Lỗi',err.message);
