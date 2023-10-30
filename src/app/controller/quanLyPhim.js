@@ -108,12 +108,12 @@ class quanLyPhim {
     });
   }
 
-//   POST[]/phim/them/luu
+
 async themPhim(req, res) {
   upload.single("anh")(req, res, async function (err) {
     if (err) {
       // Xử lý lỗi tải lên hình ảnh ở đây
-      console.error(err);
+      console.error("Lỗi khi thêm ảnh: " + err);
     } else {
       const tenPhim = req.body.tenPhim;
       const ngonNgu = req.body.ngonNgu;
@@ -126,22 +126,15 @@ async themPhim(req, res) {
       const idTheLoai = req.body.idTheLoai;
       const trangThai = 1;
       const hienThi = 1;
-      var anhStringBase64;
-
-
-      if (req.file) {
-        var anh = fs.readFileSync(req.file.path);
-        anhStringBase64 = anh.toString("base64");
-      } else {
-        var anhDefault=fs.readFileSync(defaultImg)
-        anhStringBase64 =anhDefault.toString("base64"); 
-      }       
+      
+      // Lấy đường dẫn hình ảnh từ req.file.filename hoặc sử dụng ảnh mặc định
+      const anh = req.file?.filename;
 
       connection.query(
-        "INSERT INTO Phim (tenPhim, anh, ngonNgu, moTa, hangSX, nuocSX, namSX, thoiLuong, daoDien, hienThi, trangThai, idTheLoai) VALUES (? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO Phim (tenPhim, anh, ngonNgu, moTa, hangSX, nuocSX, namSX, thoiLuong, daoDien, hienThi, trangThai, idTheLoai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           tenPhim,
-          anhStringBase64,
+          anh,
           ngonNgu,
           moTa,
           hangSX,
@@ -168,6 +161,7 @@ async themPhim(req, res) {
     }
   });
 }
+
 //   PUT[]/phim/xoa/idPhim
   async xoaPhim(req, res) {
     const idPhim = req.params.idPhim;
@@ -187,26 +181,44 @@ async themPhim(req, res) {
   }
 
 // GET/phim/capnhat/:idPhim
-  async getCapNhatPhim(req, res) {
-    const idPhim = req.params.idPhim;
+async getCapNhatPhim(req, res) {
+  const idPhim = req.params.idPhim;
+  const hoTenND = req.session.user[0].hoTen;
 
-    const query = "SELECT * FROM Phim WHERE idPhim = ? AND hienThi = 1";
-    connection.query(query, [idPhim], (err, result) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send("Lỗi khi lấy thông tin phim");
-      } else {
-        if (result.length > 0) {
-          console.log(result);
-          // Trả về trang cập nhật với thông tin thể loại phim
-          res.render("movies/suaPhim", {
-            Phim: result[0], // Chỉ lấy thông tin đầu tiên (nếu có)
-          });
+  const queryTheLoai = "SELECT * FROM TheLoai WHERE hienThi = 1";
+  const queryPhim = "SELECT * FROM Phim WHERE idPhim = ? AND hienThi = 1";
+
+  connection.query(queryTheLoai, (errTheLoai, resultTheLoai) => {
+    if (errTheLoai) {
+      console.error(errTheLoai);
+      req.flash("notificationErr", "Lỗi khi lấy danh sách thể loại");
+    } else {
+      const dsTheLoaiUp = resultTheLoai;
+
+      connection.query(queryPhim, [idPhim], (errPhim, resultPhim) => {
+        if (errPhim) {
+          console.error(errPhim);
+          req.flash("notificationErr", "Lỗi khi lấy thông tin phim");
         } else {
-          res.status(404).send("Không tìm thấy thể loại phim");
+          if (resultPhim.length > 0) {
+            console.log(resultPhim);
+            console.log(dsTheLoaiUp)
+            // Trả về trang cập nhật với thông tin phim và danh sách thể loại
+            res.render("movies/suaPhim", {
+              title: 'Cập nhật phim',
+              listPhim: JSON.parse(JSON.stringify(resultPhim)),
+              listTheLoaiUp: dsTheLoaiUp,
+              hoTenND: hoTenND
+            });
+          } else {
+            req.flash("notificationErr", "Không tìm thấy phim");
+            res.redirect("/quanlyphim/phim");
+          }
         }
-      }
-    });
-  }
+      });
+    }
+  });
+}
+
 }
 module.exports = new quanLyPhim();
