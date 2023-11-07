@@ -66,8 +66,9 @@ app.engine(
       object: function (context) {
         return JSON.parse(context);
       },
-      convertTT: function (trangThai) {
-        return trangThai === 1 ? "Đang hoạt động" : "Không hoạt động";
+      convertStatus:function(trangThai) {
+        return trangThai === 1 ? 'Đang hoạt động' : 'Không hoạt động';
+
       },
       bufferToBlob: function (buffer, mimeType) {
         const blob = new Blob([buffer], { type: mimeType });
@@ -77,6 +78,11 @@ app.engine(
       parseDate: function(date) {
         return date.toString().split('T')[0];  
        },
+       convertStatusUser:function(trangThai) {
+        return trangThai === 1 ? 'Đang hoạt động' : trangThai===0? 'Ngừng hoạt động' :'Chờ xác nhận xoá ';
+      },
+  
+   
       
       },
   })
