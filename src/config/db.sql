@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `NguoiDung`(
     `hoTen` varchar(255) DEFAULT NULL,
     `matKhau` varchar(255) NOT NULL,
     `dienThoai` varchar(255) DEFAULT NULL,
-    `anh` LONGBLOB DEFAULT NULL,
+    `anh` LongText DEFAULT NULL,
     `ngaySinh` date DEFAULT NULL,
     `diaChi` varchar(255) DEFAULT NULL,
     `hienThi` INT DEFAULT NULL
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS`NhanVien`(
     `matKhau` varchar(255) NOT NULL,
     `email` varchar(255) NOT NULL,    
     `dienThoai` varchar(255) DEFAULT NULL,
-    `anh` LONGBLOB DEFAULT NULL,
+    `anh` LongText DEFAULT NULL,
     `vaiTro`VARCHAR(255),
     `ngaySinh` date DEFAULT NULL,
     `diaChi` varchar(255) DEFAULT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS`TheLoai`(
 CREATE TABLE IF NOT EXISTS`Phim`(
     `idPhim`  INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     `tenPhim` varchar(255) NOT NULL,
-    `anh` LONGBLOB NOT NULL,
+    `anh` LongText NOT NULL,
     `ngonNgu` VARCHAR(255) NOT NULL,
     `moTa` mediumtext NOT NULL,
     `hangSX` VARCHAR(255) NOT NULL,

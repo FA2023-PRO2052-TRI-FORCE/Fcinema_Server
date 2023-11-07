@@ -1,96 +1,99 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-9">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h2 class="text-center">Cập nhật nhân viên</h2>
-                            <hr>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12">
-                            {{#each listNhanVien}}
-                              <form action="/nhanvien/sua/luu/{{this.idNhanVien}}" method="POST"  id="nhanVienForm"  >
-                                {{!-- <input type="hidden" name="_method" value="PUT">  --}}
-                                  <div class="form-group row">
-                                  <label for="my-avatar" class="col-4 col-form-label">Ảnh đại diện</label> 
-                                  <div class="col-8">
-                                  <input type="file" id="anh" name="anh" class="form-control" value="{{this.anh}}">
-                                  </div>
-                                  </div>
-                                  
-                                  <div class="form-group row">
-                                    <div id="img-preview" class="rounded mx-auto d-block" style="width: 150px; height: 150px; ">
-                                      <img id="img-preview-img" src="" alt="Ảnh xem trước" style="width: 150px; height: 150px; "/>
-                                    </div>
-                                  </div>
+<ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; border: 0; -webkit-box-shadow: 0 0 13px 0 rgba(82, 63, 105, .05); box-shadow: 0 0 13px 0 rgba(82, 63, 105, .05);">
+  <li class="breadcrumb-item"><a href="/nhanvien">Danh sách nhân viên</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Cập nhật nhân viên</li>
+</ol>
 
-                                  <div class="form-group row">
-                                    <label for="idNhanVien" class="col-4 col-form-label">Mã nhân viên</label> 
-                                    <div class="col-8">
-                                      <input id="idNhanVien" name=""   class="form-control here" type="text" disabled value="{{this.idNhanVien}}" >
-                                    </div>
-                                  </div>
-
-                                  <div class="form-group row">
-                                    <label for="hoTen" class="col-4 col-form-label">Họ tên</label> 
-                                    <div class="col-8">
-                                      <input id="hoTen" name="hoTen" placeholder="Họ tên" class="form-control here" type="text" value="{{this.hoTen}}">
-                                    </div>
-                                  </div>
-                                  <div class="form-group row">
-                                    <label for="matKhau" class="col-4 col-form-label">Mật khẩu</label> 
-                                    <div class="col-8">
-                                      <input id="matKhau" name=""  class="form-control here" type="text" disabled value="{{this.matKhau}}">
-                                    </div>
-                                  </div>
-                                  <div class="form-group row">
-                                    <label for="email" class="col-4 col-form-label">Email</label> 
-                                    <div class="col-8">
-                                      <input id="email" name=""  class="form-control here" required="required" type="text" disabled value="{{this.email}}">
-                                    </div>
-                                  </div>
-                                  <div class="form-group row">
-                                    <label for="dienThoai" class="col-4 col-form-label">Số điện thoại</label> 
-                                    <div class="col-8">
-                                      <input id="dienThoai" name=""  class="form-control here" type="text" disabled value="{{this.dienThoai}}">
-                                    </div>
-                                  </div>
-                                  <div class="form-group row">
-                                    <label for="diaChi" class="col-4 col-form-label">Địa chỉ</label> 
-                                    <div class="col-8">
-                                      <input id="diaChi" name="diaChi" placeholder="Địa chỉ" class="form-control here" type="text" value="{{this.diaChi}}">
-                                    </div>
-                                  </div>
-                                  <div class="form-group row">
-                                    <label for="gioiTinh" class="col-4 col-form-label">Giới tính</label> 
-                                    <div class="col-8">
-                                      <input id="gioiTinh" name="gioiTinh" placeholder="Giới tính" class="form-control here" type="text" value="{{this.gioiTinh}}">
-                                    </div>
-                                  </div>
-                                   <div class="form-group row">
-                                    <label for="ngaySinh" class="col-4 col-form-label">Ngày sinh</label> 
-                                    <div class="col-8">
-                                      <input id="ngaySinh" name="ngaySinh" placeholder="" class="form-control here" type="date" value="{{formatDate this.ngaySinh}}">
-                                    </div>
-                                  </div>
-                                   
-                                  <div class="form-group row">
-                                    <div class="offset-4 col-8">
-                                      <button type="submit" class="btn btn-primary">Cập nhật</button>
-                                    </div>
-                                  </div>
-                              </form> 
-                            {{/each}}                           
-                        </div>
-                    </div>
-                </div>
+<div class="container d-flex">
+  <div class="col-md-9">
+    {{#each listNhanVien}}
+    <form action="/nhanvien/sua/luu/{{idNhanVien}}?_method=PUT" method="POST" id="nhanVienForm" enctype="multipart/form-data">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="mb-3">
+            <label for="anh" class="col-4 col-form-label">Chọn ảnh</label>
+            <div class="">
+              <input type="file" id="anh" name="anh" class="form-control" value="{{anh}}">
             </div>
+          </div>
+
+          <div class="mb-3">
+            <div id="img-preview" class="rounded mx-auto d-block" style="width: 255px; height: 260px; overflow: hidden; background-color: aliceblue;">
+              <img id="img-preview-img" src="data:image/png;base64,{{this.anh}}" style="width: 100%; height: 100%; object-fit: cover;" alt="Ảnh xem trước" />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="idNhanVien" class="col-4 col-form-label">Mã nhân viên</label>
+            <div class="">
+              <input  id="idNhanVien" name="idNhanVien" disabled value="{{this.idNhanVien}}" placeholder="Mã nhân viên" class="form-control" type="text">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="matKhau" class="col-4 col-form-label">Mật khẩu</label>
+            <div class="">
+              <input id="matKhau" name="matKhau" value="{{this.matKhau}}" placeholder="Mật khẩu" class="form-control" type="text">
+            </div>
+          </div>
         </div>
-    </div>
+
+        <div class="col-sm-6">
+          <div class="mb-3">
+            <label for="hoTen" class="col-4 col-form-label">Họ tên</label>
+            <div class="">
+              <input id="hoTen" name="hoTen" placeholder="Họ tên" value="{{this.hoTen}}" class="form-control" type="text">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="col-4 col-form-label">Email</label>
+            <div class="">
+              <input id="email" name="email" placeholder="Email" value="{{this.email}}" class="form-control" required="required" type="text">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="dienThoai" class="col-4 col-form-label">Số điện thoại</label>
+            <div class="">
+              <input id="dienThoai" name="dienThoai" value="{{this.dienThoai}}" placeholder="Số điện thoại" class="form-control" type="text">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="diaChi" class="col-4 col-form-label">Địa chỉ</label>
+            <div class="">
+              <input id="diaChi" name="diaChi" placeholder="Địa chỉ"value="{{this.diaChi}}"  class="form-control" type="text">
+            </div>
+          </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="gioiTinh">Giới tính</label>
+                <select id="gioiTinh" name="gioiTinh" class="form-control">
+                    <option value="Nam"{{#eq "Nam" this.gioiTinh}}selected{{/eq}}>Nam</option>
+                    <option value="Nữ"{{#eq "Nữ" this.gioiTinh}}selected{{/eq}}>Nữ</option>                    
+                </select>
+            </div>
+
+          <div class="mb-3">
+            <label for="ngaySinh" class="col-4 col-form-label">Ngày sinh</label>
+            <div class="">
+              <input id="ngaySinh" name="ngaySinh"  value="{{parseDate ngaySinh}}" placeholder="" class="form-control" type="date">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <div class="text-center">
+          <button  class="btn btn-primary" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px;">Cập nhật</button>
+        </div>
+      </div>
+    </form>
+
+    {{/each}}
+  </div>
 </div>
-<div>
+
   {{#if notificationErr.length}}
       <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
           <strong>{{notificationErr}}</strong>
@@ -102,20 +105,6 @@
       </div>
   {{/if}}
 </div>
-
-<script>
-    function formatDate(dateString) {
-  const date = new Date(dateString);
-  if (!isNaN(date.getTime())) {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Lưu ý: Tháng trong JavaScript bắt đầu từ 0
-    const day = date.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
-  return '';
-}
-
-</script>
 
 <script>
   // Lắng nghe sự kiện thay đổi của input file
