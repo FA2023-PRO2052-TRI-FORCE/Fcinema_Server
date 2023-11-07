@@ -18,8 +18,8 @@ class nguoiDung{
             if(checkResult[0].count>0){
                 res.status(404).json({message:'Email đã người dùng đã tồn tại'})
             }else{
-                const registQuerry=`INSERT INTO NguoiDung (email,hoTen,matKhau,dienThoai,anh,ngaySinh,diaChi,hienThi) 
-                VALUES(?, ?, ?, ?, ? , ?, ?,  1)`;
+                const registQuerry=`INSERT INTO NguoiDung (email,hoTen,matKhau,dienThoai,anh,ngaySinh,diaChi,hienThi,trangThaiNguoiDung) 
+                VALUES(?, ?, ?, ?, ? , ?, ?,  1, 1)`;
                 const registValues=[email,hoTen,matKhau,dienThoai,anh,new Date(ngaySinh),diaChi,1]
                 connection.query(registQuerry,registValues,(insertErr,result)=>{
                     if(insertErr){
@@ -117,7 +117,7 @@ class nguoiDung{
         const email=req.body.email;
         const matKhau=req.body.matKhau;
         
-        const querry=`SELECT *  FROM NguoiDung WHERE email=? and hienThi=1`;
+        const querry=`SELECT *  FROM NguoiDung WHERE email=? and hienThi=1 and trangThaiNguoiDung=1`;
         const values=[email];
         connection.query(querry,values,(err,results)=>{
             if(err){

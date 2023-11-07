@@ -4,8 +4,9 @@ const router=express.Router();
 const qlKhachHang=require('../app/controller/quanLyKhachHang');
 
 
-router.get('/khachHang',qlKhachHang.goToScreen)
-router.get('/themKhachHang',qlKhachHang.goToAdd)
+router.get('/khachhang',qlKhachHang.getAllKhachHang)
+router.get('/khachhang/:email',qlKhachHang.getKhachHangByEmail)
+
 
 
 
