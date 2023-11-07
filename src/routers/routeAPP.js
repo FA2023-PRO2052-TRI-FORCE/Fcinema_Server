@@ -22,7 +22,7 @@ router.get("/phimDC", PhimController.getAllPhimDC);
 router.get("/phimSC", PhimController.getAllPhimSC);
 router.get("/ghe/:id", PhimController.getViTriGheById);
 router.get("/phimSC/:id", PhimController.getPhimByTheLoai);
-router.get("/phimDC/:id", PhimController.getPhimDCByTheLoai);
+router.get("/phimDC/:day", PhimController.getPhimDCByNgay);
 
 ///apiApp/ve
 router.post("/ve", VeController.postDatVe);

@@ -2,7 +2,7 @@ const path = require("path");
 const connection = require("../../../config/connection");
 const getAllPhimDC = (req, res) => {
   connection.query(
-    "select a.tenPhim, a.anh, a.nuocSX, a.namSX, a.thoiLuong, a.ngonNgu," +
+    "select a.tenPhim, a.anh, a.nuocSX, a.namSX, a.thoiLuong, a.ngonNgu, a.daoDien," +
       "a.idPhim, a.moTa, b.idLichChieu, b.giaPhim, b.ngayChieu, b.caChieu, c.tenTheLoai, d.idPhongChieu, d.tenPhongChieu from phim a join lichChieu b on a.idPhim = b.idPhim" +
       " join theLoai c on a.idTheLoai = c.idTheLoai join phongChieu d on b.idPhongChieu = d.idPhongChieu where b.hienThi = 1 ",
     (err, result) => {
@@ -50,13 +50,13 @@ const getPhimByTheLoai = (req, res) => {
     }
   );
 };
-const getPhimDCByTheLoai = (req, res) => {
-  const id = req.params.id;
+const getPhimDCByNgay = (req, res) => {
+  const ngay = req.params.day;
   connection.query(
     "select a.tenPhim, a.anh, a.nuocSX, a.namSX, a.thoiLuong, a.ngonNgu," +
       "a.idPhim, a.moTa, b.idLichChieu, b.giaPhim, b.ngayChieu, b.caChieu, c.tenTheLoai, d.idPhongChieu, d.tenPhongChieu from phim a join lichChieu b on a.idPhim = b.idPhim" +
-      " join theLoai c on a.idTheLoai = c.idTheLoai join phongChieu d on b.idPhongChieu = d.idPhongChieu where b.hienThi = 1 and c.idTheLoai = ?",
-    [id],
+      " join theLoai c on a.idTheLoai = c.idTheLoai join phongChieu d on b.idPhongChieu = d.idPhongChieu where b.hienThi = 1 and b.ngayChieu = ?",
+    [ngay],
     (err, result) => {
       if (err) throw err;
       res.send(result);
@@ -68,5 +68,5 @@ module.exports = {
   getAllPhimSC,
   getViTriGheById,
   getPhimByTheLoai,
-  getPhimDCByTheLoai,
+  getPhimDCByNgay,
 };
