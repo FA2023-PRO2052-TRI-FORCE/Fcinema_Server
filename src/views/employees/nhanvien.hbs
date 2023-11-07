@@ -1,43 +1,54 @@
+<ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;    -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
+    box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+  <li class="breadcrumb-item active" aria-current="page">Quản lý nhân viên</li>
+</ol> 
+<div class="container" style="min-height: 500px; margin: background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+  <div class="col-sm-12">
+    <div class="row">
+        <div class="input-group" style="display: flex; justify-content: space-between; margin: 20px;">
+        <h6 style="padding: 0 20px; font-weight: bold;">Danh sách nhân viên</h6>
+        <a type="button" href="/nhanvien/them" class="btn btn-primary" style="margin-right: 40px; border-radius: 5px; font-weight: bold;">Thêm nhân viên mới</a>
+        </div>        
+        <hr>
+      <div class="col-12">
+      
+        {{!-- Add --}}
 <div class="container">
-  <h2 class="text-center">Nhân Viên</h2>
-  <table class="table table-striped">
-    <thead>
+  <table id="data-table" class="table table-bordered"style="width:100%">
+    <thead class="thead-dark">
       <tr>
-        <th>#</th>
-        <th>Ảnh đại diện</th>
-        <th>Họ tên</th>
-        <th>Mật khẩu</th>
-        <th>Email</th>
-        <th>Số điện thoại</th>
-        <th>Địa chỉ</th>
-        <th>Giới tính</th>
-        <th>Ngày sinh</th>
-        <th>Thao tác</th>
+        <th class="p-2 text-center align-middlen align-items-center">#</th>
+        <th class="p-2 text-center align-middlen align-items-center" style="width: 75px">Ảnh</th>
+        <th class="p-2 text-center align-middlen align-items-center">Họ tên</th>
+        <th class="p-2 text-center align-middlen align-items-center">Mật khẩu</th>
+        <th class="p-2 text-center align-middlen align-items-center">Email</th>
+        <th class="p-2 text-center align-middlen align-items-center">Số điện thoại</th>
+        <th class="p-2 text-center align-middlen align-items-center">Địa chỉ</th>
+        <th class="p-2 text-center align-middlen align-items-center">Giới tính</th>
+        <th class="p-2 text-center align-middlen align-items-center">Ngày sinh</th>
+        <th class="p-2 text-center align-middlen align-items-center">Thao tác</th>
       </tr>
     </thead>
     <tbody>
-      {{!-- phần này #each đóng vai trò như biến để sử dụng mấy ô chịu khó search handlebars vô trang chủ của nó kéo xuống phần Built-in Helpers mà đọc chi tiết nha} --}}
       {{#each listNhanVien}}
-
       <tr class="">
-        <td>{{sum 1 @index }}</td>
-        <td><img src="/resources/upload/{{this.anh}}" style="width: 50px; height: 50px; border-radius: 50px;" alt="Mô tả hình ảnh" title="Thông tin bổ sung về hình ảnh"></td>
-        <td>{{this.hoTen}}</td>
-        <td>{{this.matKhau}}</td>
-        <td>{{this.email}}</td>
-        <td>{{this.dienThoai}}</td>
-        <td>{{this.diaChi}}</td>
-        <td>{{this.gioiTinh}}</td>
-        <td>{{formatDate this.ngaySinh "dd/MM/yyyy"}}</td>
-        <td>
-          <a href="/nhanvien/sua/{{this.idNhanVien}}" class="btn btn-primary btn-sm" style="border-radius: 50px;">Sửa</a>
-          <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-nhan-vien" style="border-radius: 50px;" data-id-nhan-vien="{{this.idNhanVien}}" data-id="{{this.idNhanVien}}">Xóa</a>
+        <td class="p-2 align-middle align-middle">{{sum 1 @index }}</td>
+        <td class=" align-middle p-2 text-center align-middle" style="width: 75px; height: 75px; overflow: hidden;"><img src="data:image/png;base64,{{this.anh}}"  style="width: 100%; height: 100%; object-fit: cover;" class="img-thumbnail rounded-circle me-2" alt=""></td>
+        <td class="p-2 align-middle align-middle">{{this.hoTen}}</td>
+        <td class="p-2 align-middle align-middle">{{this.matKhau}}</td>
+        <td class="p-2 align-middle align-middle">{{this.email}}</td>
+        <td class="p-2 align-middle align-middle">{{this.dienThoai}}</td>
+        <td class="p-2 align-middle align-middle">{{this.diaChi}}</td>
+        <td class="p-2 align-middle align-middle">{{this.gioiTinh}}</td>
+        <td class="p-2 align-middle align-middle">{{formatDate this.ngaySinh "dd/MM/yyyy"}}</td>
+        <td class="p-2 text-center align-items-center align-middle">
+          <a href="/nhanvien/sua/{{this.idNhanVien}}" class="btn btn-success" style="margin-bottom: 10px; width: 90px;">Sửa</a>
+          <a href="" class="btn btn-danger" data-toggle="modal" data-target="#delete-nhan-vien" style="margin-bottom: 10px; width: 90px;" data-id-nhan-vien="{{this.idNhanVien}}" data-id="{{this.idNhanVien}}">Xóa</a>
         </td>
       </tr>
       {{/each}}
     </tbody>
   </table>
-  <h4 class="text-center" style="margin-top: 50px;"><a href="/nhanvien/them" class="btn btn-info">Thêm nhân viên</a></h4>
 </div>
 
 <form name="del-nhanvien-form" method="POST"></form>
@@ -63,6 +74,21 @@
   </div>
 </div> 
 
+<div>
+  {{#if notificationSuccess}}
+    <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+      <strong style="text-align: center;">{{notificationSuccess}}</strong>
+    </div>
+  {{/if}}
+  {{#if notificationErr}}
+    <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+      <strong>{{notificationErr}}</strong>
+    </div>
+  {{/if}}
+</div>
+
+
+
 <script>
    document.addEventListener("DOMContentLoaded",function(){
       var idNhanVien;
@@ -78,17 +104,3 @@
           deleteForm.submit();
       }
   })
-</script>
-
-<div>
-  {{#if notificationSuccess}}
-    <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-      <strong style="text-align: center;">{{notificationSuccess}}</strong>
-    </div>
-  {{/if}}
-  {{#if notificationErr}}
-    <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-      <strong>{{notificationErr}}</strong>
-    </div>
-  {{/if}}
-</div>

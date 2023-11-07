@@ -1,27 +1,36 @@
+*{
+  box-sizing: border-box;
+
+}
 body {
     min-height: 100vh;
     min-height: -webkit-fill-available;
-    background-color: #e9ecef;
 
   }
   
   html {
     height: -webkit-fill-available;
   }
-  
+  .text-brand{
+    font-family: Notable; 
+    color: black;
+    font-size: 24px;
+    padding: 10px;
+  }
   .main-slidebar {
-    min-height: 100vh;
     height: -webkit-fill-available;
-    max-height: 100vh;
     overflow-x: auto;
     overflow-y: hidden;
     background-color: #fff;
+    overflow: hidden;
 
   }
   .navbar{
     background-color: #FFF !important;
     min-height: 64px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);  
+  }
+  .navbar-light .navbar-nav .nav-link{
+    color: #000;
   }
   .nav-pills{
     padding: .25rem .5rem;
@@ -128,4 +137,11 @@ body {
     box-shadow: none !important;
     border-color: #7c7575 !important;
   }
-  
+  table.dataTable thead>tr>th.sorting:before, table.dataTable thead>tr>th.sorting_asc:before{
+    content: "";
+    content: "";
+  }
+  table.dataTable thead>tr>th.sorting:after, table.dataTable thead>tr>th.sorting_asc:after{
+    content: "";
+    content: "";
+  }

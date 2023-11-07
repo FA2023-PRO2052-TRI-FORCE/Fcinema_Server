@@ -4,9 +4,9 @@ class qlVeDat{
     // GET[]/ve/dsve
     async getAllVeDaDat(req,res){
       const hoTenND=req.session.user[0].hoTen;
-      
+      const anhND=req.session.user[0].anh;      
       const querry=`SELECT v.idVe,p.tenPhim,l.ngayChieu,l.caChieu,t.tenPhongChieu,v.soVe,v.ngayMua,v.tongTien,v.trangThai,g.tenGhe
-      FROM ve v JOIN lichchieu l ON v.idLichChieu = l.idLichChieu JOIN phim p ON l.idPhim = p.idPhim JOIN phongchieu t ON l.idPhongChieu = t.idPhongChieu JOIN ViTriGhe g ON g.idVe=v.idVe  ORDER BY v.ngayMua ASC`;
+      FROM ve v JOIN lichchieu l ON v.idLichChieu = l.idLichChieu JOIN phim p ON l.idPhim = p.idPhim JOIN phongchieu t ON l.idPhongChieu = t.idPhongChieu JOIN ViTriGhe g ON g.idVe=v.idVe  ORDER BY v.ngayMua  DESC`;
 
       connection.query(querry,(err,result)=>{
         if(err) {
@@ -18,6 +18,7 @@ class qlVeDat{
         res.render('tickets/veDat',{
         title: 'Vé đã đặt',
         hoTenND:hoTenND,
+        anhND:anhND,
         listVe : result,
         notificationSuccess,
         notificationErr});
@@ -26,9 +27,11 @@ class qlVeDat{
     // GET[]/ve/themve
     async getNewVe(req,res){
       const hoTenND=req.session.user[0].hoTen;
+      const anhND=req.session.user[0].anh;
+
 
       const querryLichChieu=`SELECT p.tenPhim,q.idPhongChieu,q.tenPhongChieu,l.idLichChieu,l.ngayChieu,l.giaPhim,l.caChieu from lichchieu l 
-      JOIN phim p ON l.idPhim=p.idPhim JOIN phongchieu q ON l.idPhongChieu=q.idPhongChieu WHERE l.hienThi=1;`
+      JOIN phim p ON l.idPhim=p.idPhim JOIN phongchieu q ON l.idPhongChieu=q.idPhongChieu WHERE l.hienThi=1 `
 
       const querryGhe=`SELECT g.tenGhe,l.idLichChieu FROM vitrighe g JOIN Ve v ON g.idVe = v.idVe JOIN lichchieu l ON
       l.idLichChieu = v.idLichChieu JOIN phongchieu q ON g.idPhongChieu=q.idPhongChieu WHERE l.idLichChieu=?`;
@@ -46,6 +49,7 @@ class qlVeDat{
             res.render('tickets/themVeMoi', {
               title: 'Thêm vé mới',
               hoTenND:hoTenND,
+              anhND:anhND,
               listLC: results,
               gheData: gheData,
             });
@@ -87,14 +91,15 @@ class qlVeDat{
       const trangThai=1;
       const phuongThucTT=req.body.phuongThucTT;
       const ngayMua=new Date;
-      const ngayThanhToan=new Date();
       const arrayOfTenGhe = tenGhe.split(', ');
       const soVe = arrayOfTenGhe.length;
       const idPhongChieu=req.body.idPhongChieu;
+      const idNhanVien =req.session.user[0].idNhanVien;
 
-      const insertVeQuerry=`INSERT INTO VE (idVe,soVe,ngayMua,tongTien,ngayThanhToan,trangThai,phuongThucTT,email,idNhanVien,idLichChieu)
-      VALUES(?,?,?,?,?,?,?,?,?,?)`;
-      const insertValues=[idVe,soVe,ngayMua,tongTien,ngayThanhToan,trangThai,phuongThucTT,null,null,idLichChieu]
+
+      const insertVeQuerry=`INSERT INTO VE (idVe,soVe,ngayMua,tongTien,trangThai,phuongThucTT,email,idNhanVien,idLichChieu)
+      VALUES(?,?,?,?,?,?,?,?,?)`;
+      const insertValues=[idVe,soVe,ngayMua,tongTien,trangThai,phuongThucTT,null,idNhanVien,idLichChieu]
 
       connection.query(insertVeQuerry,insertValues,(errVe,resultsVe)=>{
         if(errVe){
@@ -121,7 +126,7 @@ class qlVeDat{
     // GET[]/ve/chitet
     async getChiTetVe(req,res){
       const hoTenND=req.session.user[0].hoTen;
-
+      const anhND=req.session.user[0].anh;
       const idVe=req.params.idVe;
       const querry=`SELECT v.idVe,p.tenPhim,l.ngayChieu,l.caChieu,t.tenPhongChieu,v.*,g.tenGhe
       FROM ve v JOIN lichchieu l ON v.idLichChieu = l.idLichChieu JOIN phim p ON l.idPhim = p.idPhim JOIN phongchieu t ON l.idPhongChieu = t.idPhongChieu JOIN ViTriGhe g ON g.idVe=v.idVe  WHERE v.idVe=?`;
@@ -132,10 +137,15 @@ class qlVeDat{
           return;
         }
         const objVe=JSON.parse(JSON.stringify(results));
-        console.log(objVe);
+        console.log(typeof results);
+        console.log(typeof JSON.stringify(results));
+        console.log(typeof objVe);
+
+
         res.render('tickets/chiTietVe',{
           title:'Chi tiết vé đặt',
           hoTenND:hoTenND,
+          anhND:anhND,
           objectVe:objVe})
       })
 

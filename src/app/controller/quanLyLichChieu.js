@@ -7,6 +7,7 @@ class lichChieu{
     // GET[]/lichchieu
     async getAllLichChieu(req,res){
         const hoTenND=req.session.user[0].hoTen;
+        const anhND=req.session.user[0].anh;
 
         const selectedQuerry=`SELECT p.tenPhim,p.anh,p.thoiLuong,t.idLichChieu,t.ngayChieu,t.caChieu,t.giaPhim,t.ngayThem, c.tenPhongChieu FROM lichchieu t, Phim p , phongchieu c
         WHERE t.idPhim=p.idPhim and t.idPhongChieu=c.idPhongChieu and t.hienThi=1 ORDER BY t.ngayChieu ASC`;
@@ -21,6 +22,7 @@ class lichChieu{
             res.render('showtimes/lichChieu', { 
                 title: 'Lịch Chiếu Phim' ,
                 hoTenND:hoTenND,
+                anhND:anhND,
                 listLC:result,
                 notificationErr,
                 notificationSuccess
@@ -62,6 +64,7 @@ class lichChieu{
     async getNewLichChieu(req,res){
         try {
             const hoTenND=req.session.user[0].hoTen;
+            const anhND=req.session.user[0].anh;
             const queryPhim = 'SELECT * FROM Phim WHERE hienThi=1';
             const queryPC = 'SELECT * FROM PhongChieu WHERE trangThai=1';
     
@@ -73,6 +76,7 @@ class lichChieu{
                     res.render('showtimes/themLichChieu', {
                         title: 'Thêm Lịch Chiếu Phim',
                         hoTenND:hoTenND,
+                        anhND:anhND,
                         listPhim: dsPhim,
                         listPC: dsPC
                     });
@@ -88,6 +92,7 @@ class lichChieu{
     async addNewLichChieu(req, res) {  
         let notificationErr=[];
         const hoTenND=req.session.user[0].hoTen;
+        const anhND=req.session.user[0].anh;
         const ngayChieu = req.body.ngayChieu;
         const caChieu = req.body.caChieu;
         const giaPhim = req.body.giaPhim;
@@ -105,6 +110,7 @@ class lichChieu{
                     listPhim:dsPhim,
                     listPC:dsPC,
                     hoTenND:hoTenND,
+                    anhND:anhND,
                     notificationErr:notificationErr,
                     ngayChieu: req.body.ngayChieu,
                     caChieu: req.body.caChieu,
@@ -129,6 +135,7 @@ class lichChieu{
                             listPhim:dsPhim,
                             listPC:dsPC,
                             hoTenND:hoTenND,
+                            anhND:anhND,
                             notificationErr:notificationErr,
                             ngayChieu: req.body.ngayChieu,
                             caChieu: req.body.caChieu,
@@ -142,7 +149,7 @@ class lichChieu{
                         res.redirect('/lichchieu');                                             
                                
                      }
-                     const updateQuerry=`UPDATE Phim SET trangThai=2 WHERE idPhim=?`;
+                     const updateQuerry=`UPDATE Phim SET trangThai=0 WHERE idPhim=?`;
                      const idPhim=[req.body.idPhim];
                      connection.query(updateQuerry,[idPhim],(errUpdate,updateResults)=>{
                         if(errUpdate){
@@ -162,6 +169,7 @@ class lichChieu{
     async getChiTietLichChieu(req,res){
         try{
             const hoTenND=req.session.user[0].hoTen;
+            const anhND=req.session.user[0].anh;
             const idLichChieu=req.params.idLichChieu;
             const selectedQuerry=`SELECT p.tenPhim,t.idLichChieu,t.ngayChieu,t.caChieu,t.giaPhim,t.ngayThem, c.tenPhongChieu FROM lichchieu t, Phim p , phongchieu c
             WHERE t.idPhim=p.idPhim and t.idPhongChieu=c.idPhongChieu and t.idLichChieu=?`;
@@ -174,6 +182,7 @@ class lichChieu{
                 res.render('showtimes/suaLichChieu', {
                     title: 'Sửa Lịch Chiếu Phim',
                     hoTenND:hoTenND,
+                    anhND:anhND,
                     objectLichChhieu: objLC,
                     
                 }); 

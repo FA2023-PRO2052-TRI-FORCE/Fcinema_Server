@@ -1,29 +1,19 @@
-    <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;    -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
-    box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
-    <li class="breadcrumb-item active" aria-current="page">Lịch chiếu phim</li>
-  </ol> 
-<div class="row" style="min-height: 500px; margin: 10px;">
-  <div class="col-sm-12" style="background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
-     border-radius: 4px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);;">
+<ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+    <li class="breadcrumb-item active" aria-current="page">Lịch Chiếu</li>  
+</ol> 
+<div class="row" style="min-height: 500px;">  
+<div class="container" style="-webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
     <div class="row" >
-        <h6 style="padding: 10px 20px; font-weight: bold;">Danh sách lịch chiếu phim</h6>
+        <div class="input-group d-flex justify-content-between" style="align-items: center;"> 
+        <h6 style="padding: 0 20px; font-weight: bold;">Danh sách lịch chiếu phim</h6>
+        <a type="button" href="/lichchieu/them" class="btn btn-primary" style="margin: 20px; border-radius: 5px; font-weight: bold;">Thêm lịch chiếu phim</a>
+        </div>          
         <hr>
         
 
       <div class="col-12">
-        <div class="d-flex justify-content-center" style="align-items: center;"> 
-          <form name="search-phim-form"  method="POST" class="form-inline d-flex" style="min-width: 400px; height: 40px;">
-            <input class="form-control" id="tenPhimSearch" name="tenPhimSearch" value="{{ tenPhimSearch }}" type="text" placeholder="Search" aria-label="Search" style="margin: 0 10px;">
-            <div id="tenPhimSuggestions" class="autocomplete-suggestions"></div>
-            <button class="btn btn-outline-success btn btn-primary" id="btn-search-phim" type="submit" style="color: #fff;">Tìm</button>
-          </form>        
-        <div class="input-group" style="display: flex; justify-content: end; margin: 20px;">       
-        <a type="button" href="/lichchieu/them" class="btn btn-primary" style="margin-right: 40px; border-radius: 5px; font-weight: bold;">Thêm lịch chiếu phim</a>
-        </div> 
-        </div>   
-
         <div style=" overflow-y: scroll;height: 700px;">
-        <table class="table table-bordered table-sm" >
+        <table id="data-table" class="table table-bordered table-sm" >
           <thead class="thead-dark">
             <tr>
               <th class="p-2 text-center align-middle" scope="col">#</th>

@@ -18,8 +18,10 @@ app.use(methodOverride("_method"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static(path.join(__dirname, "src")));
-app.use(express.static(path.join(__dirname, "src", "resources")));
+
+app.use(express.static(path.join(__dirname, 'src')));
+app.use(express.static(path.join(__dirname, 'src', 'public')))
+app.use(express.static(path.join(__dirname, 'src', 'resources')));
 
 // http logger
 app.use(morgan("combined"));
@@ -71,7 +73,12 @@ app.engine(
         const blob = new Blob([buffer], { type: mimeType });
         return URL.createObjectURL(blob);
       },
-    },
+
+      parseDate: function(date) {
+        return date.toString().split('T')[0];  
+       },
+      
+      },
   })
 );
 
@@ -83,4 +90,6 @@ route(app);
 app.listen(port, () => {
   console.log("port: " + port);
   console.log("PATH:" + __dirname + "\\src\\views");
+
+
 });

@@ -1,9 +1,7 @@
-  <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;    -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
-    box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+  <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;  -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
     <li class="breadcrumb-item active" aria-current="page">Tổng quan</li>
   </ol> 
-  <div class="container" style="min-height: 500px; margin: 10px;background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
-     border-radius: 4px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);;"> 
+  <div class="container" style="min-height: 500px; background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);"> 
 <!-- Icon Cards -->
 <div class="title-" style="justify-content: center;margin-left: 15px;">
     <h6  style="padding: 10px 20px; font-weight: bold;">Xin chào,{{req.session.user.hoTen}} </h6>
@@ -71,14 +69,3 @@
   {{/if}}
 </div>
 
-  <script>
-  $(document).ready(function() {
-    $('.alert').addClass("show");
-    $('.alert').removeClass("hide");
-    $('.alert').addClass("showAlert");
-    setTimeout(function(){
-        $('.alert').removeClass("show");
-        $('.alert').addClass("hide");
-    },3000);
-  });
-</script>
