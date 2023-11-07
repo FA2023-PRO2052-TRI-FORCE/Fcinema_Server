@@ -4,6 +4,7 @@ const express = require("express");
 class qlLoaiPhim {
   async dsLoaiPhim(req, res) {
     const hoTenND=req.session.user[0].hoTen;
+    const anhND=req.session.user[0].anh;
     connection.query("SELECT * FROM TheLoai WHERE hienThi = 1", (err, result) => {
         if (err) {
             console.error("Lỗi", err.message);
@@ -16,6 +17,7 @@ class qlLoaiPhim {
             title:'Danh sách thể loại phim',
             listTheLoai: result,
             hoTenND:hoTenND,
+            anhND:anhND,
             notificationErr,
             notificationSuccess
         });
