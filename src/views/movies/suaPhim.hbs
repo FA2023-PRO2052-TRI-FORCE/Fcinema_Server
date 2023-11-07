@@ -1,31 +1,26 @@
-  <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;    -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
-    box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+  <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;-webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
     <li class="breadcrumb-item"><a href="#">Quản Lý Phim</a></li>
     <li class="breadcrumb-item"><a href="/quanlyphim/phim">Phim</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Sửa</li>
+    <li class="breadcrumb-item active" aria-current="page">Cập nhật</li>
   </ol> 
-<div class="container" style="margin: 10px; border-radius: 4px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);">
-    <h6  style="padding: 10px 20px; font-weight: bold;">Sửa phim</h6>
+<div class="container" style="-webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+    <h6  style="padding: 10px 20px; font-weight: bold;">Cập nhật phim</h6>
     <hr>  
     {{#each listPhim}}
-    <form action="" method="POST" class="container-form-add mx-auto" style="max-width: 900px;" >
+    <form action="/quanlyphim/phim/capnhat/{{this.idPhim}}?_method=PUT" method="POST" class="container-form-add mx-auto" style="max-width: 900px;"  enctype="multipart/form-data" >
 
         <div class="row">
             <div class="col-sm-6">
                 <div class="mb-3">
                     <label class="form-label" for="tenPhim">Tên phim</label>
-                    <input  type="text" class="form-control" name="tenPhim" id="tenPhim" aria-describedby="helpId" value="{{this.tenPhim}}"/>
+                    <input disabled  type="text" class="form-control" name="tenPhim" id="tenPhim" aria-describedby="helpId" value="{{this.tenPhim}}"/>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="idTheLoai">Thể loại</label>
-                    <select id="idTheLoai" name="idTheLoai" class="form-control">
-                        {{#each listTheLoaiUp}}
-                        <option
-                        name="{{this.idTheLoai}}"
-                        value="{{this.idTheLoai}}"
-                        {{#eq this.idTheLoai @root.idTheLoai}}selected{{/eq}}
-                        >{{this.tenTheLoai}}</option>                        
-                        {{/each}}
+                    <select id="idTheLoai" name="idTheLoai" disabled class="form-control">
+                        <option value="{{this.idTheLoai}}">
+                            {{this.tenTheLoai}}
+                        </option>
                     </select>
                 </div>
                 <div class="mb-3">
@@ -56,28 +51,20 @@
                     <input type="file" id="anh" name="anh" class="form-control" value="{{anh}}">
                 </div>
 
-                <div id="output" class="rounded mx-auto d-block" style="width: 150px; height: 150px; ">
-                    <img id="img-preview" src="" alt="Ảnh xem trước"  style="width: 150px; height: 150px;"/>
+                <div class="mb-3">
+                    <div id="output" class="rounded mx-auto d-block" style="width: 255px; height: 255px; overflow: hidden; background-color: aliceblue;">
+                        <img id="img-preview" src="data:image/png;base64,{{this.anh}}" style="width: 100%; height: 100%; object-fit: cover;" alt="Ảnh xem trước" />
+                    </div>
                 </div>
-
 
                 <div class="mb-3">
                     <label class="form-label" for="moTa">Mô tả</label>
-                    <textarea required class="form-control" name="moTa" id="moTa" rows="4" ></textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label" for="trangThai">Trạng thái</label>
-                    <select id="trangThai" name="trangThai" class="form-control" disabled>
-                        <option value="Phim mới" >Phim mới</option>
-                        <option value="Đang chiếu">Đang chiếu</option>
-                        <option value="Đã chiếu">Đã chiếu</option>
-                    </select>
+                    <textarea required class="form-control" name="moTa" id="moTa" rows="4"  >{{this.moTa}}</textarea>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label" for="namSX">Năm sản xuất</label>
-                    <input class="form-control" name="namSX" id="namSX" aria-describedby="helpYear" value="{{this.namSX}}"/>
+                    <input class="form-control" disabled name="namSX" id="namSX" aria-describedby="helpYear" value="{{this.namSX}}"/>
                 </div>
             </div>
         </div>
@@ -88,14 +75,6 @@
     </form>
     {{/each}}
 </div>
-<style>
-  .mb-3 label {
-    margin-bottom: 0px;
-  }
-  .mb-3 input, .mb-3 select, .mb-3 textarea {
-    margin-top: 0px; 
-  }
-</style>
 
 <script>
     document.getElementById('anh').addEventListener('change', function() {
@@ -110,5 +89,4 @@
         reader.readAsDataURL(input.files[0]);
     }
 });
-
 </script>

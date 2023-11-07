@@ -2,24 +2,17 @@
     box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
     <li class="breadcrumb-item active" aria-current="page">Vé Đã Đặt</li>
   </ol> 
-<div class="row" style="min-height: 500px; margin: 10px;">
-  <div class="col-sm-12" style="background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
-     border-radius: 4px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);;">
+<div class="container" style="min-height: 500px;background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+  <div class="col-sm-12">
     <div class="row">
-        <h6 style="padding: 10px 20px; font-weight: bold;">Danh sách vé đã đặt</h6>
-        <hr>
-        <div class="d-flex justify-content-center" style="align-items: center;"> 
-          <form name="search-phim-form"  method="POST" class="form-inline d-flex" style="min-width: 400px; height: 40px;">
-            <input class="form-control" id="tenPhimSearch" name="tenPhimSearch" value="{{ idVeSearch }}" type="text" placeholder="Search" aria-label="Search" style="margin: 0 10px;">
-            <div id="tenPhimSuggestions" class="autocomplete-suggestions"></div>
-            <button class="btn btn-outline-success btn btn-primary" id="btn-search-phim" type="submit" style="color: #fff;">Tìm</button>
-          </form>        
-        <div class="input-group" style="display: flex; justify-content: end; margin: 20px;">       
-        <a type="button" href="/ve/them" class="btn btn-primary" style="margin-right: 40px; border-radius: 5px; font-weight: bold;">Thêm vé mới</a>
-        </div> 
-        </div>       
+        <div class="input-group d-flex justify-content-between" style="align-items: center;">   
+        <h6 style="padding: 0 20px; font-weight: bold;">Danh sách vé đã đặt</h6>
 
-        <table class="table table-bordered">
+        <a type="button" href="/ve/them" class="btn btn-primary" style="margin: 20px; border-radius: 5px; font-weight: bold;">Thêm vé mới</a>
+        </div>         
+        <hr>
+    
+        <table id="data-table" class="table table-bordered">
           <thead class="thead-dark">
             <tr>
               <th class="p-2 text-center align-middle" scope="col">#</th>
@@ -89,15 +82,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  $(document).ready(function() {
-    $('.alert').addClass("show");
-    $('.alert').removeClass("hide");
-    $('.alert').addClass("showAlert");
-    setTimeout(function(){
-        $('.alert').removeClass("show");
-        $('.alert').addClass("hide");
-    },3000);
-  });
-</script>

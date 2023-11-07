@@ -3,52 +3,43 @@
     <li class="breadcrumb-item"><a href="#">Quản Lý Phim</a></li>
     <li class="breadcrumb-item active" aria-current="page">Phim Mới</li>
   </ol> 
-<div class="row" style="min-height: 500px; margin: 10px; margin-right: 0 !important;">
-  <div class="col-sm-12" style="background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
-     border-radius: 4px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);;">
+<div class="container" style="min-height: 500px; margin-right: 0 !important;background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05)">
+  <div class="col-sm-12">
     <div class="row">
-        <h6 style="padding: 10px 20px; font-weight: bold;">Danh sách phim mới</h6>
-        <hr>
-      <div class="col-12">
-        {{!-- Search --}}
-        <div class="input-group" style="display: flex; justify-content: end; margin: 20px;">
-        {{!-- <div class="form-outline" style="display: flex;">
-            <input type="search" id="form1" class="form-control" style="min-width: 400px;" placeholder="Tên phim.." />
-            <a type="button" class="btn btn-primary" style="margin-left: 5px;">
-                <i class="fas fa-search"></i> Tìm
-            </a>            
-        </div> --}}
+        <div class="input-group d-flex justify-content-between" style="display: flex; justify-content: end; margin: 20px;">
+        <h6 style="padding: 0 20px; font-weight: bold;">Danh sách phim mới</h6>
+
         <a type="button" href="/quanlyphim/phim/them" class="btn btn-primary" style="margin-right: 40px; border-radius: 5px; font-weight: bold;">Thêm phim mới</a>
         </div>        
-        {{!-- Add --}}
+        <hr>
+      <div class="col-12">
+        
         <div style=" overflow-y: scroll;height: 700px;">
 
-        <table class="table table-bordered">
+        <table id="data-table" class="table table-bordered">
           <thead class="thead-dark">
             <tr>
-              <th class="align-middle" scope="col">#</th>
-              <th class="align-middle" scope="col">Tên phim</th>
-              <th class="align-middle" scope="col">Poster</th>
-              <th class="align-middle" scope="col">Thể Loại</th> 
-              <th class="align-middle" scope="col">Thời Lượng</th>
-              <th class="align-middle" scope="col">Nước Sản Xuất</th>
-              <th class="align-middle" scope="col">Năm Sản Xuất</th>
-              <th class="align-middle" scope="col">Mô Tả</th>
-              <th class="align-middle" scope="col">Hành động</th>
+              <th class="align-middle p-2 text-center" scope="col">#</th>
+              <th class="align-middle p-2 text-center" scope="col">Tên phim</th>
+              <th class="align-middle p-2 text-center" scope="col">Poster</th>
+              <th class="align-middle p-2 text-center" scope="col">Thể Loại</th> 
+              <th class="align-middle p-2 text-center" scope="col">Thời Lượng</th>
+              <th class="align-middle p-2 text-center" scope="col">Nước SX</th>
+              <th class="align-middle p-2 text-center" scope="col">Năm SX</th>
+              <th class="align-middle p-2 text-center" scope="col">Hành động</th>
             </tr>
           </thead>
           <tbody>
             {{#each listPhim}}
             <tr>
-              <th class="align-middle" scope="row">{{sum 1 @index }}</th>
-              <td class="align-middle" style="width: 100px;">{{this.tenPhim}}</td>
-              <td class=" align-middle" style="width: 100px; height: 100px;"><img src="/resources/upload/{{this.anh}}"  style="width: 100px; background-color: antiquewhite;" class="img-thumbnail" alt=""></td>
-              <td class="align-middle" style="width: 100px;">{{this.tenTheLoai}}</td>
-              <td class="align-middle">{{this.thoiLuong}}</td>
-              <td class="align-middle">{{this.nuocSX}}</td>
-              <td class="align-middle">{{this.namSX}}</td>
-              <td class="align-middle">{{this.moTa}}</td>    
-              <td class="align-middle">
+              <th class="align-middle p-2 text-center" scope="row">{{sum 1 @index }}</th>
+              <td class="align-middle p-2 text-center" style="width: 200px;">{{this.tenPhim}}</td>
+              <td class=" align-middle p-2 text-center" style="width: 100px; height: 140px; overflow: hidden;"><img src="data:image/png;base64,{{this.anh}}"  style="width: 100%; height: 100%; object-fit: cover;" class="img-thumbnail" alt=""></td>
+              <td class="align-middle p-2 text-center" >{{this.tenTheLoai}}</td>
+              <td class="align-middle p-2 text-center">{{this.thoiLuong}}</td>
+              <td class="align-middle p-2 text-center">{{this.nuocSX}}</td>
+              <td class="align-middle p-2 text-center">{{this.namSX}}</td>
+              <td class="align-middle p-2 text-center" style="width: 200px;">
                 <a href="/quanlyphim/phim/capnhat/{{this.idPhim}}" type="button" style="margin-bottom: 10px; width: 90px;" class="btn btn-success">Cập nhật</a>
                 <a href="" class="btn btn-danger " data-toggle="modal" data-target="#delete-phim" style="margin-bottom: 10px; width: 90px;" data-id-phim="{{this.idPhim}}" data-id="{{this.idPhim}}">Xóa</a>
               </td>
@@ -115,14 +106,4 @@
       }
   }) 
 </script>
-<script>
-    $(document).ready(function() {
-    $('.alert').addClass("show");
-    $('.alert').removeClass("hide");
-    $('.alert').addClass("showAlert");
-    setTimeout(function(){
-        $('.alert').removeClass("show");
-        $('.alert').addClass("hide");
-    },3000);
-  }); 
-</script>
+
