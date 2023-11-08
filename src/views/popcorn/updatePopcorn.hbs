@@ -1,0 +1,81 @@
+<ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+    <li class="breadcrumb-item"><a href="/doan">Đồ ăn</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Cập nhật đồ ăn</li>  
+</ol> 
+<div class="container" style="-webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+    <h6 style="padding: 10px 20px; font-weight: bold;">Cập nhật đồ ăn</h6>
+    <hr>  
+    {{#each objDoAn}}
+    <form action="/doan/capnhat/{{this.idDoAn}}?_method=PUT" method="POST" class="container-form-add mx-auto" style="max-width: 900px;" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="mb-3">
+                    <label class="form-label" for="anh">Chọn ảnh</label>
+                    <input type="file" id="anh" name="anh" class="form-control" value="{{anh}}">
+                </div>
+
+                <div class="mb-3">
+                    <div id="output" class="rounded mx-auto d-block" style="width: 225px; height: 225px; overflow: hidden; background-color: aliceblue;">
+                        <img id="img-preview" src="data:image/png;base64,{{this.anh}}" style="width: 100%; height: 100%; object-fit: cover;" alt="Ảnh xem trước" />
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="tenDoAn">Tên đồ ăn</label>
+                    <input class="form-control" name="tenDoAn" id="tenDoAn" value="{{this.tenDoAn}}" aria-describedby="helpYear" />
+                </div>  
+
+                <div class="mb-3">
+                    <label class="form-label" for="coSan">Số lượng</label>
+                    <input type="number" class="form-control" name="coSan" id="coSan" value="{{this.coSan}}" aria-describedby="helpYear" />
+                </div>  
+                <div class="mb-3">
+                    <label class="form-label" for="giaDoAn">Giá</label>
+                    <input type="number" class="form-control" name="giaDoAn" id="giaDoAn" value="{{this.giaDoAn}}" aria-describedby="helpYear" />
+                </div>                                                   
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px 0px 40px 0;">Cập nhật</button>
+        </div>
+    </form>
+    {{/each}}
+</div>
+<div class="">
+    {{#if notificationErr.length}}
+        <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+            {{#each notificationErr}}
+                <strong>{{err}}</strong>
+            {{/each}}
+        </div>
+    {{/if}}
+
+    {{#if notificationSuccess.length}}
+        <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+            {{#each notificationSuccess}}
+                <strong style="text-align: center;">{{success}}</strong>
+            {{/each}}
+        </div>
+    {{/if}}
+</div>
+
+
+<script>
+    document.getElementById('anh').addEventListener('change', function() {
+    var imgPreview = document.getElementById('img-preview');
+    var input = this;
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            imgPreview.src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+});
+
+</script>
+
+
+
