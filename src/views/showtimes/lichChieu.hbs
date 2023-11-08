@@ -10,7 +10,6 @@
         </div>          
         <hr>
         
-
       <div class="col-12">
         <div style=" overflow-y: scroll;height: 700px;">
         <table id="data-table" class="table table-bordered table-sm" >
@@ -38,7 +37,7 @@
               <td class="p-2 text-center align-middle" scope="col">{{formatCurrency this.giaPhim 'vnd'}}</td>             
               <td class="p-2 text-center align-middle">
                 <a href="/lichchieu/sua/{{this.idLichChieu}}" type="button" style="margin-bottom: 10px; width: 90px;" class="btn btn-success">Cập nhật</a>
-                <button type="button" data-bs-toggle="modal" data-id-lich-chieu="{{this.idLichChieu}}" data-id="{{this.idLichChieu}}" data-bs-target="#delete-lich-chieu" data-target="#delete-lich-chieu" style="margin-bottom: 10px; width: 90px;" class="btn btn-danger">Xoá</button>
+                <button type="button" data-bs-toggle="modal" data-id-lich-chieu="{{this.idLichChieu}}" data-bs-target="#delete-lich-chieu" data-target="#delete-lich-chieu" style="margin-bottom: 10px; width: 90px;" class="btn btn-danger">Xoá</button>
               </td>
             </tr>
             {{/each}}
@@ -100,18 +99,6 @@
           deleteForm.submit();
       }
   })</script>
-
-<script>
-  $(document).ready(function() {
-    $('.alert').addClass("show");
-    $('.alert').removeClass("hide");
-    $('.alert').addClass("showAlert");
-    setTimeout(function(){
-        $('.alert').removeClass("show");
-        $('.alert').addClass("hide");
-    },3000);
-  });
-</script>
 
 
 <script>
