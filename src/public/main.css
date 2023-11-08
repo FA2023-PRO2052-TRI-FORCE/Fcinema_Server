@@ -93,6 +93,8 @@ body {
     min-width: 300px;
     border-radius: 4px;
     overflow: hidden;
+    position: relative;
+  
   }
   .alert.showAlert{
     opacity: 1;
