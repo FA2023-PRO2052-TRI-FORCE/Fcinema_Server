@@ -43,7 +43,7 @@
         <td class="p-2 align-middle align-middle">{{formatDate this.ngaySinh "dd/MM/yyyy"}}</td>
         <td class="p-2 text-center align-items-center align-middle">
           <a href="/nhanvien/sua/{{this.idNhanVien}}" class="btn btn-success" style="margin-bottom: 10px; width: 90px;">Sửa</a>
-          <a href="" class="btn btn-danger" data-toggle="modal" data-target="#delete-nhan-vien" style="margin-bottom: 10px; width: 90px;" data-id-nhan-vien="{{this.idNhanVien}}" data-id="{{this.idNhanVien}}">Xóa</a>
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-nhan-vien" style="margin-bottom: 10px; width: 90px;" data-id-nhan-vien="{{this.idNhanVien}}">Xóa</button>
         </td>
       </tr>
       {{/each}}
@@ -104,3 +104,4 @@
           deleteForm.submit();
       }
   })
+</script>
