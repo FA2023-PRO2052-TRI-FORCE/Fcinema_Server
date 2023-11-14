@@ -3,15 +3,15 @@ const postDatVe = (req, res) => {
   const ve = req.body.mVeModel;
   const ghe = req.body.mViTriGheModel;
   const data = req.body.mJsonArray;
+  const doAn = req.body.mDoAnModels;
   console.log(req.body);
   connection.query(
-    "insert into ve (idVe, soVe, ngayMua, tongTien, ngayThanhToan, trangThai, phuongThucTT, email, idLichChieu) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    "insert into ve (idVe, soVe, ngayMua, tongTien, trangThai, phuongThucTT, email, idLichChieu) values (?, ?, ?, ?, ?, ?, ?, ?)",
     [
       ve.idVe,
       ve.soVe,
       ve.ngayMua,
       ve.tongTien,
-      ve.ngayTT,
       ve.trangThai,
       ve.phuongThucTT,
       ve.email,
@@ -25,7 +25,20 @@ const postDatVe = (req, res) => {
           [JSON.stringify(data), ghe.idPhongChieu, ghe.idVe, 1],
           (err, result) => {
             if (err) throw err;
-            res.status(200).send("them du lieu thanh cong");
+            if (doAn != "") {
+              for (let i = 0; i < doAn.length; i++) {
+                connection.query(
+                  "insert into chitietdoan (soLuong, idDoAn, idVe) values ( ?, ?, ?) ",
+                  [doAn[i].soLuong, doAn[i].idDoAn, ve.idVe],
+                  (err, result) => {
+                    if (err) throw err;
+                    res.status(200).send("them du lieu thanh cong");
+                  }
+                );
+              }
+            } else {
+              res.status(200).send("them du lieu thanh cong");
+            }
           }
         );
       }
