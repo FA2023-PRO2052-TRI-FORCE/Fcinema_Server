@@ -4,6 +4,7 @@ const taiKhoanND = require("../app/controller/apiApp/taiKhoanController");
 const PhimController = require("../app/controller/apiApp/PhimController");
 const VeController = require("../app/controller/apiApp/VeController");
 const TheLoaiController = require("../app/controller/apiApp/TheLoaiController");
+const DoAnController = require("../app/controller/apiApp/DoAnController");
 
 router.post("/nguoidung/dangky", taiKhoanND.registerNguoiDung);
 router.post("/nguoidung/dangnhap", taiKhoanND.loginNguoiDung);
@@ -30,5 +31,8 @@ router.get("/ve/dsve/:email", VeController.getVeDat);
 
 ///apiApp/theLoai
 router.get("/theLoai", TheLoaiController.getTheLoai);
+
+///apiApp/doan
+router.get("/doan", DoAnController.getDoAn);
 
 module.exports = router;
