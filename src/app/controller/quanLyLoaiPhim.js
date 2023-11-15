@@ -24,7 +24,7 @@ class qlLoaiPhim {
     });
   }
   
-  async themLoaiPhim(req, res) {
+  async addNewLoaiPhim(req, res) {
     const tenTheLoai = req.body.tenTheLoai;
     const hienThi = 1
 

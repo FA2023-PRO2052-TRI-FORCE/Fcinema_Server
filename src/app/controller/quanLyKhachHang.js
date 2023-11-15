@@ -2,10 +2,10 @@ const connection = require("../../config/connection");
 
 class quanLyKhachHang{
     // GET[]/khachhang
-    async getAllKhachHang(req,res){
+    async getListKhachHang(req,res){
         const hoTenND=req.session.user[0].hoTen;
         const anhND=req.session.user[0].anh;
-        const querry=`SELECT * FROM NguoiDung WHERE hienThi=1`;
+        const querry=`SELECT * FROM NguoiDung`;
         connection.query(querry,(err,results)=>{
             res.render('users/khachHang', { 
                 title: 'Khách Hàng',
@@ -39,14 +39,25 @@ class quanLyKhachHang{
         })
 
     }
-    async goToAdd(req,res){
-        const hoTenND=req.session.user[0].hoTen;
-        const anhND=req.session.user[0].anh;
-        res.render('users/themKhachHang', { 
-            title: 'Thêm Khách Hàng',
-            anhND:anhND,
-            hoTenND:hoTenND })
+    // PUT[]khachhang/:email
+    async updateTrangThaiKhachHang(req,res){
+        const email= req.params.email
+        const updateTTKHQuerry='UPDATE NguoiDung SET trangThaiNguoiDung=0, hienThi=0 WHERE email=?';
+
+        connection.query(updateTTKHQuerry,[email],(err,results)=>{
+            if (err){
+                console.error(err.message);
+                req.flash('notificationErr', 'Lỗi');
+                res.redirect('back') 
+                return;
+            }
+            req.flash('notificationSuccess', 'Xoá thành công');
+            res.redirect('back') 
+        })
+
+
     }
+
 
 }
 module.exports = new quanLyKhachHang()

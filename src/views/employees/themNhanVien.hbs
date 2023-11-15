@@ -4,32 +4,32 @@
 </ol>
 
 <div class="container" style="background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
-  <div class="col-md-9">
+  <div class="col-sm-12">
     <form action="/nhanvien/them/luu" method="POST" id="nhanVienForm" class="container-form-add mx-auto" enctype="multipart/form-data">
       <div class="row">
         <div class="col-sm-6">
           <div class="mb-3">
-            <label for="anh" class="col-4 col-form-label">Chọn ảnh</label>
+            <label for="anh" class="col-4 form-label">Chọn ảnh</label>
             <div class="">
               <input type="file" id="anh" name="anh" class="form-control" value="{{anh}}">
             </div>
           </div>
 
           <div class="mb-3">
-            <div id="img-preview" class="rounded mx-auto d-block" style="width: 255px; height: 260px; overflow: hidden; background-color: aliceblue;">
+            <div id="img-preview" class="rounded mx-auto d-block" style="width: 240px; height: 242px; overflow: hidden; background-color: aliceblue;">
               <img id="img-preview-img" src="data:image/png;base64,{{this.anh}}" style="width: 100%; height: 100%; object-fit: cover;" alt="Ảnh xem trước" />
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="idNhanVien" class="col-4 col-form-label">Mã nhân viên</label>
+            <label for="idNhanVien" class="col-4 form-label">Mã nhân viên</label>
             <div class="">
               <input id="idNhanVien" name="idNhanVien" placeholder="Mã nhân viên" class="form-control" type="text">
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="matKhau" class="col-4 col-form-label">Mật khẩu</label>
+            <label for="matKhau" class="col-4 form-label">Mật khẩu</label>
             <div class="">
               <input id="matKhau" name="matKhau" placeholder="Mật khẩu" class="form-control" type="text">
             </div>
@@ -38,28 +38,28 @@
 
         <div class="col-sm-6">
           <div class="mb-3">
-            <label for="hoTen" class="col-4 col-form-label">Họ tên</label>
+            <label for="hoTen" class="col-4 form-label">Họ tên</label>
             <div class="">
               <input id="hoTen" name="hoTen" placeholder="Họ tên" class="form-control" type="text">
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="email" class="col-4 col-form-label">Email</label>
+            <label for="email" class="col-4 form-label">Email</label>
             <div class="">
               <input id="email" name="email" placeholder="Email" class="form-control" required="required" type="text">
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="dienThoai" class="col-4 col-form-label">Số điện thoại</label>
+            <label for="dienThoai" class="col-4 form-label">Số điện thoại</label>
             <div class="">
               <input id="dienThoai" name="dienThoai" placeholder="Số điện thoại" class="form-control" type="text">
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="diaChi" class="col-4 col-form-label">Địa chỉ</label>
+            <label for="diaChi" class="col-4 form-label">Địa chỉ</label>
             <div class="">
               <input id="diaChi" name="diaChi" placeholder="Địa chỉ" class="form-control" type="text">
             </div>
@@ -74,7 +74,7 @@
             </div>
 
           <div class="mb-3">
-            <label for="ngaySinh" class="col-4 col-form-label">Ngày sinh</label>
+            <label for="ngaySinh" class="col-4 form-label">Ngày sinh</label>
             <div class="">
               <input id="ngaySinh" name="ngaySinh" placeholder="" class="form-control" type="date">
             </div>
@@ -105,17 +105,13 @@
 </div>
 
 <script>
-  // Lắng nghe sự kiện thay đổi của input file
   document.getElementById('anh').addEventListener('change', function() {
-    // Lấy thẻ img xem trước và input file
     var imgPreview = document.getElementById('img-preview-img');
     var input = this;
 
     if (input.files && input.files[0]) {
-      // Đọc tệp hình ảnh được chọn
       var reader = new FileReader();
       reader.onload = function(e) {
-        // Thiết lập src của thẻ img bằng dữ liệu ảnh đã đọc
         imgPreview.src = e.target.result;
       };
       reader.readAsDataURL(input.files[0]);

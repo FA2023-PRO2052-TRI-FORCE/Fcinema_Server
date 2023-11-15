@@ -1,35 +1,35 @@
     <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; border: 0; -webkit-box-shadow: 0 0 13px 0 rgba(82, 63, 105, .05); box-shadow: 0 0 13px 0 rgba(82, 63, 105, .05);">
-        <li class="breadcrumb-item"><a href="/nhanvien">Danh sách nhân viên</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Cập nhật nhân viên</li>
+        <li class="breadcrumb-item"><a href="/khachhang">Danh sách khách hàng</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Chi tiết</li>
       </ol>
       
       <div class="container d-flex" style="background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
-        <div class="col-md-9">
+        <div class="col-sm-12">
           {{#each listKH}}
           <form action="/nhanvien/sua/luu/{{email}}?_method=PUT" method="POST" id="nhanVienForm" enctype="multipart/form-data">
             <div class="row">
               <div class="col-sm-6">
                 <div class="mb-3">
-                  <label for="anh" class="col-4 col-form-label">Ảnh</label>
+                  <label for="anh" class="col-4 form-label">Ảnh</label>
                 </div>
       
                 <div class="mb-3">
-                  <div id="img-preview" class="rounded mx-auto d-block" style="width: 255px; height: 270px; overflow: hidden; background-color: aliceblue;">
+                  <div id="img-preview" class="rounded mx-auto d-block" style="width: 255px; height: 260px; overflow: hidden; background-color: aliceblue;">
                     <img class="rounded-circle me-2" id="img-preview-img" src="data:image/png;base64,{{this.anh}}" style="width: 100%; height: 100%; object-fit: cover;" alt="Ảnh" />
                   </div>
                 </div>
       
                 <div class="mb-3">
-                    <label for="hoTen" class="col-4 col-form-label">Họ tên</label>
+                    <label for="hoTen" class="col-4 form-label">Họ tên</label>
                     <div class="">
-                      <input id="hoTen" name="hoTen" placeholder="Họ tên" value="{{this.hoTen}}" class="form-control" type="text">
+                      <input id="hoTen" name="hoTen" placeholder="Họ tên" value="{{this.hoTen}}" class="form-control" disabled type="text">
                     </div>
                   </div>
       
                 <div class="mb-3">
-                  <label for="matKhau" class="col-4 col-form-label">Mật khẩu</label>
+                  <label for="matKhau" class="col-4 form-label">Mật khẩu</label>
                   <div class="">
-                    <input id="matKhau" name="matKhau" value="{{this.matKhau}}" placeholder="Mật khẩu" class="form-control" type="text">
+                    <input id="matKhau" name="matKhau" value="{{this.matKhau}}" placeholder="Mật khẩu" class="form-control" disabled type="text">
                   </div>
                 </div>
 
@@ -39,44 +39,44 @@
 
       
                 <div class="mb-3">
-                  <label for="email" class="col-4 col-form-label">Email</label>
+                  <label for="email" class="col-4 form-label">Email</label>
                   <div class="">
-                    <input id="email" name="email" placeholder="Email" value="{{this.email}}" class="form-control" required="required" type="text">
+                    <input id="email" name="email" placeholder="Email" value="{{this.email}}" class="form-control" disabled required="required" type="text">
                   </div>
                 </div>
       
                 <div class="mb-3">
-                  <label for="dienThoai" class="col-4 col-form-label">Số điện thoại</label>
+                  <label for="dienThoai" class="col-4 form-label">Số điện thoại</label>
                   <div class="">
-                    <input id="dienThoai" name="dienThoai" value="{{this.dienThoai}}" placeholder="Số điện thoại" class="form-control" type="text">
+                    <input id="dienThoai" name="dienThoai" value="{{this.dienThoai}}" placeholder="Số điện thoại" class="form-control" disabled type="text">
                   </div>
                 </div>
       
                 <div class="mb-3">
-                  <label for="diaChi" class="col-4 col-form-label">Địa chỉ</label>
+                  <label for="diaChi" class="col-4 form-label">Địa chỉ</label>
                   <div class="">
-                    <input id="diaChi" name="diaChi" placeholder="Địa chỉ"value="{{this.diaChi}}"  class="form-control" type="text">
+                    <input id="diaChi" name="diaChi" placeholder="Địa chỉ"value="{{this.diaChi}}"  class="form-control" disabled type="text">
                   </div>
                 </div>
       
                   <div class="mb-3">
                       <label class="form-label" for="gioiTinh">Giới tính</label>
-                      <select id="gioiTinh" name="gioiTinh" class="form-control">
+                      <select id="gioiTinh" name="gioiTinh" class="form-control" disabled>
                           <option value="Nam"{{#eq "Nam" this.gioiTinh}}selected{{/eq}}>Nam</option>
                           <option value="Nữ"{{#eq "Nữ" this.gioiTinh}}selected{{/eq}}>Nữ</option>                    
                       </select>
                   </div>
       
                 <div class="mb-3">
-                  <label for="ngaySinh" class="col-4 col-form-label">Ngày sinh</label>
+                  <label for="ngaySinh" class="col-4 form-label">Ngày sinh</label>
                   <div class="">
-                    <input id="ngaySinh" name="ngaySinh"  value="{{parseDate ngaySinh}}" placeholder="" class="form-control" type="date">
+                    <input id="ngaySinh" name="ngaySinh"  value="{{formatDate ngaySinh}}" placeholder="" class="form-control" disabled >
                   </div>
       
                   <div class="mb-3">
-                    <label for="ngaySinh" class="col-4 col-form-label">Trạng thái tài khoản</label>
+                    <label for="ngaySinh" class="col-4 form-label">Trạng thái tài khoản</label>
                     <div class="">
-                      <input id="ngaySinh" name="ngaySinh"  value="{{convertStatusUser trangThaiNguoiDung}}" placeholder="" class="form-control" >
+                      <input id="ngaySinh" name="ngaySinh"  value="{{convertStatusUser trangThaiNguoiDung}}" placeholder="" class="form-control" disabled >
                     </div>                  
                 </div>
               </div>
@@ -84,7 +84,6 @@
       
             <div class="mb-3">
               <div class="text-center">
-                <!-- <button  class="btn btn-primary" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px;">Cập nhật</button> -->
               </div>
             </div>
           </form>
