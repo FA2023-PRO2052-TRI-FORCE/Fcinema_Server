@@ -6,7 +6,7 @@ const defaultImg= path.join(__dirname,'../../resources/upload/cinema_logo_4x.png
 
  class doAn{
     // GET[]/doan
-    async getAllDoAn(req,res){
+    async getAllSanPham(req,res){
         const hoTenND=req.session.user[0].hoTen;
         const anhND=req.session.user[0].anh;
         const notificationSuccess = req.flash('notificationSuccess');
@@ -24,7 +24,7 @@ const defaultImg= path.join(__dirname,'../../resources/upload/cinema_logo_4x.png
         })        
     }
     // GET[]doan/idDoAn
-    async getDoAnById(req,res){
+    async getSanPhamById(req,res){
         const hoTenND=req.session.user[0].hoTen;
         const anhND=req.session.user[0].anh;
         const idDoAn=req.params.idDoAn;
@@ -41,7 +41,7 @@ const defaultImg= path.join(__dirname,'../../resources/upload/cinema_logo_4x.png
         })  
     }
     // GET[]doan/them
-    async getThemDoAn(req,res){
+    async getThemSanPham(req,res){
         const hoTenND=req.session.user[0].hoTen;
         const anhND=req.session.user[0].anh;
         res.render('popcorn/addPopcorn', { 
@@ -51,7 +51,7 @@ const defaultImg= path.join(__dirname,'../../resources/upload/cinema_logo_4x.png
         })      
     }
     // PUT[]doan/them/luu
-    async addNewDoAn(req,res){
+    async addNewSanPham(req,res){
         upload.single("anh")(req, res, async function (err) {
             if (err) {
                 console.error("Lỗi khi thêm ảnh: " + err);
@@ -76,18 +76,18 @@ const defaultImg= path.join(__dirname,'../../resources/upload/cinema_logo_4x.png
                 connection.query(checkQuerry,[tenDoAn],(checkErr,checkResults)=>{
                     if(checkResults.length>0){
                         req.flash("notificationErr", "Tên đồ ăn đã tồn tại ");
-                        res.redirect("/doan");                    
+                        res.redirect("/sanpham");                    
                         return;
                     }
                     connection.query(insertQuery,insertValues,(err,results)=>{
                         if(err){
                             console.error('Lỗi',err.message);
                             req.flash("notificationErr", "Lỗi: " + err.message);
-                            res.redirect("/doan");                    
+                            res.redirect("/sanpham");                    
                             return;
                         }
                         req.flash("notificationSuccess", "Thêm thành công");
-                        res.redirect("/doan");
+                        res.redirect("/sanpham");
                     })
                 })
 
@@ -96,12 +96,12 @@ const defaultImg= path.join(__dirname,'../../resources/upload/cinema_logo_4x.png
         })
     }    
     // PUT[]doan/capnhat/:idDoAn
-    async updateDoAnById(req,res){
+    async updateSanPhamById(req,res){
         upload.single("anh")(req, res, async function (err) {
             if (err) {
               console.error('Lỗi', err);
               req.flash("notificationErr", "Lỗi");
-              res.redirect('/doan');
+              res.redirect('/sanpham');
               return;
             }
             const idDoAn=req.params.idDoAn;
@@ -129,10 +129,10 @@ const defaultImg= path.join(__dirname,'../../resources/upload/cinema_logo_4x.png
               if (err) {
                 console.error('Lỗi', err);
                 req.flash("notificationErr", "Lỗi");
-                res.redirect('/doan');
+                res.redirect('/sanpham');
               } else {
                 req.flash("notificationSuccess", "Cập nhật thành công");
-                res.redirect('/doan');
+                res.redirect('/sanpham');
               }
             });
           });
@@ -140,7 +140,7 @@ const defaultImg= path.join(__dirname,'../../resources/upload/cinema_logo_4x.png
 
 
     // PUT[]doan/xoa/:idDoAn
-    async deleteDoAn(req,res){
+    async deleteSanPham(req,res){
         let idDoAn=req.params.idDoAn;
 
         const deleteQuery=`UPDATE DoAn SET hienThi = 0 WHERE idDoAn = ?`;
@@ -148,12 +148,12 @@ const defaultImg= path.join(__dirname,'../../resources/upload/cinema_logo_4x.png
             if (err) {
                 console.error('Lỗi',err.message);
                 req.flash("notificationErr", "Lỗi: " + err.message);
-                res.redirect("/doan");                    
+                res.redirect("/sanpham");                    
                 return;
             } 
 
             req.flash('notificationSuccess', 'Xoá thành công');
-            res.redirect("/doan");
+            res.redirect("/sanpham");
 
         }
         );        
