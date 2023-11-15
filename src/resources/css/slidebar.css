@@ -55,6 +55,15 @@ body {
     margin: 2px;
     list-style-type: none !important;
   }
+  .form-control[readonly], .form-control:disabled{
+    background-color: #fff !important;
+  }
+  .form-label{
+    font-weight: bold !important;
+  }
+  .form-check-input[type=checkbox] {
+    border-radius: 0 ;
+  }
   .btn-toggle:hover,
   .btn-toggle:focus,
   .nav-link:hover,
