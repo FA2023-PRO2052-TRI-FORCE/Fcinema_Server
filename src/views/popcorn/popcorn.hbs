@@ -1,11 +1,11 @@
     <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;    -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
     box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
-    <li class="breadcrumb-item active" aria-current="page">Danh sách đồ ăn</li>
+    <li class="breadcrumb-item active" aria-current="page">Danh sách sản phẩm</li>
   </ol> 
 <div class="container">
     <div class="input-group d-flex justify-content-between" style="align-items: center;"> 
-        <h6 style="padding: 0 20px; font-weight: bold;">Danh sách đồ ăn</h6>
-        <a type="button" href="/doan/them" class="btn btn-primary" style="margin: 20px; border-radius: 5px; font-weight: bold;">Thêm đồ ăn</a>
+        <h6 style="padding: 0 20px; font-weight: bold;">Danh sách sản phẩm</h6>
+        <a type="button" href="/sanpham/them" class="btn btn-primary" style="margin: 20px; border-radius: 5px; font-weight: bold;">Thêm sản phẩm</a>
     </div>          
     <hr>
             
@@ -29,7 +29,7 @@
          <td class="p-2 text-center align-items-center align-middle">{{this.coSan}}</td>
          <td class="p-2 text-center align-items-center align-middle">{{formatCurrency this.giaDoAn 'vnd'}}</td>
          <td class="p-2 text-center align-items-center align-middle">
-          <a href="/doan/{{this.idDoAn}}" class="btn btn-success" style="margin-bottom: 10px; width: 90px;">Chi tiết</a>
+          <a href="/sanpham/{{this.idDoAn}}" class="btn btn-success" style="margin-bottom: 10px; width: 90px;">Chi tiết</a>
           <button type="button" data-id-do-an="{{this.idDoAn}}" class="btn btn-danger" data-bs-toggle="modal"data-bs-target="#deleteModal" style="margin-bottom: 10px; width: 90px;">Xóa</button>
         </td>
       </tr>
@@ -50,7 +50,7 @@
   {{/if}}
 </div>
 
-{{!-- form xoá đồ ăn --}}
+{{!-- form xoá sản phẩm --}}
 
 <form name="del-do-an-form" method="POST"></form>
 
@@ -65,7 +65,7 @@
         </button>
       </div>
       <div class="modal-body">
-        Bạn có chắc chắn muốn xóa đồ ăn này này?
+        Bạn có chắc chắn muốn xóa sản phẩm này này?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
@@ -88,7 +88,7 @@
           idDoAn = button.data('id-do-an') 
       })
       btnDelDoan.onclick=function(){
-          deleteForm.action="/doan/xoa/"+idDoAn+"?_method=PUT"
+          deleteForm.action="/sanpham/xoa/"+idDoAn+"?_method=PUT"
           deleteForm.submit();
       }
   })</script>

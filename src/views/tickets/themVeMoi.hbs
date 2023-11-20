@@ -7,16 +7,17 @@
     <h6 style="padding: 10px 20px; font-weight: bold;">Thêm Vé Đặt</h6>
     <hr>
 
-    <form action="/ve/them/luu" method="POST" class="container-form-add mx-auto" style="max-width: 900px;">
+    <form action="/ve/them/luu" method="POST" class="container-form-add mx-auto" style="max-width: 1000px;">
         <div class="row">
             <div class="col-sm-6">
                 <div class="mb-3">
                     <label class="form-label" for="idVe">Mã Vé</label>
-                    <input class="form-control" name="idVe" id="idVe" value="{{idVe}}" aria-describedby="helpId" />
+                    <input class="form-control" readonly name="idVe" id="idVe" value="{{idVe}}" aria-describedby="helpId" />
                 </div>                
                 <div class="mb-3">
                     <label class="form-label" for="category">Chọn Phim</label>
                     <select id="category" name="idLichChieu" class="form-control">
+                        <option value="">Chọn phim</option>
                         {{#each listLC}}                        
                         <option value="{{this.idLichChieu}}"
                         data-ngaychieu="{{formatDate this.ngayChieu}}"
@@ -24,28 +25,32 @@
                         data-phongchieu="{{this.tenPhongChieu}}"
                         data-idPhongChieu="{{this.idPhongChieu}}"
                         data-id-LichChieu="{{this.idLichChieu}}"
+                        data-ten-ghe="{{this.tenGhe}}"
+                        data-anh="{{this.anh}}"
                         data-giaphim="{{this.giaPhim}}">{{this.tenPhim}}</option>
                         {{/each}}
                     </select>
                 </div>
                 <div class="mb-3">
+                    <div id="output" class="rounded mx-auto d-block" style="width: 200px; height: 274px; overflow: hidden; background-color: aliceblue;">
+                        <img id="img-preview" src="" style="width: 100%; height: 100%; object-fit: cover;" alt="Ảnh xem trước" />
+                    </div>
+                </div> 
+
+                <div class="mb-3">
                     <label class="form-label" for="ngayChieu">Ngày chiếu</label>
-                    <input class="form-control"  name="ngayChieu" id="ngayChieu" aria-describedby="helpId" />
+                    <input class="form-control" readonly  name="ngayChieu" id="ngayChieu" aria-describedby="helpId" />
                 </div>
+
                 <div class="mb-3">
                     <label class="form-label" for="phongChieu">Phòng chiếu</label>
-                    <input class="form-control"  name="phongChieu" id="phongChieu" aria-describedby="helpId" />
+                    <input class="form-control" readonly  name="phongChieu" id="phongChieu" aria-describedby="helpId" />
                     <input type="text" class="form-control" name="idPhongChieu" id="idPhongChieu" hidden>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label d-block"  for="category">Ca chiếu</label>
-                    <input class="form-control" id="caChieu" type="text">
-                    
-                </div>
+                </div>   
             </div>
 
             <div class="col-sm-6">
-                <div class="cinema-layout ">
+                <div class="cinema-layout " style="">
                     <label class="form-label d-block" for="category">Chọn ghế</label>
 
                     <div class="d-flex justify-content-around">
@@ -179,11 +184,25 @@
                             </label>
                         </div>
                     </div>
-             </div>
-
+                    <h6 class="form-check-label">Ghi chú</h6>
+                    <div class="d-flex justify-content-around">
+                        <div class="mb-3">
+                            <input class="form-check-input" type="button" readonly style="background-color: #CC5500;">
+                            <label for="" class="form-check-label">Ghế đã chọn</label>
+                        </div> 
+                        <div class="mb-3">
+                            <input class="form-check-input" type="button" readonly style="background-color: #fff;">
+                            <label for="" class="form-check-label">Ghế trống</label>
+                        </div> 
+                        <div class="mb-3">
+                            <input class="form-check-input" type="button" readonly style="background-color: #28a745;">
+                            <label for="" class="form-check-label">Ghế chọn</label>
+                        </div>                                                        
+                    </div>
+                    </div>
                 <div class="mb-3">
                     <label class="form-label" for="price">Giá phim</label>
-                    <input class="form-control" name="price" id="giaPhim" aria-describedby="helpId" />
+                    <input class="form-control" readonly name="price" id="giaPhim" aria-describedby="helpId" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="phuongThucTT">Phương thức thanh toán</label>
@@ -193,107 +212,83 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="price">Tổng tiền</label>
-                    <input class="form-control" name="tongTien" id="tongTien" aria-describedby="helpId" />
+                    <label class="form-label" for="price">Tổng tiền vé (1)</label>
+                    <input class="form-control" readonly  name="tongTienVe" id="tongTienVe" aria-describedby="helpId" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="">Tên ghế</label>
-                    <input class="form-control" name="tenGhe" id="tenGhe" aria-describedby="helpId" />
+                    <label class="form-label" for="">Vị trí ghế</label>
+                    <input class="form-control" readonly name="tenGhe" id="tenGhe" aria-describedby="helpId" />
+                </div> 
+                <div class="mb-3">
+                    <label class="form-label d-block"  for="category" >Ca chiếu</label>
+                    <input class="form-control" readonly id="caChieu" type="text">
                 </div>                
+                                          
             </div>
         </div>
+        <hr>
+        <div class="mb-3">
+            <label class="form-label" for="price">Chọn sản phẩm</label>
+        </div>
+        <table id="data-table" class="table table-bordered"style="width:100%">
+            <thead class="thead-dark">
+            <tr>
+                <th class="p-2 text-center">#</th>
+                <th class="p-2 text-center">Ảnh</th>
+                <th class="p-2 text-center">Tên sản phẩm</th>
+                <th class="p-2 text-center">Có sẵn</th>
+                <th class="p-2 text-center">Đơn giá</th>
+                <th class="p-2 text-center" style="width: 98.2px;">Số lượng</th>
+                <th class="p-2 text-center" >Tổng (2)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each listDoAn}}
+            <tr class="">
+                <td>{{sum 1 @index }}</td>
+                <td class=" align-middle p-2 text-center" style="width: 75px; height: 75px; overflow: hidden;"><img src="data:image/png;base64,{{this.anh}}"  style="width: 100%; height: 100%; object-fit: cover;" class="img-thumbnail rounded-circle me-2" alt=""></td>
+                <td class="p-2 text-center align-items-center align-middle">{{this.tenDoAn}}</td>
+                <td class="p-2 text-center align-items-center align-middle" id="coSan">{{this.coSan}}</td>
+                <td class="p-2 text-center align-items-center align-middle" id="giaDoAn" value="{{this.giaDoAn}}" >{{formatCurrency this.giaDoAn 'vnd'}}</td>
+                <td class="p-2 text-center align-items-center align-middle" >
+                <input type="number" style="width:98.2px" oninput="limitValue(this)" max="{{this.coSan}}" name="soLuong"  onkeyup="handleKeyUp(this)" >
+                 <input class="d-none" type="text" name="idDoAn" value="{{this.idDoAn}}">
+                 <input class="d-none" type="text" name="coSan" value="{{this.coSan}}">                 
+                </td>
+                <td class="p-2 text-center align-items-center align-middle" name="totalPrice"></td>
+            </tr>
+            {{/each}}
+            </tbody>
+        </table>     
+        
+        <hr>
+        <div class="mb-3">
+            <h6 class="form-label" for="price">Thành tiền: (1)+(2)</h6>
+            <input class="form-control" readonly  name="tongTien" id="tongTien" aria-describedby="helpId" />
+        </div> 
+        <hr>         
 
         <div class="text-center">
-            <button name="add" class="btn btn-primary" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px;">Thêm vé mới</button>
+            <button name="add" id="btnSubmit" class="btn btn-primary" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px;">Thêm vé mới</button>
+            
         </div>
+
     </form>
+
 </div>
+{{#if notificationErr.length}}
+    <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+        <strong>{{notificationErr}}</strong>
+    </div>
+{{/if}}
+{{#if notificationSuccess.length}}
+    <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+        <strong style="text-align: center;">{{notificationSuccess}}</strong>
+    </div>
+{{/if}}</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.js"></script>
-
-<script>
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    const giaPhimInput = document.getElementById('giaPhim');
-    const tongTienInput = document.getElementById('tongTien'); 
-    const gheSelected= document.getElementById('tenGhe');
-
-    document.getElementById("category").addEventListener("change", function() {
-        var selectedIndex = this.selectedIndex;
-        var selectedOption = this.options[selectedIndex];
-        var ngayChieu = selectedOption.getAttribute("data-ngaychieu");
-        var caChieu = selectedOption.getAttribute("data-cachieu");
-        var phongChieu = selectedOption.getAttribute("data-phongchieu");
-        var giaPhim = selectedOption.getAttribute("data-giaphim");
-        var idPhongChieu = selectedOption.getAttribute("data-idPhongChieu");
-        var idLichChieu=selectedOption.getAttribute("data-id-LichChieu")
-      
-
-        document.getElementById("ngayChieu").value = ngayChieu;
-        document.getElementById("caChieu").value = caChieu;
-        document.getElementById("phongChieu").value = phongChieu;
-        document.getElementById("giaPhim").value = giaPhim;
-        document.getElementById('idPhongChieu').value=idPhongChieu;
- 
-       checkboxes.forEach(function (checkbox) {
-            checkbox.checked = false;
-
-        }); 
-        tongTienInput.value=''; 
-        gheSelected.value ='';
-        
-    });
-
-    function getCurrentDateTimeString() {
-        const now = new Date();
-
-        const year = now.getFullYear();
-        const month = (now.getMonth() + 1).toString().padStart(2, '0');
-        const day = now.getDate().toString().padStart(2, '0');
-        const hours = now.getHours().toString().padStart(2, '0');
-        const minutes = now.getMinutes().toString().padStart(2, '0');
-        const seconds = now.getSeconds().toString().padStart(2, '0');
-
-        return `${year}${month}${day}${hours}${minutes}${seconds}`;
-    }
-
-    const currentDateTimeString = getCurrentDateTimeString();
-    document.getElementById('idVe').value = 'VE'+currentDateTimeString;  
-   
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function () {
-                const tenGhe = this.value; 
-                console.log('Đã chọn ghế:', tenGhe);
-
-                const giaPhim = Number(giaPhimInput.value);
-                const tongTien = Number(tongTienInput.value);
-                let newTongTien;
-
-                if (this.checked) {
-                    const giaGhe = giaPhim;
-                    const newTongTien = Number(tongTien + giaGhe);
-                    tongTienInput.value = newTongTien;
-                console.log('Tổng tiền:', newTongTien);
-                    if (gheSelected.value === '') {
-                        gheSelected.value = tenGhe;
-                    } else {
-                         gheSelected.value += ', ' + tenGhe;
-                    }                
-
-                } else {
-                    const giaGhe = giaPhim;
-                    const newTongTien = tongTien - giaGhe;
-                    tongTienInput.value = newTongTien;
-                    gheSelected.value = gheSelected.value.replace(new RegExp(',?\\s?' + tenGhe), '');
-
-                console.log('Tổng tiền:', newTongTien);
-                
-                }
-                
-        });
-     });
-          
-</script>
-
-
+<script src="../../public/addVeScript.js"></script>
 
 
 

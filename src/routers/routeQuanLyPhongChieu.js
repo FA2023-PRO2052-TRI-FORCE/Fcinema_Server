@@ -1,11 +1,11 @@
 const express=require('express');
 const router=express.Router();
 
-const qlPhongChieu=require('../app/controller/quanLyPhongChieu');
+const phongChieu=require('../app/controller/quanLyPhongChieu');
 
 
-router.get('/phongChieu',qlPhongChieu.goToQLPC)
-
+router.get('/phongChieu',phongChieu.getAllPhongChieu)
+router.put('/phongchieu/:idPhongChieu',phongChieu.updatePhongChieu);
 
 
 

@@ -134,7 +134,7 @@ class qlNhanVien {
 
   // PUT[]delete/:idNhanVien
   async deleteEmployee(req, res) {
-    const idNhanVien = req.params.idNhanVien;
+    let idNhanVien = req.params.idNhanVien;
     const updateQuerry = "UPDATE NhanVien SET hienThi=0 WHERE idNhanVien=?";
     connection.query(updateQuerry, [idNhanVien], (err, results) => {
       if (err) {

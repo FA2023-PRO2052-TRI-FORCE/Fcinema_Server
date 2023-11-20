@@ -30,7 +30,7 @@
               <td class="p-2 text-center align-middle"style="width: 100px;"  >{{this.tenTheLoai}}</td>             
               <td class="p-2 text-center align-middle mx-auto"style="width: 100px; " >
                 <a href="" type="button" style="margin-bottom: 10px; width: 90px;" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#update-loai-phim-{{this.idTheLoai}}" data-id-the-loai="{{this.idTheLoai}}">Cập nhật</a>
-                <a href="" class="btn btn-danger " data-toggle="modal" data-target="#delete-the-loai" style="margin-bottom: 10px; width: 90px;" data-id-the-loai="{{this.idTheLoai}}" data-id="{{this.idTheLoai}}">Xóa</a>
+                <button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#delete-the-loai" style="margin-bottom: 10px; width: 90px;" data-id-the-loai="{{this.idTheLoai}}" >Xóa</button>
               </td>
             </tr>
           {{/each}}
@@ -54,17 +54,6 @@
   {{/if}}
 </div>
 
-<script>
-    $(document).ready(function() {
-    $('.alert').addClass("show");
-    $('.alert').removeClass("hide");
-    $('.alert').addClass("showAlert");
-    setTimeout(function(){
-        $('.alert').removeClass("show");
-        $('.alert').addClass("hide");
-    },3000);
-  }); 
-</script>
 
 <!-- Thêm Loại Phim Modal -->
 <div class="modal fade" tabindex="-1" role="dialog" id="addthe-loai">

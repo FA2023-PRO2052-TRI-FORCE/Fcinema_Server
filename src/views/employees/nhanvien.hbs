@@ -11,45 +11,43 @@
         </div>        
         <hr>
       <div class="col-12">
-      
-        {{!-- Add --}}
-<div class="container">
-  <table id="data-table" class="table table-bordered"style="width:100%">
-    <thead class="thead-dark">
-      <tr>
-        <th class="p-2 text-center align-middlen align-items-center">#</th>
-        <th class="p-2 text-center align-middlen align-items-center" style="width: 75px">Ảnh</th>
-        <th class="p-2 text-center align-middlen align-items-center">Họ tên</th>
-        <th class="p-2 text-center align-middlen align-items-center">Mật khẩu</th>
-        <th class="p-2 text-center align-middlen align-items-center">Email</th>
-        <th class="p-2 text-center align-middlen align-items-center">Số điện thoại</th>
-        <th class="p-2 text-center align-middlen align-items-center">Địa chỉ</th>
-        <th class="p-2 text-center align-middlen align-items-center">Giới tính</th>
-        <th class="p-2 text-center align-middlen align-items-center">Ngày sinh</th>
-        <th class="p-2 text-center align-middlen align-items-center">Thao tác</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each listNhanVien}}
-      <tr class="">
-        <td class="p-2 align-middle align-middle">{{sum 1 @index }}</td>
-        <td class=" align-middle p-2 text-center align-middle" style="width: 75px; height: 75px; overflow: hidden;"><img src="data:image/png;base64,{{this.anh}}"  style="width: 100%; height: 100%; object-fit: cover;" class="img-thumbnail rounded-circle me-2" alt=""></td>
-        <td class="p-2 align-middle align-middle">{{this.hoTen}}</td>
-        <td class="p-2 align-middle align-middle">{{this.matKhau}}</td>
-        <td class="p-2 align-middle align-middle">{{this.email}}</td>
-        <td class="p-2 align-middle align-middle">{{this.dienThoai}}</td>
-        <td class="p-2 align-middle align-middle">{{this.diaChi}}</td>
-        <td class="p-2 align-middle align-middle">{{this.gioiTinh}}</td>
-        <td class="p-2 align-middle align-middle">{{formatDate this.ngaySinh "dd/MM/yyyy"}}</td>
-        <td class="p-2 text-center align-items-center align-middle">
-          <a href="/nhanvien/sua/{{this.idNhanVien}}" class="btn btn-success" style="margin-bottom: 10px; width: 90px;">Sửa</a>
-          <a href="" class="btn btn-danger" data-toggle="modal" data-target="#delete-nhan-vien" style="margin-bottom: 10px; width: 90px;" data-id-nhan-vien="{{this.idNhanVien}}" data-id="{{this.idNhanVien}}">Xóa</a>
-        </td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-</div>
+        <div class="container">
+        <table id="data-table" class="table table-bordered"style="width:100%">
+          <thead class="thead-dark">
+            <tr>
+              <th class="p-2 text-center align-middlen align-items-center">#</th>
+              <th class="p-2 text-center align-middlen align-items-center" style="width: 75px">Ảnh</th>
+              <th class="p-2 text-center align-middlen align-items-center">Họ tên</th>
+              <th class="p-2 text-center align-middlen align-items-center">Mật khẩu</th>
+              <th class="p-2 text-center align-middlen align-items-center">Email</th>
+              <th class="p-2 text-center align-middlen align-items-center">Số điện thoại</th>
+              <th class="p-2 text-center align-middlen align-items-center">Địa chỉ</th>
+              <th class="p-2 text-center align-middlen align-items-center">Giới tính</th>
+              <th class="p-2 text-center align-middlen align-items-center">Ngày sinh</th>
+              <th class="p-2 text-center align-middlen align-items-center">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each listNhanVien}}
+            <tr class="">
+              <td class="p-2 align-middle align-middle">{{sum 1 @index }}</td>
+              <td class=" align-middle p-2 text-center align-middle" style="width: 75px; height: 75px; overflow: hidden;"><img src="data:image/png;base64,{{this.anh}}"  style="width: 100%; height: 100%; object-fit: cover;" class="img-thumbnail rounded-circle me-2" alt=""></td>
+              <td class="p-2 align-middle align-middle">{{this.hoTen}}</td>
+              <td class="p-2 align-middle align-middle">{{this.matKhau}}</td>
+              <td class="p-2 align-middle align-middle">{{this.email}}</td>
+              <td class="p-2 align-middle align-middle">{{this.dienThoai}}</td>
+              <td class="p-2 align-middle align-middle">{{this.diaChi}}</td>
+              <td class="p-2 align-middle align-middle">{{this.gioiTinh}}</td>
+              <td class="p-2 align-middle align-middle">{{formatDate this.ngaySinh "dd/MM/yyyy"}}</td>
+              <td class="p-2 text-center align-items-center align-middle">
+                <a href="/nhanvien/sua/{{this.idNhanVien}}" class="btn btn-success" style="margin-bottom: 10px; width: 90px;">Sửa</a>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-nhan-vien" style="margin-bottom: 10px; width: 90px;" data-id-nhan-vien="{{this.idNhanVien}}">Xóa</button>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
 
 <form name="del-nhanvien-form" method="POST"></form>
 
@@ -104,3 +102,4 @@
           deleteForm.submit();
       }
   })
+</script>

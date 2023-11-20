@@ -66,25 +66,38 @@ app.engine(
       object: function (context) {
         return JSON.parse(context);
       },
-      convertStatus:function(trangThai) {
+      convertStatusCinemax:function(trangThai) {
         return trangThai === 1 ? 'Đang hoạt động' : 'Không hoạt động';
-
       },
-      bufferToBlob: function (buffer, mimeType) {
-        const blob = new Blob([buffer], { type: mimeType });
-        return URL.createObjectURL(blob);
-      },
-
       parseDate: function(date) {
         return date.toString().split('T')[0];  
        },
        convertStatusUser:function(trangThai) {
         return trangThai === 1 ? 'Đang hoạt động' : trangThai===0? 'Ngừng hoạt động' :'Chờ xác nhận xoá ';
       },
-  
-   
-      
+      convertStatusTicket:function(trangThai) {
+        return trangThai === 0 ? 'Đã thanh toán' : trangThai===1? 'Chưa thanh toán' :'Vé hết hạn ';
+      },   
+      notEqual: function (a, b, options) {
+        return a !== b ? options.fn(this) : options.inverse(this);
       },
+      eq2(val1, val2, options) {
+        if (val1 === val2) {
+          return options.fn(this);
+        } else {
+          return options.inverse(this);
+        }
+      },  
+      multiply: function (a, b) {
+        return a * b;
+      }, 
+      parseInt: function(value) {
+        return parseInt(value, 10);
+      },
+      parseFloat: function(value) {
+        return parseFloat(value);
+      },                           
+    },
   })
 );
 
