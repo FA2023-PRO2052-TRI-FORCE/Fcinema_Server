@@ -4,7 +4,7 @@ const getAllPhimDC = (req, res) => {
   connection.query(
     "select a.tenPhim, a.anh, a.nuocSX, a.namSX, a.thoiLuong, a.ngonNgu, a.daoDien," +
       "a.idPhim, a.moTa, b.idLichChieu, b.giaPhim, b.ngayChieu, b.caChieu, c.tenTheLoai, d.idPhongChieu, d.tenPhongChieu from phim a join lichChieu b on a.idPhim = b.idPhim" +
-      " join theLoai c on a.idTheLoai = c.idTheLoai join phongChieu d on b.idPhongChieu = d.idPhongChieu where b.hienThi = 1 ",
+      " join theLoai c on a.idTheLoai = c.idTheLoai join phongChieu d on b.idPhongChieu = d.idPhongChieu where b.hienThi = 1  and b.ngayChieu = CURRENT_DATE",
     (err, result) => {
       if (err) throw err;
       res.send(result);
