@@ -1,47 +1,51 @@
-const connection = require("../../config/connection");
+const PhongChieu = require('../model/phongChieuModel');
 
-class quanLyPhongChieu{
+const phongChieu = new PhongChieu();
+
+class quanLyPhongChieu {
     //GET[]/phongchieu
-    async getAllPhongChieu(req,res){
-        const hoTenND=req.session.user[0].hoTen;
-        const anhND=req.session.user[0].anh;
-        const querry=`SELECT * FROM PhongChieu`;
-        const notificationSuccess = req.flash('notificationSuccess');
-        const notificationErr = req.flash('notificationErr'); 
-        connection.query(querry,(err,results)=>{
-            res.render('others/phongChieu', { 
+    async getAllPhongChieu(req, res) {
+        try {
+            const hoTenND = req.session.user[0].hoTen;
+            const anhND = req.session.user[0].anh;
+
+            const listPC = await phongChieu.getPhongChieus();
+
+            const notificationSuccess = req.flash('notificationSuccess');
+            const notificationErr = req.flash('notificationErr');
+
+            res.render('others/phongChieu', {
                 title: 'Phòng Chiếu',
-                hoTenND:hoTenND,
-                anhND:anhND,
-                listPC:results,
+                hoTenND,
+                anhND,
+                listPC,
                 notificationErr,
-                notificationSuccess
-         })
-        }) 
+                notificationSuccess,
+            });
+        } catch (error) {
+            console.error(error);
+            req.flash('notificationErr', 'Lỗi xử lý dữ liệu');
+            res.redirect('/error-page'); // Redirect to an error page or handle it as needed
+        }
     }
     // PUT[]/phongchieu/:idPhongChieu
-    async updatePhongChieu(req,res){
-        const idPhongChieu=req.params.idPhongChieu;
-        const trangThai=req.body.trangThai;
-        
-        let updateTrangThaiQuerry=[];
+    async updatePhongChieu(req, res) {
+        try {
+            const idPhongChieu = req.params.idPhongChieu;
+            const trangThai = req.body.trangThai;
 
-        if(trangThai==0){
-            updateTrangThaiQuerry=`UPDATE PhongChieu SET trangThai=1 WHERE idPhongChieu=?`;
-        }else{
-            updateTrangThaiQuerry=`UPDATE PhongChieu SET trangThai=0 WHERE idPhongChieu=?`;
+            await phongChieu.updateTrangThaiPhongChieu(idPhongChieu, trangThai)
+            req.flash('notificationSuccess', 'Reset thành công');
+            res.redirect("back");
 
+        } catch (error) {
+            console.error(error)
+            req.flash('notificationErr', 'Lỗi' + error);
+            res.redirect("back");
+            return;
         }
 
-        connection.query(updateTrangThaiQuerry,[idPhongChieu],(err,results)=>{
-            if(err){
-                req.flash('notificationErr','Lỗi');
-                res.redirect("back");
-                return;
-            }
-            req.flash('notificationSuccess','Reset thành công');
-            res.redirect("back");
-        })
+
     }
 }
 module.exports = new quanLyPhongChieu()
