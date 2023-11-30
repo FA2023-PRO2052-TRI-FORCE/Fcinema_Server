@@ -1,71 +1,306 @@
-  <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;  -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+<ol class="breadcrumb"
+    style="background-color: #fff; font-weight: bold !important; col; border-radius:0;  -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
     <li class="breadcrumb-item active" aria-current="page">Tổng quan</li>
-  </ol> 
-  <div class="container" style="min-height: 500px; background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);"> 
-<!-- Icon Cards -->
-<div class="title-" style="justify-content: center;margin-left: 15px;">
-    <h6  style="padding: 10px 20px; font-weight: bold;">Xin chào,{{req.session.user.hoTen}} </h6>
+</ol>
+<div class=""
+    style="min-height: 100vh; min-width: 100vh; padding: 0;  background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+    <div class="title-" style="justify-content: center;margin-left: 15px;">
+        <h6 style="padding: 10px 20px; font-weight: bold;">Xin chào,{{ hoTenND}} </h6>
+    </div>
     <hr>
-</div>
-<div class="container" style="margin-top: 30px;">
-    <div class="row">
-        <div class="col-md-3" >
-            <div class="card border-0" style="width: 400; height: 200px;background-color: #FFFF; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                <div class="card-header card-header-no-border" style="border-bottom: #FFF;background-color: #FFFF;">
-                    <h5 class="card-title">Phim</h5>
-                </div>
-                                
-                <div class="card-footer" style="border-top: #FFF;background-color: #FFFF;">
-                    <p class="card-text">Tổng số phim: 4000</p>
+
+    <div class="container" style="margin-top: 30px;">
+        <div class="row">
+            <div class="col-sm-6 d-flex justify-content-center">
+                <div style="width: 450px; height: 400px; margin-bottom: 10px;">
+                    <img class="rounded mx-auto d-block"
+                        src="../../resources/img/270253922_152001160514550_6484994815700574678_n.jpg" alt="Ảnh"
+                        style="width: 100%; height: 100%;object-fit:cover;">
                 </div>
             </div>
-        </div>
-        <div class="col-md-3" >
-            <div class="card border-0" style="width: 400; height: 200px;background-color: #FFFF; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                <div class="card-header card-header-no-border" style="border-bottom: #FFF;background-color: #FFFF;">
-                    <h5 class="card-title">Vé</h5>
-                </div>
-                                
-                <div class="card-footer" style="border-top: #FFF;background-color: #FFFF;">
-                    <p class="card-text">Tổng số vé đã bán: 4000</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3" >
-            <div class="card border-0" style="width: 400; height: 200px;background-color: #FFFF; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                <div class="card-header card-header-no-border" style="border-bottom: #FFF;background-color: #FFFF;">
-                    <h5 class="card-title">Nhân viên</h5>
-                </div>
-                                
-                <div class="card-footer" style="border-top: #FFF;background-color: #FFFF;">
-                    <p class="card-text">Tổng số Nhân viên: 10</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3" >
-            <div class="card border-0" style="width: 400; height: 200px;background-color: #FFFF; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                <div class="card-header card-header-no-border" style="border-bottom: #FFF;background-color: #FFFF;">
-                    <h5 class="card-title">Khách hàng</h5>
-                </div>
-                                
-                <div class="card-footer" style="border-top: #FFF;background-color: #FFFF;">
-                    <p class="card-text">Tổng số khách hàng: 400</p>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col mb-3 ">
+                        <div class="card border-0 mb-3"
+                            style="width: 17rem; padding: 10px; background-color: rgb(54, 162, 235); ">
+                            <div class="card-header card-header-no-border"
+                                style="border-bottom: none;background-color:rgb(54, 162, 235);">
+                                <h5 class="card-title">Phim</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text text-center">{{tongLichChieu}} </p>
+                            </div>
+
+                            <div class="card-footer" style="border-top: none;background-color: rgb(54, 162, 235);">
+                                <span>Phim đang chiếu</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-3 ">
+                        <div class="card border-0 mb-3"
+                            style="width: 17rem; padding: 10px; background-color: rgb(75, 192, 192); ">
+                            <div class="card-header card-header-no-border"
+                                style="border-bottom:none ;background-color: rgb(75, 192, 192);">
+                                <h5 class="card-title">Vé</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text text-center">{{tongVeToday}} </p>
+                            </div>
+
+                            <div class="card-footer" style="border-top:none;background-color: rgb(75, 192, 192);">
+                                <span>Vé đã bán hôm nay</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col mb-3 ">
+                        <div class="card border-0 mb-3"
+                            style="width: 17rem; padding: 10px; background-color: rgb(255, 205, 86); ">
+                            <div class="card-header card-header-no-border"
+                                style="border-bottom: none;background-color: rgb(255, 205, 86);">
+                                <h5 class="card-title">Sản phẩm</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text text-center">{{tongSanPham}} </p>
+                            </div>
+
+                            <div class="card-footer" style="border-top:none;background-color: rgb(255, 205, 86);">
+                                <span>Sản phẩm tồn kho</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-3 ">
+                        <div class="card border-0 mb-3"
+                            style="width: 17rem; padding: 10px; background-color:#fd7e14;">
+                            <div class="card-header card-header-no-border"
+                                style="border-bottom:none;background-color: #fd7e14;">
+                                <h5 class="card-title">Tổng</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text text-center">{{tongVe}} </p>
+                            </div>
+
+                            <div class="card-footer" style="border-top:none;background-color: #fd7e14;">
+                                <span>Vé đã được bán</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-</div>               
-<div>
-  {{#if notificationErr.length}}
-      <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-          <strong>{{notificationErr}}</strong>
-      </div>
-  {{/if}}
-  {{#if notificationSuccess.length}}
-      <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-          <strong style="text-align: center;">{{notificationSuccess}}</strong>
-      </div>
-  {{/if}}
-</div>
+    {{#eq vaiTro 'admin'}}
 
+    <hr>
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="chart-container"
+                    style="height: 650px; padding-bottom: 20px; background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05); padding: 10px;">
+                    <h6>Doanh Thu 12 tháng </h6>
+                    <canvas id="chartRevenueMonth"></canvas>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col mb-5">
+                        <div class="chart-container"
+                            style="height: 300px; width: 320px; background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05); padding: 10px;">
+                            <h6>Doanh thu 7 ngày qua</h6>
+                            <canvas id="chartRevenue7days"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="col mb-5">
+                        <div class="chart-container"
+                            style="height: 300px; width: 320px; background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05); padding: 10px;">
+                            <h6>Vé bán 7 ngày qua</h6>
+                            <canvas id="chartTicket7days"></canvas>
+                        </div>
+                    </div>
+                    <div class="w-100"></div>
+
+                    <div class="col mb-5" style="margin-bottom: 10px;">
+                        <div class="chart-container"
+                            style="height: 300px; width: 320px; background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05); padding: 10px;">
+                            <h6>Tổng vé tháng</h6>
+                            <canvas id="chartTicketMonth" style="padding-bottom: 10px;"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="col mb-5" style="margin-bottom: 10px;">
+                        <div class="chart-container"
+                            style="height: 300px; width: 320px; background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05); padding: 10px;">
+                            <h6>Sản phẩm </h6>
+                            <canvas id="chartSanpham" style="padding-bottom: 10px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {{/eq}}
+    <div>
+        {{#if notificationErr.length}}
+        <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert"
+            style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+            <strong>{{notificationErr}}</strong>
+        </div>
+        {{/if}}
+        {{#if notificationSuccess.length}}
+        <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert"
+            style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+            <strong style="text-align: center;">{{notificationSuccess}}</strong>
+        </div>
+        {{/if}}
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>   
+
+
+<script>
+  const ctxTicketWeek = document.getElementById('chartTicket7days');
+  const dates={{{json dates}}};
+  const totalVe=[{{{totalVe}}}];
+
+  new Chart(ctxTicketWeek, {
+    type: 'bar',
+    data: {
+      labels: dates,
+      datasets: [{
+        label: 'Số lượng',
+        data: totalVe,
+        borderWidth: 1,
+        backgroundColor :'rgb(75, 192, 192)',       
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1      
+      }]
+    },
+    options: { 
+      responsive: true,
+      maintainAspectRatio: false,          
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+<script>
+  const ctxProduct = document.getElementById('chartSanpham');
+  const nameProduct={{{json nameProduct}}};
+  const quantityOfProduct=[{{quantityOfProduct}}];
+
+  new Chart(ctxProduct, {
+    type: 'pie',
+    data: {
+      labels: nameProduct,
+      datasets: [{
+        label: "Số lượng",
+        data: quantityOfProduct,
+        borderWidth: 1,
+      }]
+    },
+    options: {  
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+<script>
+  const ctxRevenue7days = document.getElementById('chartRevenue7days');
+  const labelMonthRevenue={{{json dates}}};
+  const totalMoney=[{{{totalMoney}}}];
+
+  new Chart(ctxRevenue7days, {
+    type: 'line',
+    data: {
+      labels: labelMonthRevenue,
+      datasets: [{
+        label: 'VND',
+        data: totalMoney,
+        borderWidth: 1,
+        backgroundColor :'rgb(75, 192, 192)',       
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1      
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,        
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+<script>
+  const ctxRevenueMonth = document.getElementById('chartRevenueMonth');
+  const labelMonthVe=['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8' ,'Tháng 9', 'Tháng 10','Tháng 11', 'Tháng 12'];
+  const totalMoneyMonth=[{{{totalMoneyMonth}}}];
+
+  new Chart(ctxRevenueMonth, {
+    type: 'line',
+    data: {
+      labels: labelMonthVe,
+      datasets: [{
+        label: 'VND',
+        data: totalMoneyMonth,
+        borderWidth: 1,
+        backgroundColor :'rgb(75, 192, 192)',       
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1      
+      }]
+    },
+    options: { 
+      responsive: true,
+      maintainAspectRatio: false,            
+      scales: {
+        y: {
+          beginAtZero: false
+        }
+      }
+    }
+  });
+</script>
+
+<script>
+  const ctxTicketMonth = document.getElementById('chartTicketMonth');
+  const months=['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8' ,'Tháng 9', 'Tháng 10','Tháng 11', 'Tháng 12'];
+  const totalVeMonth=[{{{totalVeMonth}}}];
+
+  new Chart(ctxTicketMonth, {
+    type: 'bar',
+    data: {
+      labels: months,
+      datasets: [{
+        label: 'Số lượng',
+        data: totalVeMonth,
+        backgroundColor :'rgb(75, 192, 192)',       
+        borderColor: 'rgb(75, 192, 192)',        
+        borderWidth: 1,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,          
+      scales: {    
+        y: {
+          beginAtZero: false
+        }
+      }
+    }
+  });
+</script>    
