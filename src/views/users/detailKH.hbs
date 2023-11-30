@@ -3,7 +3,7 @@
         <li class="breadcrumb-item active" aria-current="page">Chi tiết</li>
       </ol>
       
-      <div class="container d-flex" style="background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+      <div class="container d-flex" style="min-height: 100vh; background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
         <div class="col-sm-12">
           {{#each listKH}}
           <form action="/nhanvien/sua/luu/{{email}}?_method=PUT" method="POST" id="nhanVienForm" enctype="multipart/form-data">

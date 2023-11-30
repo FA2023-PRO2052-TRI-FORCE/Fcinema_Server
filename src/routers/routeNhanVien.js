@@ -6,10 +6,10 @@ const authMiddleware=require('../middleware/authMiddleware');
 
 router.get('/nhanVien',authMiddleware,qlNhanVien.getAllNhanVien);
 
-router.post('/nhanvien/them/luu', qlNhanVien.addEmployee);
+router.post('/nhanvien/them/luu', qlNhanVien.insertNewNhanVien);
 router.get('/nhanvien/them',qlNhanVien.getAddNhanVien)
-router.put('/nhanvien/luutru/:idNhanVien',qlNhanVien.deleteEmployee)
-router.get('/nhanvien/sua/:id',qlNhanVien.getUpdateEmployee)
-router.put('/nhanvien/sua/luu/:idNhanVien',qlNhanVien.updateEmployee)
+router.put('/nhanvien/luutru/:idNhanVien',qlNhanVien.deleteNhanVienById)
+router.get('/nhanvien/sua/:id',qlNhanVien.getNhanVienById)
+router.put('/nhanvien/sua/luu/:idNhanVien',qlNhanVien.updateNhanVienById)
 
 module.exports=router;

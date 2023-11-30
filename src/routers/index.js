@@ -11,6 +11,7 @@ const lichChieu=require('./routeQuanLyLichChieu');
 const routeApp=require('./routeAPP');
 const doAn=require('./routeDoAn');
 const veDat=require('./routeQuanLyVeDat');
+const baner=require('./routeBaner');
 
 function route(app) {
   app.use('/', phim);
@@ -24,7 +25,8 @@ function route(app) {
   app.use('/',lichChieu)
   app.use('/',routeApp);
   app.use('/',doAn);
-  app.use('/',veDat)
+  app.use('/',veDat);
+  app.use('/',baner);
 }
 
 module.exports = route;

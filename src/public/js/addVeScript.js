@@ -120,6 +120,9 @@ document.getElementById("category").addEventListener("change", function () {
     var selectedOption = this.options[selectedIndex];
     var tenGhe = selectedOption.getAttribute("data-ten-ghe");
     var anh= selectedOption.getAttribute("data-anh");
+    
+
+    console.log('Index',selectedIndex)
 
     document.getElementById("ngayChieu").value = selectedOption.getAttribute("data-ngaychieu");
     document.getElementById("caChieu").value = selectedOption.getAttribute("data-cachieu");
@@ -134,6 +137,7 @@ document.getElementById("category").addEventListener("change", function () {
     document.getElementById('tenGhe').value = '';
 });
 
+
 // Set currentdate for maVe
 const currentDateTimeString = getCurrentDateTimeString();
 document.getElementById('idVe').value = 'VE' + currentDateTimeString;
@@ -143,6 +147,7 @@ const giaPhimInput = document.getElementById('giaPhim');
 const tongTienVeInput = document.getElementById('tongTienVe');
 const tongTienInput = document.getElementById('tongTien');
 const gheSelected = document.getElementById('tenGhe');
+document.getElementById("category").options[0].selected=true;
 let tongTienDoAn = 0;
 
 // Update tongTien, ghe when checkbox change

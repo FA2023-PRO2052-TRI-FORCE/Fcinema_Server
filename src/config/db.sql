@@ -165,3 +165,75 @@ CREATE TABLE IF NOT EXISTS`ChiTietDoAn`(
     FOREIGN KEY (`idDoAn`) REFERENCES DoAn(`idDoAn`),
     FOREIGN KEY (`idVe`) REFERENCES Ve(`idVe`) 
 );    
+-- 
+CREATE TABLE IF NOT EXISTS`baner`(
+    `idBaner`  INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    `anh` Longtext not null,
+    `hienThi` INT NOT NULL
+);    
+
+-- SELECT TỔNG SỐ ĐỒ ĂN ĐANG CÓ
+SELECT COUNT(idDoAn) AS SoLuongIdDoAnHienThi
+FROM DoAn
+WHERE hienThi = 1;
+-- tổng số đồ lượng đồ ăn có sẵn( tồn kho)
+SELECT SUM(coSan) AS TongCoSan
+FROM DoAn
+WHERE hienThi = 1;
+-- Tên đồ ăn kèm số lượng
+SELECT tenDoAn, SUM(coSan) AS TongSoLuong
+FROM DoAn 
+WHERE hienThi = 1
+GROUP BY tenDoAn;
+-- Tổng vé đã bán từ trước đến giờ
+SELECT COUNT(idVe) AS tongSo FROM ve
+-- Tổng vé đã bán hôm nay
+SELECT COUNT(idVe) AS tongSo FROM ve WHERE ngayMua=CURRENT_DATE 
+-- Số vé bán trong 7 ngày qua 
+-- Tạo bảng chứa tất cả các ngày trong 7 ngày qua
+CREATE TEMPORARY TABLE AllDays (
+    Ngay DATE
+);
+
+INSERT INTO AllDays (Ngay)
+VALUES
+    (CURDATE() - INTERVAL 6 DAY),
+    (CURDATE() - INTERVAL 5 DAY),
+    (CURDATE() - INTERVAL 4 DAY),
+    (CURDATE() - INTERVAL 3 DAY),
+    (CURDATE() - INTERVAL 2 DAY),
+    (CURDATE() - INTERVAL 1 DAY),
+    (CURDATE());
+
+SELECT AllDays.Ngay, COUNT(Ve.ngayMua) AS TongSoVe
+FROM AllDays
+LEFT JOIN Ve ON AllDays.Ngay = DATE(Ve.ngayMua)
+WHERE AllDays.Ngay BETWEEN CURDATE() - INTERVAL 6 DAY AND CURDATE()
+GROUP BY AllDays.Ngay;
+
+
+-- Tổng phim đang chiếu
+SELECT COUNT(idLichChieu) AS tongSoLichChieu FROM lichchieu WHERE hienThi=1
+-- vé mua online
+SELECT COUNT(*) as veOnline
+FROM Ve
+WHERE email IS NOT NULL;
+--vé mua tại quầy
+SELECT COUNT(*) as veTaiQuay FROM Ve WHERE idNhanVien IS NOT NULL;
+
+-- doanh thu theo năm
+SELECT
+    DATE_FORMAT(all_months.Thang, '%Y-%m') AS Thang,
+    COALESCE(SUM(Ve.tongTien), 0) AS TongDoanhThu
+FROM
+    (
+        SELECT '2023-01-01' + INTERVAL n MONTH AS Thang
+        FROM (
+            SELECT 0 AS n UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9 UNION SELECT 10 UNION SELECT 11
+        ) AS n
+    ) all_months
+LEFT JOIN
+    Ve ON DATE_FORMAT(all_months.Thang, '%Y-%m') = DATE_FORMAT(Ve.ngayMua, '%Y-%m')
+GROUP BY
+    DATE_FORMAT(all_months.Thang, '%Y-%m');
+

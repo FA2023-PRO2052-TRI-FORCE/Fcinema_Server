@@ -1,0 +1,161 @@
+  <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;    -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
+    box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+    <li class="breadcrumb-item active" aria-current="page">Quản baner</li>
+  </ol> 
+<div class="container" style="min-height: 500px;background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+  <div class="col-sm-12">
+    <div class="row">
+        <div class="input-group" style="display: flex; justify-content: space-between; margin: 20px;">
+        <h6 style="padding: 0 20px; font-weight: bold;">Danh sách baner</h6>          
+        <a type="button" href="#"  data-bs-toggle="modal" data-id="#" data-bs-target="#addBaner" class="btn btn-primary" style="margin-right: 40px; border-radius: 5px;">Thêm baner</a>
+        </div>          
+        <hr>
+      <div class="col-12">
+      
+        <table id="data-table"  class="table table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th class="p-2 text-center align-middle" scope="col">#</th>
+              <th class="p-2 text-center align-middle" scope="col" >Ảnh</th>
+              <th class="p-2 text-center align-middle" scope="col">Hành động</th>
+            </tr>
+          </thead>
+          <tbody>
+           {{#each listBaner}}
+            <tr>
+              <th class="p-2 text-center align-middle"style="width: 100px;" scope="row">{{sum 1 @index }}</th>
+              <td class="align-middle p-2 text-center" style="width: 200px; height: 150px; overflow: hidden;">
+                  <img src="data:image/png;base64,{{this.anh}}" style="width: 100%; height: 100%; object-fit: contain;" class="img-thumbnail" alt="">
+              </td>
+              <td class="p-2 text-center align-middle mx-auto"style="width: 100px; " >
+                <button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#delete-baner" style="margin-bottom: 10px; width: 90px;" data-id-baner="{{this.idBaner}}" >Xóa</button>
+              </td>
+            </tr>
+          {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!-- notification --}}
+<div>
+  {{#if notificationSuccess}}
+    <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+      <strong style="text-align: center;">{{notificationSuccess}}</strong>
+    </div>
+  {{/if}}
+  {{#if notificationErr}}
+    <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+      <strong>{{notificationErr}}</strong>
+    </div>
+  {{/if}}
+</div>
+
+
+<!-- Add baner Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="addBaner">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thêm baner</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <form action="/baner/them" method="POST" class="container-form-add mx-auto" style="max-width: 900px;" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label" for="anh">Chọn ảnh</label>
+                <input type="file" id="anh" name="anh" class="form-control" value="{{anh}}">
+            </div>
+
+            <div class="mb-3">
+                <div id="output" class="rounded mx-auto d-block" style="width: 350px; height: 225px; overflow: hidden; background-color: aliceblue;">
+                    <img id="img-preview" src="" style="width: 100%; height: 100%; object-fit: cover;" alt="Ảnh xem trước" />
+                </div>
+            </div>
+           <div class="modal-footer">
+          <button type="submit" id="btn-add-loai-phim" class="btn btn-primary">Thêm</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+      </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update baner-->
+{{#each listBaner}}
+  <div class="modal fade" tabindex="-1" role="dialog" id="update-baner-{{this.idBaner}}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cập nhật baner</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/baner/capnhat/{{this.idBaner}}?_method=PUT" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label class="form-label" for="anh">Chọn ảnh</label>
+              <input type="file" id="anh-update-{{this.idBaner}}" name="anh" class="form-control" onchange="previewImage(this, 'img-preview-update-{{this.idBaner}}')">
+            </div>
+
+            <div class="mb-3">
+              <div id="output" class="rounded mx-auto d-block" style="width: 350px; height: 225px; overflow: hidden; background-color: aliceblue;">
+                <img id="img-preview-update-{{this.idBaner}}" src="data:image/png;base64,{{this.anh}}" style="width: 100%; height: 100%; object-fit: cover;" alt="Ảnh xem trước" />
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" >Cập nhật</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        </div>
+         </form>
+      </div>
+    </div>
+  </div>
+{{/each}}
+
+
+<form name="del-form" method="POST"></form>
+
+<!-- Modal delete -->
+ <div class="modal fade" id="delete-baner" tabindex="-1" role="dialog" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Bạn có chắc chắn muốn xóa baner này?
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btn-del-baner" class="btn btn-danger">Xóa</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div> 
+
+<script src="../../public/js/image-preview.js"></script>
+<script src="../../public/js/image-preview-ver2.js"></script>
+
+<script>
+   document.addEventListener("DOMContentLoaded",function(){
+      var idBaner;
+      var btnDelBaner=document.getElementById("btn-del-baner");        
+      var deleteForm= document.forms["del-form"];
+
+      $('#delete-baner').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget) 
+          idBaner = button.data('id-baner') 
+      })
+      btnDelBaner.onclick=function(){
+          deleteForm.action="/baner/delete/"+idBaner+"?_method=PUT"
+          deleteForm.submit();
+      }
+  })
+</script>

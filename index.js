@@ -96,7 +96,10 @@ app.engine(
       },
       parseFloat: function(value) {
         return parseFloat(value);
-      },                           
+      }, 
+      isAdmin: function(vaiTro) {
+        return vaiTro === 'admin';
+    },                                
     },
   })
 );

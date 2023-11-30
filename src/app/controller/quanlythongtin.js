@@ -1,6 +1,7 @@
-const e = require("express");
 const connection = require("../../config/connection");
-
+const LichChieuModel=require('../model/lichChieuModel');
+const PhimModel=require('../model/phimModel');
+const ThongKeModel=require('../model/thongKeModel');
 const upload = require("../../middleware/uploadService");
 const fs = require("fs");
 const path = require("path");
@@ -141,28 +142,70 @@ class quanlythongtin {
     const notificationErr = req.flash("notificationErr");
     const hoTenND = req.session.user[0].hoTen;
     const anhND = req.session.user[0].anh;
+    const vaiTro=req.session.user[0].vaiTro;
 
-    const querry = `UPDATE LichChieu SET hienThi=0  WHERE ngayChieu<= CURRENT_DATE `;
-    connection.query(querry, (err, results) => {
-      if (err) {
-        console.error("Lỗi", err.message);
-        return;
-      }
-      const querryP = `UPDATE Phim SET trangThai=0 WHERE idPhim IN(SELECT l.idPhim FROM LichChieu l WHERE l.ngayChieu<=CURRENT_DATE)`;
-      connection.query(querryP, (err, result) => {
-        if (err) {
-          console.error("Lỗi", err.message);
-          return;
-        }
-        res.render("account/dasboard", {
-          title: "Tổng Quan",
-          hoTenND: hoTenND,
-          anhND: anhND,
-          notificationSuccess,
-          notificationErr,
-        });
+    const lichChieuModel=new LichChieuModel();
+    const phimModel=new PhimModel();
+    const thongKeModel=new ThongKeModel();
+
+    try {
+      let tongLichChieu, tongVe, tongVeToday,tongSanPham,veOnline,veAtCinema, soVe,date,dates,totalVe,namProduct,quantityOfProduct,totalMoney,totalMoneyMonth,totalVeMonth;
+
+       await lichChieuModel.updateLichChieuByCurrentDate(),
+       await phimModel.updatePhimByNgayChieu(),
+      [tongLichChieu,tongVe,tongVeToday,tongSanPham,veOnline,veAtCinema, soVe,date,totalVe,dates,namProduct,quantityOfProduct,totalMoney,totalMoneyMonth,totalVeMonth] = await Promise.all([
+
+        thongKeModel.getCountAllLichChieu(),
+        thongKeModel.getCountAllVeSold(),
+        thongKeModel.getCountAllVeSoldToday(),
+        thongKeModel.getCountCoSan(),
+        thongKeModel.getCountAllVeOnline(),
+        thongKeModel.getCountAllVeAtCinema(),
+        thongKeModel.getVeStatisticsFor7days(),
+        thongKeModel.getDateStatisticsFor7days(),
+        thongKeModel.getVeStatisticsFor7days(),
+        thongKeModel.getDateStatisticsFor7days(),
+        thongKeModel.getNameProduct(),
+        thongKeModel.getQuantityProduct(),
+        thongKeModel.getToTalRevenueVeStatisticsFor7days(),
+        thongKeModel.getStatistics12RevenueMonths(),
+        thongKeModel.getStatisticsVe12Months()
+      ]);
+
+      const extractedquantityOfProduct = quantityOfProduct.map(item => item.tong);
+      const extractednamProduct = namProduct.map(item => item.tenDoAn);
+      const extractedTotalMoneyMonth = totalMoneyMonth.map(item => item.TongDoanhThu);
+      const extractedTotalVeMonth = totalVeMonth.map(item => item.tong);
+      const extractedTotalMoneyWeek = totalMoney.map(item => item.tong);
+
+
+      res.render("account/dasboard", {
+        title: "Tổng Quan",
+        hoTenND: hoTenND,
+        anhND: anhND,
+        vaiTro:vaiTro,
+        notificationSuccess,
+        notificationErr,
+        tongLichChieu:tongLichChieu[0].tongLichChieu,
+        tongVe:tongVe[0].tongSo,
+        tongVeToday:tongVeToday[0].tongSo,
+        tongSanPham:tongSanPham[0].tongCoSan,
+        veOnline:veOnline[0].tong,
+        veAtCinema: veAtCinema[0].tong,
+        dates:JSON.parse(JSON.stringify(dates)),
+        totalVe:totalVe,
+        nameProduct:extractednamProduct,
+        quantityOfProduct:extractedquantityOfProduct,
+        totalMoney:extractedTotalMoneyWeek,
+        totalMoneyMonth:extractedTotalMoneyMonth,
+        totalVeMonth:extractedTotalVeMonth        
+
       });
-    });
+    } catch (error) {
+      console.error('Lỗi:', error.message);
+      req.flash("notificationErrr", "Lỗi");
+      res.redirect("/login");
+    }
   }
 
   // PUT[]/updateProfile

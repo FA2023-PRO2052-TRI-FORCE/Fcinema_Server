@@ -3,7 +3,7 @@
     <li class="breadcrumb-item active" aria-current="page">Thêm Vé Đặt</li>
 </ol>
 
-<div class="container" style="background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);;">
+<div class="container" style="min-height: 100vh; background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);;">
     <h6 style="padding: 10px 20px; font-weight: bold;">Thêm Vé Đặt</h6>
     <hr>
 
@@ -17,7 +17,6 @@
                 <div class="mb-3">
                     <label class="form-label" for="category">Chọn Phim</label>
                     <select id="category" name="idLichChieu" class="form-control">
-                        <option value="">Chọn phim</option>
                         {{#each listLC}}                        
                         <option value="{{this.idLichChieu}}"
                         data-ngaychieu="{{formatDate this.ngayChieu}}"
@@ -288,7 +287,7 @@
 {{/if}}</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.js"></script>
-<script src="../../public/addVeScript.js"></script>
+<script src="../../public/js/addVeScript.js"></script>
 
 
 

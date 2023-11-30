@@ -1,230 +1,183 @@
-const e = require('express');
-const connection=require('../../config/connection');
+const LichChieu = require('../model/lichChieuModel');
+const Phim = require('../model/phimModel');
+const PhongChieu = require('../model/phongChieuModel');
 
-let dsPhim=[];
-let dsPC=[];
-class lichChieu{
+const lichChieu = new LichChieu();
+const phim = new Phim();
+const phongchieu = new PhongChieu();
+
+class lichChieuController {
     // GET[]/lichchieu
-    async getAllLichChieu(req,res){
-        const hoTenND=req.session.user[0].hoTen;
-        const anhND=req.session.user[0].anh;
+    async getAllLichChieu(req, res) {
+        const hoTenND = req.session.user[0].hoTen;
+        const anhND = req.session.user[0].anh;
+        const notificationSuccess = req.flash('notificationSuccess');
+        const notificationErr = req.flash('notificationErr');
 
-        const selectedQuerry=`SELECT p.tenPhim,p.anh,p.thoiLuong,t.idLichChieu,t.ngayChieu,t.caChieu,t.giaPhim,t.ngayThem, c.tenPhongChieu FROM lichchieu t, Phim p , phongchieu c
-        WHERE t.idPhim=p.idPhim and t.idPhongChieu=c.idPhongChieu and t.hienThi=1 ORDER BY t.ngayChieu ASC`;
-        
-        connection.query(selectedQuerry,(err,result)=>{
-            if(err){
-                console.error('Lỗi lấy tất cả ds lịch chiêu',err.message);
-                return;
-            }
-            const notificationSuccess = req.flash('notificationSuccess');
-            const notificationErr = req.flash('notificationErr');
-            res.render('showtimes/lichChieu', { 
-                title: 'Lịch Chiếu Phim' ,
-                hoTenND:hoTenND,
-                anhND:anhND,
-                listLC:result,
+        try {
+            const results = await lichChieu.getListLichChieu();
+            res.render('showtimes/lichChieu', {
+                title: 'Lịch Chiếu Phim',
+                hoTenND: hoTenND,
+                anhND: anhND,
+                listLC: results,
                 notificationErr,
                 notificationSuccess
             })
 
-        })
-        
-    }
-    // POST[]/lichchieu/tim/:tenPhim
-    async searchLichChieu(req,res){
-        try{
-        const tenPhimSearch=req.body["tenPhimSearch"];
-        const hoTenND=req.session.user[0].hoTen;
-        const selectedQuerry=`SELECT p.tenPhim,p.anh,p.thoiLuong,t.idLichChieu,t.ngayChieu,t.caChieu,t.giaPhim,t.ngayThem, c.tenPhongChieu FROM lichchieu t, Phim p , phongchieu c
-        WHERE t.idPhim=p.idPhim and t.idPhongChieu=c.idPhongChieu and t.hienThi=1 and p.tenPhim=?`
-        connection.query(selectedQuerry,[tenPhimSearch],(err,results)=>{
-            if(err){
-                console.error('Lỗi', err.message);
-                return
-            }
-            if(results.length==0){
-                req.flash('notificationErr', 'Không tìm thấy phim');
-                res.redirect('/lichchieu')
-            }
-            res.render('showtimes/lichchieu',{
-                title:'Danh sách phim',
-                hoTenND:hoTenND,
-                listLC: results,
-            })
-        })
-        }catch(err){
-            console.log('Lỗi',err.message);
+        } catch (error) {
+            console.error(error)
 
         }
-    
+
+    }
+    // POST[]/lichchieu/tim/:tenPhim
+    async searchLichChieu(req, res) {
+        try {
+            const tenPhimSearch = req.body["tenPhimSearch"];
+            const hoTenND = req.session.user[0].hoTen;
+
+            const results = await LichChieuModel.searchLichChieu(tenPhimSearch);
+
+            if (results.length === 0) {
+                req.flash('notificationErr', 'Không tìm thấy phim');
+                res.redirect('/lichchieu');
+            }
+
+            res.render('showtimes/lichchieu', {
+                title: 'Danh sách phim',
+                hoTenND: hoTenND,
+                listLC: results,
+            });
+        } catch (err) {
+            console.log('Lỗi', err.message);
+            res.status(500).json({ message: 'Server error' });
+        }
+
     }
 
     // GET[]/lichchieu/them
-    async getNewLichChieu(req,res){
+    async getNewLichChieu(req, res) {
         try {
-            const hoTenND=req.session.user[0].hoTen;
-            const anhND=req.session.user[0].anh;
-            const queryPhim = 'SELECT * FROM Phim WHERE hienThi=1';
-            const queryPC = 'SELECT * FROM PhongChieu WHERE trangThai=1';
-    
-            connection.query(queryPhim,(err,resultsPhim)=>{
+            const hoTenND = req.session.user[0].hoTen;
+            const anhND = req.session.user[0].anh;
+            const notificationSuccess = req.flash('notificationSuccess');
+            const notificationErr = req.flash('notificationErr');
+            const listPhim = await phim.getAllPhim();
+            const listPC = await phongchieu.getAllPhongChieu();
 
-                dsPhim=resultsPhim;
-                connection.query(queryPC,(err,resultPC)=>{
-                    dsPC=resultPC;
-                    res.render('showtimes/themLichChieu', {
-                        title: 'Thêm Lịch Chiếu Phim',
-                        hoTenND:hoTenND,
-                        anhND:anhND,
-                        listPhim: dsPhim,
-                        listPC: dsPC
-                    });
-                })
-            })
-            
+            res.render('showtimes/themLichChieu', {
+                title: 'Thêm Lịch Chiếu Phim',
+                hoTenND: hoTenND,
+                anhND: anhND,
+                listPhim: listPhim,
+                listPC: listPC,
+                notificationErr,
+                notificationSuccess
+            });
         } catch (err) {
             console.error('Lỗi', err.message);
+            req.flash('notificationErr', 'Lỗi' + err.message);
+            res.redirect('/lichchieu');
+
         }
-                
     }
     // POST[]/lichchieu/them/luu
-    async addNewLichChieu(req, res) {  
-        let notificationErr=[];
-        const hoTenND=req.session.user[0].hoTen;
-        const anhND=req.session.user[0].anh;
-        const ngayChieu = req.body.ngayChieu;
-        const caChieu = req.body.caChieu;
-        const giaPhim = req.body.giaPhim;
-        const idPhongChieu = req.body.idPhongChieu;
-        const idPhim = req.body.idPhim;
-        
-        const checkQuerry=`SELECT COUNT(*) AS count FROM lichchieu WHERE caChieu=? and ngayChieu=? and idPhongChieu=?`;
-        const checkValues=[caChieu,ngayChieu,idPhongChieu];
+    async addNewLichChieu(req, res) {
+        try {
+            const ngayChieu = req.body.ngayChieu;
+            const caChieu = req.body.caChieu;
+            const giaPhim = req.body.giaPhim;
+            const idPhongChieu = req.body.idPhongChieu;
+            const idPhim = req.body.idPhim;
 
-        connection.query(checkQuerry,checkValues,(errCheck,checkResult)=>{
-            if(checkResult[0].count>0){
-                notificationErr.push({err:'Ca chiếu trong ngày này đã có lịch chiếu'});
-                res.render('showtimes/themLichChieu', {
-                    title: 'Thêm Lịch Chiếu Phim',
-                    listPhim:dsPhim,
-                    listPC:dsPC,
-                    hoTenND:hoTenND,
-                    anhND:anhND,
-                    notificationErr:notificationErr,
-                    ngayChieu: req.body.ngayChieu,
-                    caChieu: req.body.caChieu,
-                    giaPhim: req.body.giaPhim,
-                    idPhongChieu: parseFloat(req.body.idPhongChieu),
-                    idPhim:parseFloat(req.body.idPhim),
-                });              
+            const lichChieuExists = await lichChieu.checkLichChieuExists(caChieu, ngayChieu, idPhongChieu);
 
-            }else{
-            
-                const insertQuery = `INSERT INTO LichChieu (ngayChieu, caChieu, giaPhim, ngayThem, hienThi, idPhongChieu, idPhim)
-                VALUES (?, ?, ?, ?, ?, ?, ?)`;
-
-                const insertValues = [ngayChieu,caChieu,giaPhim,new Date(),1, idPhongChieu,idPhim];                
-            
-                connection.query(insertQuery, insertValues, (err, results) => {
-                    if (err) {
-                        console.error('Lỗi', err.message);
-                        notificationErr.push({err: err.message});
-                        res.render('showtimes/themLichChieu', {
-                            title: 'Thêm Lịch Chiếu Phim',
-                            listPhim:dsPhim,
-                            listPC:dsPC,
-                            hoTenND:hoTenND,
-                            anhND:anhND,
-                            notificationErr:notificationErr,
-                            ngayChieu: req.body.ngayChieu,
-                            caChieu: req.body.caChieu,
-                            giaPhim: req.body.giaPhim,
-                            idPhongChieu: parseFloat(req.body.idPhongChieu),
-                            idPhim:parseFloat(req.body.idPhim),
-                            
-                        }); 
-                    } else {
-                        req.flash('notificationSuccess', 'Thêm lịch chiếu thành công');
-                        res.redirect('/lichchieu');                                             
-                               
-                     }
-                     const updateQuerry=`UPDATE Phim SET trangThai=0 WHERE idPhim=?`;
-                     const idPhim=[req.body.idPhim];
-                     connection.query(updateQuerry,[idPhim],(errUpdate,updateResults)=>{
-                        if(errUpdate){
-                            console.error('Lỗi update trạng thái phim',errUpdate.message)
-                            return;
-                        }
-                        console.log('Cập nhật trạng thái phim thành công')
-                     })
-
-                });
-
+            if (lichChieuExists) {
+                req.flash('notificationErr', 'Ca chiếu trong ngày này đã có lịch chiếu');
+                res.redirect('/lichchieu/them');
+                return;
             }
-        })
+
+            await lichChieu.insertLichChieu(ngayChieu, caChieu, giaPhim, idPhongChieu, idPhim);
+            await lichChieu.updatePhimStatus(idPhim);
+
+            req.flash('notificationSuccess', 'Thêm lịch chiếu thành công');
+            res.redirect('/lichchieu');
+        } catch (err) {
+            console.error('Lỗi', err.message);
+            req.flash('notificationErr', 'Lỗi' + err.message);
+            res.redirect('/lichchieu');
+
+        }
     }
 
     // GET[]/lichchieu/sua/:idLichChieu
-    async getChiTietLichChieu(req,res){
-        try{
-            const hoTenND=req.session.user[0].hoTen;
-            const anhND=req.session.user[0].anh;
-            const idLichChieu=req.params.idLichChieu;
-            const selectedQuerry=`SELECT p.tenPhim,t.idLichChieu,t.ngayChieu,t.caChieu,t.giaPhim,t.ngayThem, c.tenPhongChieu FROM lichchieu t, Phim p , phongchieu c
-            WHERE t.idPhim=p.idPhim and t.idPhongChieu=c.idPhongChieu and t.idLichChieu=?`;
-            connection.query(selectedQuerry,[idLichChieu],(err,results)=>{
-                if(err){
-                    console.error('Lỗi',err.message);
-                    return;
-                }
-                const objLC=JSON.parse(JSON.stringify(results));
-                res.render('showtimes/suaLichChieu', {
-                    title: 'Sửa Lịch Chiếu Phim',
-                    hoTenND:hoTenND,
-                    anhND:anhND,
-                    objectLichChhieu: objLC,
-                    
-                }); 
-      
-            })
+    async getChiTietLichChieu(req, res) {
+        try {
+            const hoTenND = req.session.user[0].hoTen;
+            const anhND = req.session.user[0].anh;
+            const idLichChieu = req.params.idLichChieu;
 
-        }catch(err){
+            const results = await lichChieu.getChiTietLichChieu(idLichChieu);
 
+            const objLC = JSON.parse(JSON.stringify(results));
+            res.render('showtimes/suaLichChieu', {
+                title: 'Cập nhật Lịch Chiếu Phim',
+                hoTenND: hoTenND,
+                anhND: anhND,
+                objectLichChhieu: objLC,
+            });
+        } catch (err) {
+            console.error('Lỗi', err.message);
+            req.flash('notificationErr', 'Lỗi' + err.message);
+            res.redirect('/lichchieu');
         }
-    }
-    // PUT/lichchieu/sua/:idLichChieu
-    async updateLichChieu(req,res){
-        const giaPhim = req.body.giaPhim;
-        const idLichChieu = req.params.idLichChieu;
 
-        const updateQuerry=`UPDATE LichChieu SET giaPhim=? WHERE idLichChieu=?`
-        connection.query(updateQuerry,[giaPhim,idLichChieu],(err,results)=>{
-            if (err) {
-                console.error('Lỗi', err.message);
+    }
+    // PUT/lichchieu/sua/:idLichChieu {{Lỗi}}
+    async updateLichChieu(req, res) {
+        try {
+            const idLichChieu = req.params.idLichChieu;
+            const ngayChieu = req.body.ngayChieu;
+            const caChieu = req.body.caChieu;
+            const giaPhim = req.body.giaPhim;
+            const idPhongChieu = req.body.idPhongChieu;
+            const idPhim = req.body.idPhim;
+
+            const lichChieuExists = await lichChieu.checkLichChieuExists(caChieu, ngayChieu, idPhongChieu);
+
+            if (lichChieuExists) {
+                req.flash('notificationErr', 'Ca chiếu trong ngày này đã có lịch chiếu');
+                res.redirect('/lichchieu/them');
                 return;
             }
+            await lichChieu.updateLichChieu(ngayChieu, caChieu, giaPhim, idLichChieu);
             req.flash('notificationSuccess', 'Cập nhật lịch chiếu thành công');
             res.redirect('/lichchieu');
-      
-        })
+
+        } catch (err) {
+            console.error('Lỗi', err.message);
+            req.flash('notificationErr', 'Lỗi' + err.message);
+            res.redirect('/lichchieu');
+        }
 
     }
     // PUT[]/lichchieu/luutru
-    async deleteLichChieu(req,res){ 
-        const idLichChieu=req.params.idLichChieu;
-        const updateQuerry=`UPDATE LichChieu SET hienThi=0 WHERE idLichChieu=?`;
-        connection.query(updateQuerry,[idLichChieu],(err,results)=>{
-            if(err){
-                console.error('Lỗi update trạng thái phim',err.message)
-                return;
-            }
-            req.flash('notificationSuccess', 'Xoá lịch chiếu thành công');
-            res.redirect('/lichChieu')
-         })
+    async deleteLichChieu(req, res) {
+        try {
+            const idLichChieu = req.params.idLichChieu;
 
+            await lichChieu.deleteLichChieu(idLichChieu);
+
+            req.flash('notificationSuccess', 'Xoá lịch chiếu thành công');
+            res.redirect('/lichChieu');
+        } catch (err) {
+            console.error('Lỗi update trạng thái phim', err.message);
+            res.status(500).json({ message: 'Server error' });
+        }
 
     }
 
 }
-module.exports=new lichChieu();
+module.exports = new lichChieuController();
