@@ -1,49 +1,73 @@
 const connection = require("../../../config/connection");
 const postDatVe = (req, res) => {
-  const ve = req.body.mVeModel;
-  const ghe = req.body.mViTriGheModel;
-  const data = req.body.mJsonArray;
-  const doAn = req.body.mDoAnModels;
+  const {
+    mVeModel: ve,
+    mViTriGheModel: ghe,
+    mJsonArray: data,
+    mDoAnModels: doAn,
+  } = req.body;
+
   console.log(req.body);
-  connection.query(
-    "insert into ve (idVe, soVe, ngayMua, tongTien, trangThai, phuongThucTT, email, idLichChieu) values (?, ?, ?, ?, ?, ?, ?, ?)",
-    [
-      ve.idVe,
-      ve.soVe,
-      ve.ngayMua,
-      ve.tongTien,
-      ve.trangThai,
-      ve.phuongThucTT,
-      ve.email,
-      ve.idLichChieu,
-    ],
-    (err, result) => {
-      if (err) throw err;
-      else {
-        connection.query(
-          "insert into vitrighe (tenGhe, idPhongChieu, idVe, trangThai) values (?, ?, ?, ?)",
-          [JSON.stringify(data), ghe.idPhongChieu, ghe.idVe, 1],
-          (err, result) => {
-            if (err) throw err;
-            if (doAn != "") {
-              for (let i = 0; i < doAn.length; i++) {
-                connection.query(
-                  "insert into chitietdoan (soLuong, idDoAn, idVe) values ( ?, ?, ?) ",
-                  [doAn[i].soLuong, doAn[i].idDoAn, ve.idVe],
-                  (err, result) => {
-                    if (err) throw err;
-                    res.status(200).send("them du lieu thanh cong");
-                  }
-                );
+
+  const insertVeQuery =
+    "INSERT INTO ve (idVe, soVe, ngayMua, tongTien, trangThai, phuongThucTT, email, idLichChieu) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  const insertVeParams = [
+    ve.idVe,
+    ve.soVe,
+    ve.ngayMua,
+    ve.tongTien,
+    ve.trangThai,
+    ve.phuongThucTT,
+    ve.email,
+    ve.idLichChieu,
+  ];
+
+  connection.query(insertVeQuery, insertVeParams, (err, result) => {
+    if (err) throw err;
+
+    const insertViTriGheQuery =
+      "INSERT INTO vitrighe (tenGhe, idPhongChieu, idVe, trangThai) VALUES (?, ?, ?, ?)";
+    const insertViTriGheParams = [
+      JSON.stringify(data),
+      ghe.idPhongChieu,
+      ghe.idVe,
+      1,
+    ];
+
+    connection.query(
+      insertViTriGheQuery,
+      insertViTriGheParams,
+      (err, result) => {
+        if (err) throw err;
+
+        if (doAn !== "") {
+          for (let i = 0; i < doAn.length; i++) {
+            const insertChiTietDoAnQuery =
+              "INSERT INTO chitietdoan (soLuong, idDoAn, idVe) VALUES (?, ?, ?)";
+            const insertChiTietDoAnParams = [
+              doAn[i].soLuong,
+              doAn[i].idDoAn,
+              ve.idVe,
+            ];
+
+            connection.query(
+              insertChiTietDoAnQuery,
+              insertChiTietDoAnParams,
+              (err, result) => {
+                if (err) throw err;
+
+                if (i === doAn.length - 1) {
+                  res.status(200).send("them du lieu thanh cong");
+                }
               }
-            } else {
-              res.status(200).send("them du lieu thanh cong");
-            }
+            );
           }
-        );
+        } else {
+          res.status(200).send("them du lieu thanh cong");
+        }
       }
-    }
-  );
+    );
+  });
 };
 
 const getVeDat = (req, res) => {
