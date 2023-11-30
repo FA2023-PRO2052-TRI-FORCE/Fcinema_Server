@@ -21,7 +21,6 @@ body {
     height: -webkit-fill-available;
     overflow-x: auto;
     overflow-y: hidden;
-    background-color: #fff;
     overflow: hidden;
 
   }
@@ -91,7 +90,18 @@ body {
   .card-title{
     text-transform: uppercase;
     font-size: medium;
-    padding: 10px;
+  }
+  .card-body{
+    padding: 10px !important;
+  }
+  .card-text{
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+  }
+  .card-footer{
+    color: #FFF;
+    text-align: center;
   }
   .row{
     margin-right: 0 !important;
