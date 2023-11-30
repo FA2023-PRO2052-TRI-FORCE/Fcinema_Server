@@ -3,7 +3,7 @@
     <li class="breadcrumb-item"><a href="/lichchieu">Lịch Chiếu</a></li>
     <li class="breadcrumb-item active" aria-current="page">Cập nhật lịch chiếu</li>  
 </ol> 
-<div class="container" style="-webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+<div class="container" style="min-height: 100vh;-webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
     <h6 style="padding: 10px 20px; font-weight: bold;">Chi tiết lịch chiếu</h6>
     <hr>  
     {{#each objectLichChhieu}}
@@ -18,20 +18,21 @@
                 <div class="mb-3">
                     <label class="form-label" for="idPhongChieu">Phòng chiếu</label>
                     <input type="text" name="" class="form-control" disabled value="{{this.tenPhongChieu}}">
+                    <input type="text" name="phongChieu" class="form-control" hidden="true" value="{{this.idPhongChieu}}">
+                    
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="caChieu">Ca Chiếu</label>
-                    {{!-- <select id="caChieu" name="caChieu"  class="form-control" >
+                    <select id="caChieu" name="caChieu"  class="form-control" >
                         <option value="Ca 1: 8-10h" {{#eq "Ca 1: 8-10h" this.caChieu}}selected{{/eq}}>Ca 1: 8-10h</option>
                         <option value="Ca 2: 13h-15h" {{#eq "Ca 2: 13h-15h" this.caChieu}}selected{{/eq}}>Ca 2: 13h-15h</option>
                         <option value="Ca 3: 16-19h30" {{#eq "Ca 3: 16-19h30" this.caChieu}}selected{{/eq}}>Ca 3: 16-19h30</option>
                         <option value="Ca 4: 20-23h" {{#eq "Ca 4: 20-23h" this.caChieu}}selected{{/eq}}>Ca 4: 20-23h</option>
-                    </select> --}}
-                    <input type="text" class="form-control" disabled value="{{this.caChieu}}" name="" id="">
+                    </select>
                 </div>                                
                 <div class="mb-3">
                     <label class="form-label" for="showDate">Ngày chiếu</label>
-                    <input class="form-control" value="{{ formatDate this.ngayChieu}}" disabled name="ngayChieu" required name="ngayChieu" id="ngayChieu"  data-date-format="DD MMMM YYYY"  aria-describedby="helpId" />
+                    <input class="form-control" type="date" value="{{ formatDate this.ngayChieu}}" name="ngayChieu" required name="ngayChieu" id="ngayChieu"  data-date-format="DD MMMM YYYY"  aria-describedby="helpId" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="price">Giá phim</label>
