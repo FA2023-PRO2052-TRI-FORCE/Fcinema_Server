@@ -7,6 +7,7 @@ const getTheLoai = (req, res) => {
   });
 };
 
+
 module.exports = {
   getTheLoai,
 };

@@ -1,5 +1,4 @@
 const connection = require("../../config/connection");
-const express = require("express");
 const upload = require("../../middleware/uploadService");
 const fs = require('fs');
 const path = require('path');
@@ -136,10 +135,12 @@ async addNewPhim(req, res) {
       const namSX = req.body.namSX;
       const thoiLuong = req.body.thoiLuong;
       const daoDien = req.body.daoDien;
+      const dienVien=req.body.dienVien;
       const idTheLoai = req.body.idTheLoai;
       const trangThai = 1;
       const hienThi = 1;
       const ngayThem=new Date()
+      const dienVienArray=JSON.stringify(dienVien);
       
       var anhStringBase64;
 
@@ -151,7 +152,7 @@ async addNewPhim(req, res) {
         anhStringBase64 =anhDefault.toString("base64"); 
       }  
       connection.query(
-        "INSERT INTO Phim (tenPhim, anh, ngonNgu, moTa, hangSX, nuocSX, namSX, thoiLuong, daoDien, hienThi, trangThai, idTheLoai,ngayThem) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO Phim (tenPhim, anh, ngonNgu, moTa, hangSX, nuocSX, namSX, thoiLuong, daoDien, dienVien, hienThi, trangThai, idTheLoai,ngayThem) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           tenPhim,
           anhStringBase64,
@@ -162,6 +163,7 @@ async addNewPhim(req, res) {
           namSX,
           thoiLuong,
           daoDien,
+          dienVienArray,
           hienThi,
           trangThai,
           idTheLoai,
@@ -236,7 +238,9 @@ async updatePhim(req, res) {
     const namSX = req.body.namSX;
     const thoiLuong = req.body.thoiLuong;
     const daoDien = req.body.daoDien;
+    const dienVien=req.body.dienVien;
     let anhStringBase64 = null;
+    const dienVienArray=JSON.stringify(dienVien);
 
     if (req.file) {
       var anh = fs.readFileSync(req.file.path);
@@ -247,11 +251,11 @@ async updatePhim(req, res) {
     let updateValues;
 
     if (anhStringBase64) {
-      updateQuery = `UPDATE Phim SET ngonNgu=?, moTa=?, daoDien=?, hangSX=?, thoiLuong=?, nuocSX=?, anh=? WHERE idPhim=?`;
-      updateValues = [ngonNgu, moTa, daoDien, hangSX, thoiLuong, nuocSX, anhStringBase64, idPhim];
+      updateQuery = `UPDATE Phim SET ngonNgu=?, moTa=?, daoDien=?, dienVien=?, hangSX=?, thoiLuong=?, nuocSX=?, anh=? WHERE idPhim=?`;
+      updateValues = [ngonNgu, moTa, daoDien,dienVienArray, hangSX, thoiLuong, nuocSX, anhStringBase64, idPhim];
     } else {
-      updateQuery = `UPDATE Phim SET ngonNgu=?, moTa=?, daoDien=?, hangSX=?, thoiLuong=?, nuocSX=? WHERE idPhim=?`;
-      updateValues = [ngonNgu, moTa, daoDien, hangSX, thoiLuong, nuocSX, idPhim];
+      updateQuery = `UPDATE Phim SET ngonNgu=?, moTa=?, daoDien=?, dienVien=?, hangSX=?, thoiLuong=?, nuocSX=? WHERE idPhim=?`;
+      updateValues = [ngonNgu, moTa, daoDien,dienVienArray, hangSX, thoiLuong, nuocSX, idPhim];
     }
 
     connection.query(updateQuery, updateValues, (err, results) => {
