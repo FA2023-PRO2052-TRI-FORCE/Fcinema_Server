@@ -3,7 +3,7 @@
     <li class="breadcrumb-item"><a href="/quanlyphim/phim">Phim</a></li>
     <li class="breadcrumb-item active" aria-current="page">Cập nhật</li>
   </ol> 
-<div class="container" style="-webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+<div class="container" style="min-height: 100vh;-webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
     <h6  style="padding: 10px 20px; font-weight: bold;">Cập nhật phim</h6>
     <hr>  
     {{#each listPhim}}
@@ -39,6 +39,10 @@
                     <label class="form-label" for="thoiLuong">Thời Lượng</label>
                     <input class="form-control" name="thoiLuong" id="thoiLuong" aria-describedby="helpId"value="{{this.thoiLuong}}" />
                 </div>
+                <div class="mb-3">
+                    <label class="form-label" for="dienVien">Diễn viên</label>
+                    <input class="form-control" name="dienVien" id="dienVien" aria-describedby="helpId" value="{{this.dienVien}}" />
+                </div>                
                 <div class="mb-3">
                     <label class="form-label" for="daoDien">Đạo diễn</label>
                     <input class="form-control" name="daoDien" id="daoDien" aria-describedby="helpId" value="{{this.daoDien}}" />
