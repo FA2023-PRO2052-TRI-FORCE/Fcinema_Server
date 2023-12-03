@@ -66,18 +66,21 @@ app.engine(
       object: function (context) {
         return JSON.parse(context);
       },
-      convertStatusCinemax:function(trangThai) {
+      convertStatusCinemax: function (trangThai) {
         return trangThai === 1 ? 'Đang hoạt động' : 'Không hoạt động';
       },
-      parseDate: function(date) {
-        return date.toString().split('T')[0];  
-       },
-       convertStatusUser:function(trangThai) {
-        return trangThai === 1 ? 'Đang hoạt động' : trangThai===0? 'Ngừng hoạt động' :'Chờ xác nhận xoá ';
+      parseDate: function (date) {
+        return date.toString().split('T')[0];
       },
-      convertStatusTicket:function(trangThai) {
-        return trangThai === 0 ? 'Đã thanh toán' : trangThai===1? 'Chưa thanh toán' :'Vé hết hạn ';
-      },   
+      convertStatusMovie: function (trangThai) {
+        return trangThai === 0 ? 'Phim đã chiếu' :"Phim mới";
+      },      
+      convertStatusUser: function (trangThai) {
+        return trangThai === 1 ? 'Đang hoạt động' : trangThai === 0 ? 'Ngừng hoạt động' : 'Chờ xác nhận xoá ';
+      },
+      convertStatusTicket: function (trangThai) {
+        return trangThai === 0 ? 'Đã thanh toán' : trangThai === 1 ? 'Chưa thanh toán' : 'Vé hết hạn ';
+      },
       notEqual: function (a, b, options) {
         return a !== b ? options.fn(this) : options.inverse(this);
       },
@@ -87,19 +90,19 @@ app.engine(
         } else {
           return options.inverse(this);
         }
-      },  
+      },
       multiply: function (a, b) {
         return a * b;
-      }, 
-      parseInt: function(value) {
+      },
+      parseInt: function (value) {
         return parseInt(value, 10);
       },
-      parseFloat: function(value) {
+      parseFloat: function (value) {
         return parseFloat(value);
-      }, 
-      isAdmin: function(vaiTro) {
+      },
+      isAdmin: function (vaiTro) {
         return vaiTro === 'admin';
-    },                                
+      },
     },
   })
 );
