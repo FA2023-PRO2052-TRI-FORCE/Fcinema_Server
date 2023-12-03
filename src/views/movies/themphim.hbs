@@ -1,24 +1,28 @@
-  <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;-webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+<ol class="breadcrumb"
+    style="background-color: #fff; font-weight: bold !important; col; border-radius:0;-webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
     <li class="breadcrumb-item"><a href="#">Quản Lý Phim</a></li>
     <li class="breadcrumb-item"><a href="/quanlyphim/phim">Phim</a></li>
     <li class="breadcrumb-item active" aria-current="page">Thêm Phim Mới</li>
-  </ol> 
+</ol>
 <div class="container" style="min-height: 100vh;-webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
-    <h6  style="padding: 10px 20px; font-weight: bold;">Thêm phim mới</h6>
-    <hr>  
-    <form action="/quanlyphim/phim/them/luu" method="POST" class="container-form-add mx-auto" style="max-width: 900px;" enctype="multipart/form-data">
+    <h6 style="padding: 10px 20px; font-weight: bold;">Thêm phim mới</h6>
+    <hr>
+    <form action="/quanlyphim/phim/them/luu" method="POST" class="container-form-add mx-auto" style="max-width: 900px;"
+        enctype="multipart/form-data">
 
         <div class="row">
             <div class="col-sm-6">
                 <div class="mb-3">
                     <label class="form-label" for="tenPhim">Tên phim</label>
-                    <input required type="text" class="form-control" name="tenPhim" id="tenPhim" aria-describedby="helpId" />
+                    <input required type="text" class="form-control" name="tenPhim" id="tenPhim"
+                        aria-describedby="helpId" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="idTheLoai">Thể loại</label>
                     <select id="idTheLoai" name="idTheLoai" class="form-control">
                         {{#each listTheLoai}}
-                        <option value="{{this.idTheLoai}}" {{#eq this.idTheLoai ../listPhim.[0].idTheLoai}}selected{{/eq}}>
+                        <option value="{{this.idTheLoai}}" {{#eq this.idTheLoai
+                            ../listPhim.[0].idTheLoai}}selected{{/eq}}>
                             {{this.tenTheLoai}}
                         </option>
                         {{/each}}
@@ -43,7 +47,7 @@
                 <div class="mb-3">
                     <label class="form-label" for="dienVien">Diễn viên</label>
                     <input class="form-control" name="dienVien" id="dienVien" aria-describedby="helpId" />
-                </div>                
+                </div>
                 <div class="mb-3">
                     <label class="form-label" for="daoDien">Đạo diễn</label>
                     <input class="form-control" name="daoDien" id="daoDien" aria-describedby="helpId" />
@@ -57,8 +61,10 @@
                 </div>
 
                 <div class="mb-3">
-                    <div id="output" class="rounded mx-auto d-block" style="width: 200px; height: 300px; overflow: hidden; background-color: aliceblue;">
-                        <img id="img-preview" src="" style="width: 100%; height: 100%; object-fit: cover;" alt="Ảnh xem trước" />
+                    <div id="output" class="rounded mx-auto d-block"
+                        style="width: 200px; height: 300px; overflow: hidden; background-color: aliceblue;">
+                        <img id="img-preview" src="" style="width: 100%; height: 100%; object-fit: cover;"
+                            alt="Ảnh xem trước" />
                     </div>
                 </div>
 
@@ -75,31 +81,42 @@
         </div>
 
         <div class="text-center">
-            <button name="add" class="btn btn-primary" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px;">Thêm mới</button>
+            <button name="add" class="btn btn-primary" type="submit"
+                style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px;">Thêm mới</button>
         </div>
     </form>
 </div>
+
+{{#if notificationErr}}
+<div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert"
+    style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
+    <strong>{{notificationErr}}</strong>
+</div>
+{{/if}}
 <style>
-  .mb-3 label {
-    margin-bottom: 0px;
-  }
-  .mb-3 input, .mb-3 select, .mb-3 textarea {
-    margin-top: 0px; 
-  }
+    .mb-3 label {
+        margin-bottom: 0px;
+    }
+
+    .mb-3 input,
+    .mb-3 select,
+    .mb-3 textarea {
+        margin-top: 0px;
+    }
 </style>
 
 <script>
-    document.getElementById('anh').addEventListener('change', function() {
-    var imgPreview = document.getElementById('img-preview');
-    var input = this;
+    document.getElementById('anh').addEventListener('change', function () {
+        var imgPreview = document.getElementById('img-preview');
+        var input = this;
 
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            imgPreview.src = e.target.result;
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-});
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                imgPreview.src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    });
 
 </script>
