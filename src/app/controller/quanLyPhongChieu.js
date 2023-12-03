@@ -1,5 +1,4 @@
 const PhongChieu = require('../model/phongChieuModel');
-
 const phongChieu = new PhongChieu();
 
 class quanLyPhongChieu {
