@@ -129,7 +129,7 @@ document.getElementById("category").addEventListener("change", function () {
     document.getElementById("phongChieu").value = selectedOption.getAttribute("data-phongchieu");
     document.getElementById("giaPhim").value = selectedOption.getAttribute("data-giaphim");
     document.getElementById('idPhongChieu').value = selectedOption.getAttribute("data-idPhongChieu");
-    document.getElementById('img-preview').setAttribute("src","data:image/png;base64,"+anh);
+    document.getElementById('img-preview').setAttribute("src",anh);
 
 
     updateGheSelection(selectedOption);

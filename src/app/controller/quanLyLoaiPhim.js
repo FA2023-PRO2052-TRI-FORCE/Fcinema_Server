@@ -1,5 +1,4 @@
 const LoaiPhim = require('../model/loaiPhimModel');
-
 const loaiPhim = new LoaiPhim();
 
 class qlLoaiPhim {

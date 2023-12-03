@@ -16,7 +16,8 @@
 
             <div class="mb-3">
                 <div id="output" class="rounded mx-auto d-block" style="width: 242px; height: 242px; overflow: hidden; background-color: aliceblue;">
-                    <img id="img-preview" src="data:image/png;base64,{{this.anh}}" style="width: 100%; height: 100%; object-fit: cover;" alt="Ảnh xem trước" />
+                    <img id="img-preview" src="{{this.anh}}" style="width: 100%; height: 100%; object-fit: cover;" alt="Ảnh xem trước" />
+                    <input type="text" name="originalUrlAnh" value="{{this.anh}}" hidden>
                 </div>
             </div>
 

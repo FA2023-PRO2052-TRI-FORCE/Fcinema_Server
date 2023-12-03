@@ -65,6 +65,25 @@ class VeModel {
       });
     });
   }  
+
+  // update trang thai ve: hết hạn
+  async updateVeExpired() {
+    return new Promise((resolve, reject) => {
+      const query = `
+        UPDATE VE v
+        INNER JOIN lichchieu l ON v.idLichChieu = l.idLichChieu
+        SET v.trangThai=2
+        WHERE l.ngayChieu < CURRENT_DATE
+      `;
+      connection.query(query, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  }  
 }
   
   module.exports = VeModel;

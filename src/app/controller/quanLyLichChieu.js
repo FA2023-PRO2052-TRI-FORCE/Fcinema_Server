@@ -1,7 +1,6 @@
 const LichChieu = require('../model/lichChieuModel');
 const Phim = require('../model/phimModel');
 const PhongChieu = require('../model/phongChieuModel');
-
 const lichChieu = new LichChieu();
 const phim = new Phim();
 const phongchieu = new PhongChieu();
@@ -122,6 +121,8 @@ class lichChieuController {
             const results = await lichChieu.getChiTietLichChieu(idLichChieu);
 
             const objLC = JSON.parse(JSON.stringify(results));
+
+            console.log('Results',objLC);
             res.render('showtimes/suaLichChieu', {
                 title: 'Cập nhật Lịch Chiếu Phim',
                 hoTenND: hoTenND,

@@ -30,6 +30,21 @@ class nhanVieModel {
         });
     }
 
+    // lay nhan vien id, mk
+    async getUserByIdAndPassword(idNhanVien) {
+        return new Promise((resolve, reject) => {
+          const query = 'SELECT * FROM NhanVien WHERE idNhanVien=? AND hienThi=1';
+          const values = [idNhanVien];
+          connection.query(query, values, (err, results) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(results);
+            }
+          });
+        });
+      }    
+
     // check thong tin nhan vien
     async checkNhanVienByIdEmailPhone(idNhanVien, email, dienThoai) {
         return new Promise((resolve, reject) => {
@@ -58,7 +73,7 @@ class nhanVieModel {
         });
     }
 
-    // cap nhat nhan vien
+    // cập nhật thông tin nhân viên theo id
     async updateNhanVienById(idNhanVien, hoTen, gioiTinh, ngaySinh, diaChi, email, dienThoai, anhStringBase64) {
         return new Promise((resolve, reject) => {
             const updateEmployeeQuery = anhStringBase64
@@ -78,7 +93,46 @@ class nhanVieModel {
             });
         });
     }
-    // xoa nhan vien
+
+    // cập nhật password:id
+    async updatePasswordById(idNhanVien, newMatKhau) {
+        return new Promise((resolve, reject) => {
+          const query = 'UPDATE NhanVien SET matKhau=? WHERE idNhanVien=?';
+          connection.query(query, [newMatKhau, idNhanVien], (err, results) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(results);
+            }
+          });
+        });
+    }
+    
+    // cập nhật thông tin người dùng :id
+    async updateInformationUserByID(idNhanVien, hoTen, dienThoai, email, anhStringBase64, ngaySinh, diaChi, gioiTinh) {
+        return new Promise((resolve, reject) => {
+          let query;
+          let params;
+    
+          if (anhStringBase64) {
+            query = `UPDATE NhanVien SET hoTen = ?, dienThoai = ?, email = ?, anh = ?, ngaySinh = ?, diaChi = ?, gioiTinh = ? WHERE idNhanVien = ?`;
+            params = [hoTen, dienThoai, email, anhStringBase64, new Date(ngaySinh), diaChi, gioiTinh, idNhanVien];
+          } else {
+            query = `UPDATE NhanVien SET hoTen = ?, dienThoai = ?, email = ?, ngaySinh = ?, diaChi = ?, gioiTinh = ? WHERE idNhanVien = ?`;
+            params = [hoTen, dienThoai, email, new Date(ngaySinh), diaChi, gioiTinh, idNhanVien];
+          }
+    
+          connection.query(query, params, (err, result) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(result);
+            }
+          });
+        });
+      }    
+
+    // xoá nhân viên
     async deleteNhanVieByIdNhanVien(idNhanVien) {
         return new Promise((resolve, reject) => {
             const updateQuery = 'UPDATE NhanVien SET hienThi = 0 WHERE idNhanVien = ?';

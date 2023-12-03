@@ -32,7 +32,7 @@
                 </div>                                
                 <div class="mb-3">
                     <label class="form-label" for="showDate">Ngày chiếu</label>
-                    <input class="form-control" type="date" value="{{ formatDate this.ngayChieu}}" name="ngayChieu" required name="ngayChieu" id="ngayChieu"  data-date-format="DD MMMM YYYY"  aria-describedby="helpId" />
+                    <input class="form-control" type="date" value="{{parseDate this.ngayChieu}}" name="ngayChieu" required name="ngayChieu" id="dateInut"  data-date-format="DD MMM YYYY"  aria-describedby="helpId" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="price">Giá phim</label>
@@ -62,8 +62,6 @@
         </div>
     {{/if}}
 </div>
-
-
 
 
 

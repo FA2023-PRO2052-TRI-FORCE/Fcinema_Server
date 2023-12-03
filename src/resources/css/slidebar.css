@@ -47,9 +47,7 @@ body {
     color: black;
     background-color: transparent;
   }
-  .dropdown{
-    margin-right: 50px;
-  }
+  
   .link-body-emphasis{
     margin: 2px;
     list-style-type: none !important;
@@ -163,4 +161,15 @@ body {
   table.dataTable thead>tr>th.sorting:after, table.dataTable thead>tr>th.sorting_asc:after{
     content: "";
     content: "";
+  }
+  @media (min-width: 768px) {
+    .navbar-toggler {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .navbar-toggler {
+      display: block; 
+    }
   }
