@@ -1,11 +1,9 @@
-const connection = require("../../config/connection");
 const NhanVien = require('../model/nhanVienModel');
-
 const nhanVien = new NhanVien();
+const cloudinary = require("../../middleware/cloudinary");
+const upload = require("../../middleware/uploadService");
 const fs = require('fs');
 const path = require('path');
-const upload = require("../../middleware/uploadService");
-const e = require("express");
 const defaultImg = path.join(__dirname, '../../resources/upload/cinema_logo_4x.png');
 
 class qlNhanVien {
@@ -68,7 +66,7 @@ class qlNhanVien {
           const diaChi = req.body.diaChi;
           const vaiTro = "Nhân viên";
           const hienThi = 1;
-          let anhStringBase64 = null;
+          let anhUpload;
 
           var emailRegex = /^\S+@\S+\.\S+$/;
           var dienThoaiRegex = /^(\+84|0)[1-9]\d{8}$/;
@@ -83,12 +81,9 @@ class qlNhanVien {
             return res.redirect('/nhanvien/them');
           }
 
-          if (req.file) {
-            var anh = fs.readFileSync(req.file.path);
-            anhStringBase64 = anh.toString("base64");
-          } else {
-            var anhDefault = fs.readFileSync(defaultImg);
-            anhStringBase64 = anhDefault.toString("base64");
+          if (!req.file) {
+            req.flash("notificationErr", "Chưa chọn ảnh");
+            return res.redirect('/nhanvien/them');
           }
 
           const checkResults = await nhanVien.checkNhanVienByIdEmailPhone(idNhanVien, email, dienThoai);
@@ -118,7 +113,20 @@ class qlNhanVien {
             }
           }
 
-          const nhanVienData = { idNhanVien, hoTen, matKhau, email, dienThoai, gioiTinh, ngaySinh, diaChi, vaiTro, hienThi, anh: anhStringBase64 };
+          try {
+            const result = await cloudinary.uploader.upload(req.file.path, {
+              resource_type: "image",
+              folder: "storage/users",
+            });
+            anhUpload = result.secure_url;
+          } catch (cloudinaryError) {
+            console.error("Lỗi khi tải ảnh lên Cloudinary:", cloudinaryError);
+            req.flash("notificationErr", "Lỗi khi tải ảnh lên Cloudinary");
+            res.redirect("/quanlyphim");
+            return;
+          }          
+
+          const nhanVienData = { idNhanVien, hoTen, matKhau, email, dienThoai, gioiTinh, ngaySinh, diaChi, vaiTro, hienThi, anh: anhUpload };
 
           await nhanVien.insertNhanVien(nhanVienData);
 
