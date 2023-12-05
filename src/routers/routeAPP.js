@@ -34,5 +34,10 @@ router.get("/theLoai", TheLoaiController.getTheLoai);
 
 ///apiApp/doan
 router.get("/doan", DoAnController.getDoAn);
+//api banner
+router.get("/banner", PhimController.getBanner);
+//api dang ky gg
+router.post("/dangky/gg", taiKhoanND.regisByGoogle);
+router.get("/doAn/:veid", DoAnController.getDoAnByVe);
 
 module.exports = router;

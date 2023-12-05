@@ -55,7 +55,17 @@ const postDatVe = (req, res) => {
               insertChiTietDoAnParams,
               (err, result) => {
                 if (err) throw err;
-
+                const updateDoAnQuery =
+                  "UPDATE doan SET coSan = coSan - ? where idDoAn = ?";
+                const updateDoAnParams = [doAn[i].soLuong, doAn[i].idDoAn];
+                connection.query(
+                  updateDoAnQuery,
+                  updateDoAnParams,
+                  (err, result) => {
+                    if (err) throw err;
+                    console.log("Update Do An Success");
+                  }
+                );
                 if (i === doAn.length - 1) {
                   res.status(200).send("them du lieu thanh cong");
                 }
