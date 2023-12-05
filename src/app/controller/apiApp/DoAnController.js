@@ -9,7 +9,17 @@ const getDoAn = (req, res) => {
     res.send(result);
   });
 };
+const getDoAnByVe = (req, res) => {
+  let veId = req.params.veid;
+  let sqlQuery = `SELECT a.soLuong, b.anh, b.tenDoAn, b.idDoAn FROM chiTietDoAn a join doan b on a.idDoAn = b.idDoAn WHERE a.idVe = ?`;
+  connection.query(sqlQuery, veId, (err, results) => {
+    if (err) throw err;
+    console.log("data received");
+    res.send(results);
+  });
+};
 
 module.exports = {
   getDoAn,
+  getDoAnByVe,
 };
