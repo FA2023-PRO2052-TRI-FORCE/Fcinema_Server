@@ -4,7 +4,7 @@ const getAllPhimDC = (req, res) => {
   connection.query(
     "select a.tenPhim, a.anh, a.nuocSX, a.namSX, a.thoiLuong, a.ngonNgu, a.daoDien," +
       "a.idPhim, a.moTa, b.idLichChieu, b.giaPhim, b.ngayChieu, b.caChieu, c.tenTheLoai, d.idPhongChieu, d.tenPhongChieu from phim a join lichChieu b on a.idPhim = b.idPhim" +
-      " join theLoai c on a.idTheLoai = c.idTheLoai join phongChieu d on b.idPhongChieu = d.idPhongChieu where b.hienThi = 1  and b.ngayChieu = CURRENT_DATE",
+      " join theLoai c on a.idTheLoai = c.idTheLoai join phongChieu d on b.idPhongChieu = d.idPhongChieu where b.hienThi = 1 ",
     (err, result) => {
       if (err) throw err;
       res.send(result);
@@ -14,7 +14,7 @@ const getAllPhimDC = (req, res) => {
 
 const getAllPhimSC = (req, res) => {
   connection.query(
-    "select a.anh, a.tenPhim, a.nuocSX, a.namSX, a.thoiLuong, a.ngonNgu, a.daoDien, b.tenTheLoai from phim a join theLoai b on a.idTheLoai = b.idTheLoai where a.trangThai = 1 and b.hienThi = 1",
+    "select a.anh, a.tenPhim, a.nuocSX, a.namSX, a.thoiLuong, a.ngonNgu, a.daoDien, a.moTa, b.tenTheLoai from phim a join theLoai b on a.idTheLoai = b.idTheLoai where a.trangThai = 1 and a.hienThi = 1",
     (err, result) => {
       if (err) throw err;
 
@@ -63,10 +63,19 @@ const getPhimDCByNgay = (req, res) => {
     }
   );
 };
+
+const getBanner = (req, res) => {
+  let query = "select * from baner where hienThi = 1";
+  connection.execute(query, (err, results) => {
+    if (err) throw err;
+    res.send(results);
+  });
+};
 module.exports = {
   getAllPhimDC,
   getAllPhimSC,
   getViTriGheById,
   getPhimByTheLoai,
   getPhimDCByNgay,
+  getBanner,
 };
