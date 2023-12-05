@@ -14,7 +14,7 @@ const getAllPhimDC = (req, res) => {
 
 const getAllPhimSC = (req, res) => {
   connection.query(
-    "select a.anh, a.tenPhim, a.nuocSX, a.namSX, a.thoiLuong, a.ngonNgu, a.daoDien, b.tenTheLoai from phim a join theLoai b on a.idTheLoai = b.idTheLoai where a.trangThai = 1 and b.hienThi = 1",
+    "select a.anh, a.tenPhim, a.nuocSX, a.namSX, a.thoiLuong, a.ngonNgu, a.daoDien, b.tenTheLoai from phim a join theLoai b on a.idTheLoai = b.idTheLoai where a.trangThai = 1 and a.hienThi = 1",
     (err, result) => {
       if (err) throw err;
 
