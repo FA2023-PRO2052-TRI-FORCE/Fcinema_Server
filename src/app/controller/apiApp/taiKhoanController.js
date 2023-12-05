@@ -1,13 +1,11 @@
 const connection = require("../../../config/connection");
 const nodemailer = require("nodemailer");
-const path = require('path');
-const fs = require('fs');
+const path = require("path");
+const fs = require("fs");
 
-
-
-const emailAttach=path.join(__dirname,'../../../resources/email.html')
+const emailAttach = path.join(__dirname, "../../../resources/email.html");
 const resetCode = Math.floor(100000 + Math.random() * 900000);
-const num=1;
+const num = 1;
 
 class nguoiDung {
   // POST[]/nguoidung/dangky
@@ -76,10 +74,10 @@ class nguoiDung {
             to: email,
             subject: "Mã xác nhận reset lại mật khẩu",
             text: `Mã xác nhận của bạn là: ${resetCode}`,
-            html: fs.readFileSync(emailAttach, 'utf8'),
+            html: fs.readFileSync(emailAttach, "utf8"),
             context: {
               resetCode: `${resetCode}`,
-            }            
+            },
           };
 
           transporter.sendMail(mailOptions, (error, info) => {
@@ -209,6 +207,31 @@ class nguoiDung {
         return;
       }
       res.json({ message: "Xóa tài khoản thành công" });
+    });
+  }
+  async regisByGoogle(req, res) {
+    const { email, anh, hoTen } = req.body;
+    const checkQuerry = `SELECT COUNT(*) as count FROM NguoiDung WHERE email=?`;
+    connection.query(checkQuerry, [email], (checkErr, checkResult) => {
+      if (checkErr) {
+        console.error("Lỗi", checkErr.message);
+        return;
+      }
+      if (checkResult[0].count > 0) {
+        res.status(200).json({ message: "thành công" });
+      } else {
+        const registQuerry = `INSERT INTO NguoiDung (email,hoTen,anh,hienThi,trangThaiNguoiDung) 
+                VALUES(?, ?, ?, 1, 1)`;
+        const registValues = [email, hoTen, anh];
+        connection.query(registQuerry, registValues, (insertErr, result) => {
+          if (insertErr) {
+            console.error("Lỗi", err.message);
+            res.status(405).json({ message: "Lỗi" });
+            return;
+          }
+          res.status(201).json({ message: "Đăng ký thành công" });
+        });
+      }
     });
   }
 }
