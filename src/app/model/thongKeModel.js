@@ -29,6 +29,19 @@ class thongKeModel{
         })
 
     }
+    // đếm tổng số lịch chiếu trong ngày hôm nay
+    async getCountAllShowtimesToday(){
+      return new Promise((resolve,reject)=>{
+        const query=`SELECT COUNT(idLichChieu) AS tongSo FROM lichchieu WHERE ngayChieu=CURRENT_DATE `;
+        connection.query(query,(err,results)=>{
+            if (err) {
+                reject(err);
+            } else {
+                resolve(results);
+            }
+        })
+    })
+    }
     // đếm tổng số vé bán hôm nay
     async getCountAllVeSoldToday(){
         return new Promise((resolve,reject)=>{

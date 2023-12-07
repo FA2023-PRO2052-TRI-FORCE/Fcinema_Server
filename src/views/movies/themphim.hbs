@@ -87,12 +87,9 @@
     </form>
 </div>
 
-{{#if notificationErr}}
-<div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert"
-    style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-    <strong>{{notificationErr}}</strong>
+<div>
+    {{> notifications}}    
 </div>
-{{/if}}
 <style>
     .mb-3 label {
         margin-bottom: 0px;

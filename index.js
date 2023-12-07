@@ -41,7 +41,7 @@ app.engine(
     defaultLayout: "main",
     extname: ".hbs",
     layoutsDir: __dirname + "\\src\\views\\layouts\\",
-    partialsDir: __dirname + "\\src\\views\\",
+    partialsDir: __dirname + "\\src\\views\\partials\\", 
     runtimeOptions: {
       allowProtoPropertiesByDefault: true,
       allowedProtoMethodsByDefault: true,

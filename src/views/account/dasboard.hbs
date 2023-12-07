@@ -41,14 +41,14 @@
                             style="width: 17rem; padding: 10px; background-color: rgb(75, 192, 192); ">
                             <div class="card-header card-header-no-border"
                                 style="border-bottom:none ;background-color: rgb(75, 192, 192);">
-                                <h5 class="card-title">Vé</h5>
+                                <h5 class="card-title">Lịch chiếu</h5>
                             </div>
                             <div class="card-body">
-                                <p class="card-text text-center">{{tongVeToday}} </p>
+                                <p class="card-text text-center">{{totalShowtime}} </p>
                             </div>
 
                             <div class="card-footer" style="border-top:none;background-color: rgb(75, 192, 192);">
-                                <span>Vé đã bán hôm nay</span>
+                                <span>Lịch chiếu phim hôm nay</span>
                             </div>
                         </div>
                     </div>
@@ -143,21 +143,9 @@
     </div>
     {{/eq}}
     <div>
-        {{#if notificationErr.length}}
-        <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert"
-            style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-            <strong>{{notificationErr}}</strong>
-        </div>
-        {{/if}}
-        {{#if notificationSuccess.length}}
-        <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert"
-            style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-            <strong style="text-align: center;">{{notificationSuccess}}</strong>
-        </div>
-        {{/if}}
+        {{> notifications}}    
     </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>   
-
 
 <script>
   const ctxTicketWeek = document.getElementById('chartTicket7days');

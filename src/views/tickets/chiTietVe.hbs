@@ -116,7 +116,9 @@
     </div>
     {{/each}}
 </div>
-
+<div>
+    {{> notifications}}    
+</div>
 <script>
   var formSubmitVe = document.forms["form-update-ve"];
   var btnSubmit=document.getElementById("btnSubmit");
@@ -124,7 +126,4 @@
   btnSubmit.onclick = function(){
     formSubmitVe.submit()
   };
-
-
-
 </script>

@@ -43,25 +43,9 @@
     </form>
     {{/each}}
 </div>
-<div class="">
-    {{#if notificationErr.length}}
-        <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-            {{#each notificationErr}}
-                <strong>{{err}}</strong>
-            {{/each}}
-        </div>
-    {{/if}}
-
-    {{#if notificationSuccess.length}}
-        <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-            {{#each notificationSuccess}}
-                <strong style="text-align: center;">{{success}}</strong>
-            {{/each}}
-        </div>
-    {{/if}}
+<div>
+    {{> notifications}}    
 </div>
-
-
 <script>
     document.getElementById('anh').addEventListener('change', function() {
     var imgPreview = document.getElementById('img-preview');
