@@ -6,7 +6,7 @@ class VeModel {
       const query = `SELECT v.idVe, p.tenPhim, l.ngayChieu, l.caChieu, t.tenPhongChieu, v.soVe, v.ngayMua, v.tongTien, v.trangThai, g.tenGhe
         FROM ve v JOIN lichchieu l ON v.idLichChieu = l.idLichChieu JOIN phim p ON l.idPhim = p.idPhim 
         JOIN phongchieu t ON l.idPhongChieu = t.idPhongChieu JOIN ViTriGhe g ON g.idVe = v.idVe  
-        ORDER BY l.ngayChieu DESC`;
+        ORDER BY v.ngayMua DESC`;
 
       connection.query(query, (error, results) => {
         if (error) {

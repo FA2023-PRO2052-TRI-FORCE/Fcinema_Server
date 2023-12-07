@@ -275,16 +275,9 @@
     </form>
 
 </div>
-{{#if notificationErr.length}}
-    <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-        <strong>{{notificationErr}}</strong>
-    </div>
-{{/if}}
-{{#if notificationSuccess.length}}
-    <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-        <strong style="text-align: center;">{{notificationSuccess}}</strong>
-    </div>
-{{/if}}</div>
+<div>
+    {{> notifications}}    
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.js"></script>
 <script src="../../public/js/addVeScript.js"></script>

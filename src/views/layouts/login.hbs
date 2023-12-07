@@ -22,13 +22,7 @@
 </head>
 <body>
     <div style="height: 50px;">
-    {{#if message.length}}
-        <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="">
-            {{#each message}}
-                <strong>{{err}}</strong>
-            {{/each}}
-        </div>
-    {{/if}}
+        {{> _notifications}}    
     </div>
     <div class="col-sm-12 mx-auto" style="margin: 0 auto; display: flex; justify-content: center; align-items: center;">
         <div class="form-custom">

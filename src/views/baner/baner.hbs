@@ -48,22 +48,9 @@
 {{!-- form delete --}}
 <form name="del-form" method="POST"></form>
 
-{{!-- notification --}}
 <div>
-  {{#if notificationSuccess}}
-  <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert"
-    style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-    <strong style="text-align: center;">{{notificationSuccess}}</strong>
-  </div>
-  {{/if}}
-  {{#if notificationErr}}
-  <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert"
-    style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-    <strong>{{notificationErr}}</strong>
-  </div>
-  {{/if}}
+    {{> notifications}}    
 </div>
-
 
 <!-- Add baner Modal -->
 <div class="modal fade" tabindex="-1" role="dialog" id="addBaner">
@@ -96,43 +83,6 @@
     </div>
   </div>
 </div>
-
-<!-- Update baner-->
-{{#each listBaner}}
-<div class="modal fade" tabindex="-1" role="dialog" id="update-baner-{{this.idBaner}}">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Cập nhật baner</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="/baner/capnhat/{{this.idBaner}}?_method=PUT" method="POST" enctype="multipart/form-data">
-          <div class="mb-3">
-            <label class="form-label" for="anh">Chọn ảnh</label>
-            <input type="file" id="anh-update-{{this.idBaner}}" name="anh" class="form-control"
-              onchange="previewImage(this, 'img-preview-update-{{this.idBaner}}')">
-          </div>
-
-          <div class="mb-3">
-            <div id="output" class="rounded mx-auto d-block"
-              style="width: 350px; height: 225px; overflow: hidden; background-color: aliceblue;">
-              <img id="img-preview-update-{{this.idBaner}}" src="data:image/png;base64,{{this.anh}}"
-                style="width: 100%; height: 100%; object-fit: cover;" alt="Ảnh xem trước" />
-            </div>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Cập nhật</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
-{{/each}}
-
-
 
 <!-- Modal delete -->
 <div class="modal fade" id="delete-baner" tabindex="-1" role="dialog">

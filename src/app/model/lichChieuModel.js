@@ -13,7 +13,7 @@ class LichChieuModel {
             LEFT JOIN ve v ON l.idLichChieu = v.idLichChieu
             LEFT JOIN vitrighe g ON g.idVe = v.idVe
         WHERE
-            l.hienThi = 1
+            l.hienThi = 1 AND l.ngayChieu=CURRENT_DATE
         GROUP BY
             q.idPhongChieu,
             q.tenPhongChieu,

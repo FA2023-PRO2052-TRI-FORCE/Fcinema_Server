@@ -68,7 +68,7 @@ class quanlythongtin {
       return;
     }
 
-    res.render('account/login', {
+    res.render('layouts/login', {
       layout: 'login',
       message,
       idNhanVien: req.body.idNhanVien,
@@ -87,7 +87,7 @@ class quanlythongtin {
     try {
       await ve.updateVeExpired();
 
-      res.render('account/login', { layout: 'login' });
+      res.render('layouts/login', { layout: 'login' });
     } catch (err) {
       console.log('Lỗi', err.message);
       res.redirect('/back');
@@ -157,11 +157,11 @@ class quanlythongtin {
     const thongKeModel = new ThongKeModel();
 
     try {
-      let tongLichChieu, tongVe, tongVeToday, tongSanPham, veOnline, veAtCinema, soVe, date, dates, totalVe, namProduct, quantityOfProduct, totalMoney, totalMoneyMonth, totalVeMonth;
+      let tongLichChieu, tongVe, tongVeToday, tongSanPham, veOnline, veAtCinema, soVe, date, dates, totalVe, namProduct, quantityOfProduct, totalMoney, totalMoneyMonth, totalVeMonth, totalShowtime;
 
       await lichChieuModel.updateLichChieuByCurrentDate(),
         await phimModel.updatePhimByNgayChieu(),
-        [tongLichChieu, tongVe, tongVeToday, tongSanPham, veOnline, veAtCinema, soVe, date, totalVe, dates, namProduct, quantityOfProduct, totalMoney, totalMoneyMonth, totalVeMonth] = await Promise.all([
+        [tongLichChieu, tongVe, tongVeToday, tongSanPham, veOnline, veAtCinema, soVe, date, totalVe, dates, namProduct, quantityOfProduct, totalMoney, totalMoneyMonth, totalVeMonth,totalShowtime] = await Promise.all([
 
           thongKeModel.getCountAllLichChieu(),
           thongKeModel.getCountAllVeSold(),
@@ -177,7 +177,8 @@ class quanlythongtin {
           thongKeModel.getQuantityProduct(),
           thongKeModel.getToTalRevenueVeStatisticsFor7days(),
           thongKeModel.getStatistics12RevenueMonths(),
-          thongKeModel.getStatisticsVe12Months()
+          thongKeModel.getStatisticsVe12Months(),
+          thongKeModel.getCountAllShowtimesToday()
         ]);
 
       const extractedquantityOfProduct = quantityOfProduct.map(item => item.tong);
@@ -196,7 +197,7 @@ class quanlythongtin {
         notificationErr,
         tongLichChieu: tongLichChieu[0].tongLichChieu,
         tongVe: tongVe[0].tongSo,
-        tongVeToday: tongVeToday[0].tongSo,
+        totalShowtime: totalShowtime[0].tongSo,
         tongSanPham: tongSanPham[0].tongCoSan,
         veOnline: veOnline[0].tong,
         veAtCinema: veAtCinema[0].tong,
