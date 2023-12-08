@@ -124,19 +124,4 @@
   </div>
 </div> 
 
-<script>
-   document.addEventListener("DOMContentLoaded",function(){
-      var idTheLoai;
-      var btnDelLC=document.getElementById("btn-del-theloai");        
-      var deleteForm= document.forms["del-theloai-form"];
-
-      $('#delete-the-loai').on('show.bs.modal', function (event) {
-          var button = $(event.relatedTarget) 
-          idTheLoai = button.data('id-the-loai') 
-      })
-      btnDelLC.onclick=function(){
-          deleteForm.action="/quanlyphim/loaiphim/xoa/"+idTheLoai+"?_method=PUT"
-          deleteForm.submit();
-      }
-  })
-</script>
+<script src="../../public/js/deleteLoaiPhimScript.js"></script>

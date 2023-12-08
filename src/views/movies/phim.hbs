@@ -95,20 +95,4 @@
   </div>
 </div>
 
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    var idPhim;
-    var btnDelLC = document.getElementById("btn-del-phim");
-    var deleteForm = document.forms["del-phim-form"];
-
-    $('#delete-phim').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget)
-      idPhim = button.data('id-phim')
-    })
-    btnDelLC.onclick = function () {
-      deleteForm.action = "/quanlyphim/phim/xoa/" + idPhim + "?_method=PUT"
-      deleteForm.submit();
-    }
-  }) 
-</script>
+<script src="../../public/js/deletePhimScript.js"></script>
