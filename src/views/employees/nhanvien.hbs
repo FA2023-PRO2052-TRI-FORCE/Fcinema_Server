@@ -76,21 +76,4 @@
     {{> notifications}}    
 </div>
 
-
-
-<script>
-   document.addEventListener("DOMContentLoaded",function(){
-      var idNhanVien;
-      var btnDelLC=document.getElementById("btn-del-nhanvien");        
-      var deleteForm= document.forms["del-nhanvien-form"];
-
-      $('#delete-nhan-vien').on('show.bs.modal', function (event) {
-          var button = $(event.relatedTarget) 
-          idNhanVien = button.data('id-nhan-vien') 
-      })
-      btnDelLC.onclick=function(){
-          deleteForm.action="/nhanvien/luutru/"+idNhanVien+"?_method=PUT"
-          deleteForm.submit();
-      }
-  })
-</script>
+<script src="../../public/js/deleteNhanVienScript.js"> </script>

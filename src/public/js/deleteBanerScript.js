@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
   var idBaner, anh;
   var btnDelBaner = document.getElementById("btn-del-baner");
-  var deleteForm = document.forms["del-form"];
+  var deleteForm = document.forms["del-form-baner"];
 
   $("#delete-baner").on("show.bs.modal", function(event) {
     var button = $(event.relatedTarget);
