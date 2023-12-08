@@ -1,7 +1,6 @@
 const LichChieu = require('../model/lichChieuModel');
 const Phim = require('../model/phimModel');
 const PhongChieu = require('../model/phongChieuModel');
-
 const lichChieu = new LichChieu();
 const phim = new Phim();
 const phongchieu = new PhongChieu();
@@ -11,6 +10,8 @@ class lichChieuController {
     async getAllLichChieu(req, res) {
         const hoTenND = req.session.user[0].hoTen;
         const anhND = req.session.user[0].anh;
+        const idNhanVien = req.session.user[0].idNhanVien;
+
         const notificationSuccess = req.flash('notificationSuccess');
         const notificationErr = req.flash('notificationErr');
 
@@ -20,6 +21,7 @@ class lichChieuController {
                 title: 'Lịch Chiếu Phim',
                 hoTenND: hoTenND,
                 anhND: anhND,
+                idNhanVien,
                 listLC: results,
                 notificationErr,
                 notificationSuccess
@@ -61,6 +63,8 @@ class lichChieuController {
         try {
             const hoTenND = req.session.user[0].hoTen;
             const anhND = req.session.user[0].anh;
+            const idNhanVien = req.session.user[0].idNhanVien;
+
             const notificationSuccess = req.flash('notificationSuccess');
             const notificationErr = req.flash('notificationErr');
             const listPhim = await phim.getAllPhim();
@@ -70,6 +74,7 @@ class lichChieuController {
                 title: 'Thêm Lịch Chiếu Phim',
                 hoTenND: hoTenND,
                 anhND: anhND,
+                idNhanVien,
                 listPhim: listPhim,
                 listPC: listPC,
                 notificationErr,
@@ -117,15 +122,19 @@ class lichChieuController {
         try {
             const hoTenND = req.session.user[0].hoTen;
             const anhND = req.session.user[0].anh;
+            const idNhanVien = req.session.user[0].idNhanVien;
             const idLichChieu = req.params.idLichChieu;
 
             const results = await lichChieu.getChiTietLichChieu(idLichChieu);
 
             const objLC = JSON.parse(JSON.stringify(results));
+
+            console.log('Results',objLC);
             res.render('showtimes/suaLichChieu', {
                 title: 'Cập nhật Lịch Chiếu Phim',
                 hoTenND: hoTenND,
                 anhND: anhND,
+                idNhanVien,
                 objectLichChhieu: objLC,
             });
         } catch (err) {

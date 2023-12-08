@@ -1,5 +1,4 @@
 const LoaiPhim = require('../model/loaiPhimModel');
-
 const loaiPhim = new LoaiPhim();
 
 class qlLoaiPhim {
@@ -7,6 +6,7 @@ class qlLoaiPhim {
         try {
             const hoTenND = req.session.user[0].hoTen;
             const anhND = req.session.user[0].anh;
+            const idNhanVien = req.session.user[0].idNhanVien;
 
             const result = await loaiPhim.getAllLoaiPhim();
 
@@ -18,6 +18,7 @@ class qlLoaiPhim {
                 listTheLoai: result,
                 hoTenND: hoTenND,
                 anhND: anhND,
+                idNhanVien,
                 notificationErr,
                 notificationSuccess,
             });

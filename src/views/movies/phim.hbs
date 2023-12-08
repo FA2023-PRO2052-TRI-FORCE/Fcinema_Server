@@ -1,52 +1,67 @@
-  <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;    -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
+<ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;    -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
     box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
-    <li class="breadcrumb-item"><a href="#">Quản Lý Phim</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Phim Mới</li>
-  </ol> 
-<div class="" style="min-height: 100vh; margin-right: 0 !important;background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05)">
+  <li class="breadcrumb-item"><a href="#">Quản Lý Phim</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Phim</li>
+</ol>
+<div class=""
+  style="min-height: 100vh; margin-right: 0 !important;background-color: #fff; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05)">
   <div class="col-sm-12">
     <div class="row">
-        <div class="input-group d-flex justify-content-between" style="display: flex; justify-content: end; margin: 20px;">
+      <div class="input-group d-flex justify-content-between"
+        style="display: flex; justify-content: end; margin: 20px;">
         <h6 style="padding: 0 20px; font-weight: bold;">Danh sách phim mới</h6>
 
-        <a type="button" href="/quanlyphim/phim/them" class="btn btn-primary" style="margin-right: 40px; border-radius: 5px; font-weight: bold;">Thêm phim mới</a>
-        </div>        
+        <a type="button" href="/quanlyphim/phim/them" class="btn btn-primary"
+          style="margin-right: 40px; border-radius: 5px; font-weight: bold;">Thêm phim mới</a>
+      </div>
       <div class="col-12" style="margin: 10px;">
         <hr>
 
-        <div style=" overflow-y: scroll;height: 700px;">
+        <div style=" overflow-y: scroll" ,>
 
-        <table id="data-table" class="table table-bordered">
-          <thead class="thead-dark">
-            <tr>
-              <th class="align-middle p-2 text-center" scope="col">#</th>
-              <th class="align-middle p-2 text-center" scope="col">Tên phim</th>
-              <th class="align-middle p-2 text-center" scope="col">Poster</th>
-              <th class="align-middle p-2 text-center" scope="col">Thể Loại</th> 
-              <th class="align-middle p-2 text-center" scope="col">Thời Lượng</th>
-              <th class="align-middle p-2 text-center" scope="col">Nước SX</th>
-              <th class="align-middle p-2 text-center" scope="col">Năm SX</th>
-              <th class="align-middle p-2 text-center" scope="col">Hành động</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each listPhim}}
-            <tr>
-              <th class="align-middle p-2 text-center" scope="row">{{sum 1 @index }}</th>
-              <td class="align-middle p-2 text-center" style="width: 200px;">{{this.tenPhim}}</td>
-              <td class=" align-middle p-2 text-center" style="width: 170px; height: 225px; overflow: hidden;"><img src="data:image/png;base64,{{this.anh}}"  style="width: 100%; height: 100%; object-fit: cover;" class="img-thumbnail" alt=""></td>
-              <td class="align-middle p-2 text-center" >{{this.tenTheLoai}}</td>
-              <td class="align-middle p-2 text-center">{{this.thoiLuong}}</td>
-              <td class="align-middle p-2 text-center">{{this.nuocSX}}</td>
-              <td class="align-middle p-2 text-center">{{this.namSX}}</td>
-              <td class="align-middle p-2 text-center" style="width: 200px;">
-                <a href="/quanlyphim/phim/capnhat/{{this.idPhim}}" type="button" style="margin-bottom: 10px; width: 90px;" class="btn btn-success">Cập nhật</a>
-                <button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#delete-phim" style="margin-bottom: 10px; width: 90px;" data-id-phim="{{this.idPhim}}">Xóa</button>
-              </td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
+          <table id="data-table" class="table table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th class="align-middle p-2 text-center" scope="col">#</th>
+                <th class="align-middle p-2 text-center" scope="col">Tên phim</th>
+                <th class="align-middle p-2 text-center" scope="col">Poster</th>
+                <th class="align-middle p-2 text-center" scope="col">Thể Loại</th>
+                <th class="align-middle p-2 text-center" scope="col">Thời Lượng</th>
+                <th class="align-middle p-2 text-center" scope="col">Nước SX</th>
+                <th class="align-middle p-2 text-center" scope="col">Năm SX</th>
+                <th class="align-middle p-2 text-center" scope="col">Trạng thái</th>
+                <th class="align-middle p-2 text-center" scope="col">Hành động</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each listPhim}}
+              <tr>
+                <th class="align-middle p-2 text-center" scope="row">{{sum 1 @index }}</th>
+                <th class="align-middle p-2 text-center" style="width: 200px;">{{this.tenPhim}}</th>
+                <td class=" align-middle p-2 text-center" style="width: 170px; height: 225px; overflow: hidden;"><img
+                    src="{{this.anh}}" style="width: 100%; height: 100%; object-fit: cover;" class="img-thumbnail"
+                    alt=""></td>
+                <td class="align-middle p-2 text-center">{{this.tenTheLoai}}</td>
+                <td class="align-middle p-2 text-center">{{this.thoiLuong}}</td>
+                <td class="align-middle p-2 text-center">{{this.nuocSX}}</td>
+                <td class="align-middle p-2 text-center">{{this.namSX}}</td>
+                <td class="align-middle p-2 text-center">
+                  <span style="display: inline-block; min-width: 130px; border-radius: 5px; padding: 5px; color: #fff; background-color:
+                  {{#eq this.trangThai 0}} #17a2b8{{/eq}}
+                  {{#eq this.trangThai 1}}#007bff{{/eq}}">
+                    {{convertStatusMovie this.trangThai}}
+                  </span>
+                </td>
+                <td class="p-2 text-center align-items-center align-middle" style="width: 100px;">
+                  <a href="/quanlyphim/phim/capnhat/{{this.idPhim}}" type="button"
+                    style="margin-bottom: 10px; width: 90px;" class="btn btn-success">Cập nhật</a>
+                  <button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#delete-phim"
+                    style="margin-bottom: 10px; width: 90px;" data-id-phim="{{this.idPhim}}">Xóa</button>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -54,22 +69,13 @@
 </div>
 
 <div>
-  {{#if notificationSuccess}}
-    <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-      <strong style="text-align: center;">{{notificationSuccess}}</strong>
-    </div>
-  {{/if}}
-  {{#if notificationErr}}
-    <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-      <strong>{{notificationErr}}</strong>
-    </div>
-  {{/if}}
+  {{> notifications}}
 </div>
 
 <form name="del-phim-form" method="POST"></form>
 
 <!-- Modal xóa -->
- <div class="modal fade" id="delete-phim" tabindex="-1" role="dialog" >
+<div class="modal fade" id="delete-phim" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -87,23 +93,6 @@
       </div>
     </div>
   </div>
-</div> 
+</div>
 
-
-<script>
-   document.addEventListener("DOMContentLoaded",function(){
-      var idPhim;
-      var btnDelLC=document.getElementById("btn-del-phim");        
-      var deleteForm= document.forms["del-phim-form"];
-
-      $('#delete-phim').on('show.bs.modal', function (event) {
-          var button = $(event.relatedTarget) 
-          idPhim = button.data('id-phim') 
-      })
-      btnDelLC.onclick=function(){
-          deleteForm.action="/quanlyphim/phim/xoa/"+idPhim+"?_method=PUT"
-          deleteForm.submit();
-      }
-  }) 
-</script>
-
+<script src="../../public/js/deletePhimScript.js"></script>

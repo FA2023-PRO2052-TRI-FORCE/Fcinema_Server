@@ -49,16 +49,7 @@
   </div>
 </div>
 <div>
-  {{#if notificationErr.length}}
-      <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-          <strong>{{notificationErr}}</strong>
-      </div>
-  {{/if}}
-  {{#if notificationSuccess.length}}
-      <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-          <strong style="text-align: center;">{{notificationSuccess}}</strong>
-      </div>
-  {{/if}}
+    {{> notifications}}    
 </div>
 
 {{!-- form xoá lịch chiếu --}}
@@ -84,34 +75,17 @@
   </div>
 </div>
 
-<script>
-   document.addEventListener("DOMContentLoaded",function(){
-      var idLichChieu;
-      var btnDelLC=document.getElementById("btn-del-lichchieu");        
-      var deleteForm= document.forms["del-lichchieu-form"];
-
-      $('#delete-lich-chieu').on('show.bs.modal', function (event) {
-          var button = $(event.relatedTarget) 
-          idLichChieu = button.data('id-lich-chieu') 
-      })
-      btnDelLC.onclick=function(){
-          deleteForm.action="/lichchieu/luutru/"+idLichChieu+"?_method=PUT"
-          deleteForm.submit();
-      }
-  })</script>
-
+<script src="../../public/js/deleteLichChieuScript.js"></script>
 
 <script>
   var tenPhimSearchInput = document.getElementById('tenPhimSearch');
   var btnSearch = document.getElementById('btn-search-phim');
   var formSearch = document.forms["search-phim-form"];
-  
 
   btnSearch.onclick = function() {
     var tenPhimSearchValue = tenPhimSearchInput.value; 
 
     formSearch.action = "/lichchieu/tim/" + tenPhimSearchValue;
     formSearch.submit();
-    
 }
 </script>

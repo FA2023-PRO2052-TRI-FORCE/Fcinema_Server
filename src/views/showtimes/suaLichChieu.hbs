@@ -32,7 +32,7 @@
                 </div>                                
                 <div class="mb-3">
                     <label class="form-label" for="showDate">Ngày chiếu</label>
-                    <input class="form-control" type="date" value="{{ formatDate this.ngayChieu}}" name="ngayChieu" required name="ngayChieu" id="ngayChieu"  data-date-format="DD MMMM YYYY"  aria-describedby="helpId" />
+                    <input class="form-control" type="date" value="{{parseDate this.ngayChieu}}" name="ngayChieu" required name="ngayChieu" id="dateInut"  data-date-format="DD MMM YYYY"  aria-describedby="helpId" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="price">Giá phim</label>
@@ -46,24 +46,9 @@
     </form>
     {{/each}}
 </div>
-<div class="">
-    {{#if notificationErr.length}}
-        <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-            {{#each notificationErr}}
-                <strong>{{err}}</strong>
-            {{/each}}
-        </div>
-    {{/if}}
-    {{#if notificationSuccess.length}}
-        <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-            {{#each notificationSuccess}}
-                <strong style="text-align: center;">{{success}}</strong>
-            {{/each}}
-        </div>
-    {{/if}}
+<div>
+    {{> notifications}}    
 </div>
-
-
 
 
 

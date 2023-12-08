@@ -14,7 +14,7 @@
                 <div class="mb-3">
                     <label for="" class="form-label">Poster</label>                    
                     <div id="output" class="rounded mx-auto d-block" style="width: 200px; height: 295px; overflow: hidden; background-color: aliceblue;">
-                        <img id="img-preview" src="data:image/png;base64,{{this.anh}}" style="width: 100%; height: 100%; object-fit: cover;" alt="Ảnh xem trước" />
+                        <img id="img-preview" src="{{this.anh}}" style="width: 100%; height: 100%; object-fit: cover;" alt="Ảnh xem trước" />
                     </div>
                 </div>   
 
@@ -98,7 +98,7 @@
         {{#each listDoAn}}
         <tr class="">
             <td>{{sum 1 @index }}</td>
-            <td class=" align-middle p-2 text-center" style="width: 75px; height: 75px; overflow: hidden;"><img src="data:image/png;base64,{{this.anh}}"  style="width: 100%; height: 100%; object-fit: cover;" class="img-thumbnail rounded-circle me-2" alt=""></td>
+            <td class=" align-middle p-2 text-center" style="width: 75px; height: 75px; overflow: hidden;"><img src="{{this.anh}}"  style="width: 100%; height: 100%; object-fit: cover;" class="img-thumbnail rounded-circle me-2" alt=""></td>
             <td class="p-2 text-center align-items-center align-middle">{{this.tenDoAn}}</td>
             <td class="p-2 text-center align-items-center align-middle">{{this.soLuong}}</td>
             <td class="p-2 text-center align-items-center align-middle">{{formatCurrency this.giaDoAn 'vnd'}}</td>
@@ -116,7 +116,9 @@
     </div>
     {{/each}}
 </div>
-
+<div>
+    {{> notifications}}    
+</div>
 <script>
   var formSubmitVe = document.forms["form-update-ve"];
   var btnSubmit=document.getElementById("btnSubmit");
@@ -124,7 +126,4 @@
   btnSubmit.onclick = function(){
     formSubmitVe.submit()
   };
-
-
-
 </script>

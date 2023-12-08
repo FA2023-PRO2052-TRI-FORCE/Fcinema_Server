@@ -1,5 +1,4 @@
 const PhongChieu = require('../model/phongChieuModel');
-
 const phongChieu = new PhongChieu();
 
 class quanLyPhongChieu {
@@ -8,6 +7,7 @@ class quanLyPhongChieu {
         try {
             const hoTenND = req.session.user[0].hoTen;
             const anhND = req.session.user[0].anh;
+            const idNhanVien = req.session.user[0].idNhanVien;
 
             const listPC = await phongChieu.getPhongChieus();
 
@@ -18,6 +18,7 @@ class quanLyPhongChieu {
                 title: 'Phòng Chiếu',
                 hoTenND,
                 anhND,
+                idNhanVien,
                 listPC,
                 notificationErr,
                 notificationSuccess,

@@ -245,7 +245,7 @@
             {{#each listDoAn}}
             <tr class="">
                 <td>{{sum 1 @index }}</td>
-                <td class=" align-middle p-2 text-center" style="width: 75px; height: 75px; overflow: hidden;"><img src="data:image/png;base64,{{this.anh}}"  style="width: 100%; height: 100%; object-fit: cover;" class="img-thumbnail rounded-circle me-2" alt=""></td>
+                <td class=" align-middle p-2 text-center" style="width: 75px; height: 75px; overflow: hidden;"><img src="{{this.anh}}"  style="width: 100%; height: 100%; object-fit: cover;" class="img-thumbnail rounded-circle me-2" alt=""></td>
                 <td class="p-2 text-center align-items-center align-middle">{{this.tenDoAn}}</td>
                 <td class="p-2 text-center align-items-center align-middle" id="coSan">{{this.coSan}}</td>
                 <td class="p-2 text-center align-items-center align-middle" id="giaDoAn" value="{{this.giaDoAn}}" >{{formatCurrency this.giaDoAn 'vnd'}}</td>
@@ -275,16 +275,9 @@
     </form>
 
 </div>
-{{#if notificationErr.length}}
-    <div class="alert auto-close alert-warning alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-        <strong>{{notificationErr}}</strong>
-    </div>
-{{/if}}
-{{#if notificationSuccess.length}}
-    <div class="alert auto-close alert-success alert-dismissible show fade mb-3" role="alert" style="position: fixed; top: 0; right: 0; width: 300px; z-index: 100;">
-        <strong style="text-align: center;">{{notificationSuccess}}</strong>
-    </div>
-{{/if}}</div>
+<div>
+    {{> notifications}}    
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.js"></script>
 <script src="../../public/js/addVeScript.js"></script>

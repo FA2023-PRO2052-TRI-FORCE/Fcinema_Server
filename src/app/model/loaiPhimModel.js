@@ -5,7 +5,6 @@ class loaiPhimModel {
     async getAllLoaiPhim() {
         return new Promise((resolve, reject) => {
             const query = 'SELECT * FROM TheLoai WHERE hienThi = 1';
-
             connection.query(query, (err, result) => {
                 if (err) {
                     reject(err);
