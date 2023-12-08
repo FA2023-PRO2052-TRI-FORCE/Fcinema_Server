@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 const path = require("path");
 const fs = require("fs");
 
-const emailAttach = path.join(__dirname, "../../../resources/email.html");
+const emailAttach = path.join(__dirname, "../../../public/emailResetPassword.html");
 const resetCode = Math.floor(100000 + Math.random() * 900000);
 const num = 1;
 
@@ -74,11 +74,10 @@ class nguoiDung {
             to: email,
             subject: "Mã xác nhận reset lại mật khẩu",
             text: `Mã xác nhận của bạn là: ${resetCode}`,
-            html: fs.readFileSync(emailAttach, "utf8"),
-            context: {
-              resetCode: `${resetCode}`,
-            },
+            html: fs.readFileSync(emailAttach, "utf8")
           };
+          mailOptions.html = mailOptions.html.replace('<span id="resetCodeValue"></span>', resetCode);
+          mailOptions.html = mailOptions.html.replace('<span id="emailRequest"></span>', email);
 
           transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
