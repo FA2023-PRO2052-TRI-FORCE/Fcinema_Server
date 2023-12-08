@@ -12,6 +12,7 @@ class qlNhanVien {
     try {
       const hoTenND = req.session.user[0].hoTen;
       const anhND = req.session.user[0].anh;
+      const idNhanVien = req.session.user[0].idNhanVien;
 
       const results = await nhanVien.getAllNhanVien();
 
@@ -23,6 +24,7 @@ class qlNhanVien {
         title: 'Nhân Viên',
         hoTenND: hoTenND,
         anhND: anhND,
+        idNhanVien,
         notificationErr,
         notificationSuccess,
       });
@@ -36,6 +38,7 @@ class qlNhanVien {
   async getAddNhanVien(req, res) {
     const hoTenND = req.session.user[0].hoTen;
     const anhND = req.session.user[0].anh;
+    const idNhanVien = req.session.user[0].idNhanVien;
 
     const notificationSuccess = req.flash("notificationSuccess");
     const notificationErr = req.flash("notificationErr");
@@ -45,7 +48,8 @@ class qlNhanVien {
       notificationSuccess: notificationSuccess,
       notificationErr: notificationErr,
       hoTenND: hoTenND,
-      anhND: anhND
+      anhND: anhND,
+      idNhanVien
     });
   }
 

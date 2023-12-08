@@ -63,7 +63,7 @@
                 <div class="mb-3">
                     <div id="output" class="rounded mx-auto d-block"
                         style="width: 200px; height: 300px; overflow: hidden; background-color: aliceblue;">
-                        <img id="img-preview" src="" style="width: 100%; height: 100%; object-fit: cover;"
+                        <img id="img-preview" src="../../resources/img/default_img.png" style="width: 100%; height: 100%; object-fit: cover;"
                             alt="Ảnh xem trước" />
                     </div>
                 </div>
@@ -102,18 +102,4 @@
     }
 </style>
 
-<script>
-    document.getElementById('anh').addEventListener('change', function () {
-        var imgPreview = document.getElementById('img-preview');
-        var input = this;
-
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                imgPreview.src = e.target.result;
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
-    });
-
-</script>
+<script src="../../public/js/imagePreview.js"></script>

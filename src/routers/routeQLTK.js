@@ -8,7 +8,6 @@ router.get("/logout", qlThonTin.logoutAccount);
 router.get("/tongquan", qlThonTin.getTongQuan);
 router.get("/myAccount", qlThonTin.getUserInformationById);
 router.put("/myAccount/update/:idNhanVien", qlThonTin.updateInformationUserById);
-router.get("/changePass", qlThonTin.getChangePassPage);
 router.post("/login-account", qlThonTin.loginAccount);
 router.put("/changePass/:idNhanVien", qlThonTin.updatePasswordById);
 

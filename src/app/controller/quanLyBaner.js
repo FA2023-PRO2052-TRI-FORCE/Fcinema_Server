@@ -12,6 +12,8 @@ class QLBaner {
 
             const hoTenND = req.session.user[0].hoTen;
             const anhND = req.session.user[0].anh;
+            const idNhanVien = req.session.user[0].idNhanVien;
+
             const notificationSuccess = req.flash('notificationSuccess');
             const notificationErr = req.flash('notificationErr');
 
@@ -19,6 +21,7 @@ class QLBaner {
                 title: 'Baner',
                 hoTenND: hoTenND,
                 anhND: anhND,
+                idNhanVien,
                 listBaner: results,
                 notificationErr: notificationErr,
                 notificationSuccess: notificationSuccess,

@@ -6,12 +6,15 @@ class quanLyKhachHang {
     async getListKhachHang(req, res) {
         const hoTenND = req.session.user[0].hoTen;
         const anhND = req.session.user[0].anh;
+        const idNhanVien = req.session.user[0].idNhanVien;
+
         try {
             const results = await khachang.getAllKhachhang();
             res.render('users/khachHang', {
                 title: 'Khách Hàng',
                 hoTenND: hoTenND,
                 anhND: anhND,
+                idNhanVien,
                 listKH: results
             })
 
@@ -26,6 +29,7 @@ class quanLyKhachHang {
     async getKhachHangByEmail(req, res) {
         const hoTenND = req.session.user[0].hoTen;
         const anhND = req.session.user[0].anh;
+        const idNhanVien = req.session.user[0].idNhanVien;
         const email = req.params.email;
 
         try {
@@ -34,6 +38,7 @@ class quanLyKhachHang {
                 title: "Chi tiết khách hàng",
                 hoTenND: hoTenND,
                 anhND: anhND,
+                idNhanVien,
                 listKH: results
             })
 

@@ -15,6 +15,8 @@ class doAn {
 
             const hoTenND = req.session.user[0].hoTen;
             const anhND = req.session.user[0].anh;
+            const idNhanVien = req.session.user[0].idNhanVien;
+
             const notificationSuccess = req.flash('notificationSuccess');
             const notificationErr = req.flash('notificationErr');
 
@@ -22,6 +24,7 @@ class doAn {
                 title: 'Đồ ăn',
                 hoTenND: hoTenND,
                 anhND: anhND,
+                idNhanVien,
                 listDoAn: results,
                 notificationErr: notificationErr,
                 notificationSuccess: notificationSuccess,

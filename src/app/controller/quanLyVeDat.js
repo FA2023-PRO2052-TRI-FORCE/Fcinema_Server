@@ -9,6 +9,8 @@ class qlVeDat {
   async getAllVeDaDat(req, res) {
     const hoTenND = req.session.user[0].hoTen;
     const anhND = req.session.user[0].anh;
+    const idNhanVien = req.session.user[0].idNhanVien;
+
     const notificationSuccess = req.flash('notificationSuccess');
     const notificationErr = req.flash('notificationErr');
 
@@ -21,6 +23,7 @@ class qlVeDat {
         title: 'Vé đã đặt',
         hoTenND: hoTenND,
         anhND: anhND,
+        idNhanVien,
         listVe: result,
         notificationSuccess,
         notificationErr,
@@ -35,6 +38,8 @@ class qlVeDat {
   async getNewVe(req, res) {
     const hoTenND = req.session.user[0].hoTen;
     const anhND = req.session.user[0].anh;
+    const idNhanVien = req.session.user[0].idNhanVien;
+
     const notificationSuccess = req.flash('notificationSuccess');
     const notificationErr = req.flash('notificationErr');
 
@@ -51,6 +56,7 @@ class qlVeDat {
         title: 'Thêm vé mới',
         hoTenND: hoTenND,
         anhND: anhND,
+        idNhanVien,
         listLC: listLC,
         listDoAn: listDoAn,
         notificationSuccess,
@@ -156,6 +162,7 @@ class qlVeDat {
   async getChiTietVe(req, res) {
     const hoTenND = req.session.user[0].hoTen;
     const anhND = req.session.user[0].anh;
+    const idNhanVien = req.session.user[0].idNhanVien;
     const idVe = req.params.idVe;
 
     const veModel = new VeModel();
@@ -171,6 +178,7 @@ class qlVeDat {
         title: 'Chi tiết vé đặt',
         hoTenND: hoTenND,
         anhND: anhND,
+        idNhanVien,
         objectVe: veData,
         listDoAn: listDoAn,
       });

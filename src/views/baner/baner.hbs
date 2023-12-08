@@ -71,7 +71,7 @@
           <div class="mb-3">
             <div id="output" class="rounded mx-auto d-block"
               style="width: 350px; height: 225px; overflow: hidden; background-color: aliceblue;">
-              <img id="img-preview" src="" style="width: 100%; height: 100%; object-fit: cover;" alt="Ảnh xem trước" />
+              <img id="img-preview" src="../../resources//img/default_img.png" style="width: 100%; height: 100%; object-fit: cover;" alt="Ảnh xem trước" />
             </div>
           </div>
           <div class="modal-footer">
@@ -105,34 +105,5 @@
   </div>
 </div>
 
-<script src="../../public/js/image-preview.js"></script>
-<script src="../../public/js/image-preview-ver2.js"></script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    var idBaner, anh;
-    var btnDelBaner = document.getElementById("btn-del-baner");
-    var deleteForm = document.forms["del-form"];
-
-    $('#delete-baner').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget)
-      idBaner = button.data('id-baner')
-      anh = button.data('anh-url');
-
-    })
-
-
-
-    btnDelBaner.onclick = function () {
-      var anhInput = document.createElement("input");
-      anhInput.type = "hidden";
-      anhInput.name = "urlAnh";
-      anhInput.value = anh;
-      deleteForm.appendChild(anhInput);
-      console.log('Anh', anh);
-      console.log('ID', idBaner);      
-      deleteForm.action = "/baner/delete/" + idBaner + "?_method=PUT"
-      deleteForm.submit();
-    }
-  })
-</script>
+<script src="../../public/js/imagePreview.js"></script>
+<script src="../../public/js/banerDeleteScript.js"></script>

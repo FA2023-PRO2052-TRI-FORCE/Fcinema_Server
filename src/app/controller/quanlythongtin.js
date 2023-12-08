@@ -27,6 +27,7 @@ class quanlythongtin {
         title: 'Thông tin tài khoản',
         hoTenND,
         anhND,
+        idNhanVien,
         objNhanVien: objNV,
         notificationSuccess,
         notificationErr,
@@ -38,21 +39,20 @@ class quanlythongtin {
     }
   }
 
-  // POST[]/login
+  // POST[]/login// POST /login
   async loginAccount(req, res) {
     const idNhanVien = req.body.idNhanVien;
     const matKhau = req.body.matKhau;
-    let message = [];
 
     try {
       const results = await nhanVien.getUserByIdAndPassword(idNhanVien);
 
-      if (results.length == 0) {
-        message.push({ err: 'Người dùng không tồn tại' });
+      if (results.length === 0) {
+        req.flash('notificationErr', 'Người dùng không tồn tại');
       } else {
         const storedPassword = results[0].matKhau;
         if (matKhau !== storedPassword) {
-          message.push({ err: 'Mật khẩu không đúng' });
+          req.flash('notificationErr', 'Mật khẩu không đúng');
         } else {
           const objectNV = JSON.parse(JSON.stringify(results));
           req.session.user = objectNV;
@@ -68,20 +68,23 @@ class quanlythongtin {
       return;
     }
 
+    const notificationErr = req.flash('notificationErr').join('<br>');
+
     res.render('layouts/login', {
       layout: 'login',
-      message,
+      notificationErr,
       idNhanVien: req.body.idNhanVien,
       matKhau: req.body.matKhau,
     });
   }
+
   // GET[]/logout
   async logoutAccount(req, res) {
     if (req.session.user) {
       req.session.destroy();
     }
-    res.redirect("/login");
-  }
+    res.redirect('/login')
+    }
   // GET[]/login
   async getLoginPage(req, res) {
     try {
@@ -93,50 +96,33 @@ class quanlythongtin {
       res.redirect('/back');
     }
   }
-  // GET[]/changepass
-  async getChangePassPage(req, res) {
-    const matKhau = req.session.user[0].matKhau;
-    const idNhanVien = req.session.user[0].idNhanVien;
-    const hoTenND = req.session.user[0].hoTen;
-    const anhND = req.session.user[0].anh;
-
-    const notificationSuccess = req.flash("notificationSuccess");
-    const notificationErr = req.flash("notificationErr");
-    res.render("account/changePass", {
-      title: "Thay đổi mật khẩu",
-      hoTenND: hoTenND,
-      anhND: anhND,
-      matKhau: matKhau,
-      idNhanVien: idNhanVien,
-      notificationErr,
-      notificationSuccess,
-    });
-  }
   // PUT[]/changepass
   async updatePasswordById(req, res) {
     try {
       const idNhanVien = req.session.user[0].idNhanVien;
       const oldMatKhau = req.session.user[0].matKhau;
+      
       const matKhau = req.body.matKhau;
       const newMatKhau = req.body.newMatKhau;
       const comfirmMatKhau = req.body.comfirmMatKhau;
 
       if (matKhau !== oldMatKhau) {
         req.flash('notificationErr', 'Mật khẩu cũ không đúng');
-        res.redirect('/changePass');
+        res.redirect('back');
         return;
       }
 
       if (newMatKhau !== comfirmMatKhau) {
         req.flash('notificationErr', 'Xác nhận mật khẩu mới không trùng');
-        res.redirect('/changePass');
+        res.redirect('back');
         return;
       }
 
       await nhanVien.updatePasswordById(idNhanVien, newMatKhau);
+      req.session.user[0].matKhau = newMatKhau;
 
       req.flash('notificationSuccess', 'Thay đổi mật khẩu thành công');
-      res.redirect('/tongquan');
+      res.redirect('back');
     } catch (err) {
       console.error('Lỗi', err.message);
       req.flash('notificationErr', 'Lỗi khi thay đổi mật khẩu');
@@ -151,6 +137,7 @@ class quanlythongtin {
     const hoTenND = req.session.user[0].hoTen;
     const anhND = req.session.user[0].anh;
     const vaiTro = req.session.user[0].vaiTro;
+    const idNhanVien = req.session.user[0].idNhanVien;
 
     const lichChieuModel = new LichChieuModel();
     const phimModel = new PhimModel();
@@ -161,7 +148,7 @@ class quanlythongtin {
 
       await lichChieuModel.updateLichChieuByCurrentDate(),
         await phimModel.updatePhimByNgayChieu(),
-        [tongLichChieu, tongVe, tongVeToday, tongSanPham, veOnline, veAtCinema, soVe, date, totalVe, dates, namProduct, quantityOfProduct, totalMoney, totalMoneyMonth, totalVeMonth,totalShowtime] = await Promise.all([
+        [tongLichChieu, tongVe, tongVeToday, tongSanPham, veOnline, veAtCinema, soVe, date, totalVe, dates, namProduct, quantityOfProduct, totalMoney, totalMoneyMonth, totalVeMonth, totalShowtime] = await Promise.all([
 
           thongKeModel.getCountAllLichChieu(),
           thongKeModel.getCountAllVeSold(),
@@ -193,6 +180,7 @@ class quanlythongtin {
         hoTenND: hoTenND,
         anhND: anhND,
         vaiTro: vaiTro,
+        idNhanVien,
         notificationSuccess,
         notificationErr,
         tongLichChieu: tongLichChieu[0].tongLichChieu,

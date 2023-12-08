@@ -15,6 +15,7 @@ class quanLyPhim {
       const hoTenND = req.session.user[0].hoTen;
       const anhND = req.session.user[0].anh;
       const result = await phimModel.getListPhim();
+      const idNhanVien = req.session.user[0].idNhanVien;
 
       const notificationSuccess = req.flash("notificationSuccess");
       const notificationErr = req.flash("notificationErr");
@@ -24,8 +25,9 @@ class quanLyPhim {
         listPhim: result,
         hoTenND,
         anhND,
+        idNhanVien,
         notificationErr,
-        notificationSuccess
+        notificationSuccess,
       });
     } catch (error) {
       console.error("Lỗi", error.message);
@@ -38,6 +40,7 @@ class quanLyPhim {
     try {
       const hoTenND = req.session.user[0].hoTen;
       const anhND = req.session.user[0].anh;
+      const idNhanVien = req.session.user[0].idNhanVien;
 
       const notificationSuccess = req.flash('notificationSuccess');
       const notificationErr = req.flash('notificationErr');
@@ -48,6 +51,7 @@ class quanLyPhim {
         listTheLoai: results,
         hoTenND,
         anhND,
+        idNhanVien,
         notificationErr: notificationErr,
         notificationSuccess: notificationSuccess,
       });
@@ -63,6 +67,7 @@ class quanLyPhim {
       const idPhim = req.params.idPhim;
       const hoTenND = req.session.user[0].hoTen;
       const anhND = req.session.user[0].anh;
+      const idNhanVien = req.session.user[0].idNhanVien;
 
       const results = await phimModel.getPhimById(idPhim);
 
@@ -70,7 +75,8 @@ class quanLyPhim {
         title: "Cập nhật phim",
         listPhim: JSON.parse(JSON.stringify(results)),
         hoTenND: hoTenND,
-        anhND: anhND
+        anhND: anhND,
+        idNhanVien
       });
     } catch (error) {
       console.error(error.message);
