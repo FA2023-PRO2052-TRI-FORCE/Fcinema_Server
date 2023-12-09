@@ -4,13 +4,69 @@ const path = require("path");
 const fs = require("fs");
 
 const emailAttach = path.join(__dirname, "../../../public/emailResetPassword.html");
+const emailAuth = path.join(__dirname, "../../../public/authenciationEmail.html");
+
 const resetCode = Math.floor(100000 + Math.random() * 900000);
 const num = 1;
 
 class nguoiDung {
+ //POST[]/authenciationEmail
+ async requestAthenciationEmail(req, res) {
+  const email = req.body.email;
+  const query = `SELECT COUNT(*) as count FROM NguoiDung WHERE email=?`;
+
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error("Lỗi", err.message);
+      return;
+    }
+    if (results[0].count > 0) {
+      res.status(404).json({ message: "Email đã người dùng đã tồn tại" });
+      return;
+
+    } else {
+      try {
+        const transporter = nodemailer.createTransport({
+          service: "Gmail",
+          auth: {
+            user: "lotiendat202@gmail.com",
+            pass: "jqyjyavzvlqgkfhn",
+          },
+        });
+
+        const mailOptions = {
+          from: "lotiendat202@gmail.com",
+          to: email,
+          subject: "Mã xác nhận xác thực email",
+          // text: `Mã xác nhận của bạn là: ${resetCode}`,
+          html: fs.readFileSync(emailAuth, "utf8")
+        };
+        mailOptions.html = mailOptions.html.replace('<span id="resetCodeValue"></span>', resetCode);
+        mailOptions.html = mailOptions.html.replace('<span id="emailRequest"></span>', email);
+
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            console.log(error);
+            res.status(500).json({ message: "Lỗi gửi mail" });
+          } else {
+            console.log("Mã: " + resetCode);
+            res.status(200).json({ message: "Mã xác thực đã được gửi đến" });
+          }
+        });
+      } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Lỗi" });
+      }
+    }
+  })
+
+
+
+}
+
   // POST[]/nguoidung/dangky
   async registerNguoiDung(req, res) {
-    const { email, matKhau, hoTen, dienThoai, anh, ngaySinh, diaChi } =
+    const { email, matKhau, hoTen, dienThoai, anh, ngaySinh, diaChi, resetCodeBody } =
       req.body;
 
     const checkQuerry = `SELECT COUNT(*) as count FROM NguoiDung WHERE email=?`;
@@ -95,7 +151,7 @@ class nguoiDung {
       }
     });
   }
-
+ 
   // POST[]/comfirmResetMatKhau
   async comfirmResetMatKhau(req, res) {
     try {
