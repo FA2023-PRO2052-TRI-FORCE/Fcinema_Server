@@ -17,7 +17,7 @@ router.get(
 router.put("/nguoidung/doithongtin/:email", taiKhoanND.updateThongTinNguoiDung);
 router.put("/nguoidung/doimatkhau/:email", taiKhoanND.changePasswordByEmail);
 router.put("/nguoidung/xoaTaiKhoan", taiKhoanND.deleteTaiKhoan);
-
+router.post('/nguoidung/xacthuc',taiKhoanND.requestAthenciationEmail)
 ///apiApp/Phim
 router.get("/phimDC", PhimController.getAllPhimDC);
 router.get("/phimSC", PhimController.getAllPhimSC);
