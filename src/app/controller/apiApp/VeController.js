@@ -78,18 +78,23 @@ const postDatVe = (req, res) => {
   });
 };
 
+const reverseArray = (array) => {
+  return array.slice().reverse();
+};
+
 const getVeDat = (req, res) => {
   const email = req.params.email;
   console.log(email);
   connection.query(
-    "select a.tenPhim,a.anh, b.giaPhim, b.caChieu, b.ngayChieu, d.tenPhongChieu,c.ngayMua,c.phuongThucTT, c.trangThai, c.idVe, c.soVe, C.tongTien, e.tenGhe " +
-      "from phim a join lichChieu b on a.idPhim = b.idPhim join ve c on b.idLichChieu=c.idLichChieu join phongChieu d on b.idPhongChieu = d.idPhongChieu " +
-      "join vitrighe e on e.idVe=c.idVe where c.email = ? ORDER BY c.ngayMua DESC",
+    "SELECT a.tenPhim, a.anh, b.giaPhim, b.caChieu, b.ngayChieu, d.tenPhongChieu, c.ngayMua, c.phuongThucTT, c.trangThai, c.idVe, c.soVe, C.tongTien, e.tenGhe " +
+      "FROM phim a JOIN lichChieu b ON a.idPhim = b.idPhim JOIN ve c ON b.idLichChieu = c.idLichChieu JOIN phongChieu d ON b.idPhongChieu = d.idPhongChieu " +
+      "JOIN vitrighe e ON e.idVe = c.idVe WHERE c.email = ?",
 
     [email],
     (err, result) => {
       if (err) throw err;
-      res.send(result);
+      const reversedResult = reverseArray(result);
+      res.send(reversedResult);
     }
   );
 };
