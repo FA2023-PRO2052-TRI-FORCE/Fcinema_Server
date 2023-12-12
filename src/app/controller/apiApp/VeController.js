@@ -40,7 +40,7 @@ const postDatVe = (req, res) => {
       (err, result) => {
         if (err) throw err;
 
-        if (doAn !== "") {
+        if (doAn != "") {
           for (let i = 0; i < doAn.length; i++) {
             const insertChiTietDoAnQuery =
               "INSERT INTO chitietdoan (soLuong, idDoAn, idVe) VALUES (?, ?, ?)";
@@ -67,14 +67,12 @@ const postDatVe = (req, res) => {
                   }
                 );
                 if (i === doAn.length - 1) {
-                  res.status(200).send("them du lieu thanh cong");
                 }
               }
             );
           }
-        } else {
-          res.status(200).send("them du lieu thanh cong");
         }
+        res.status(200).send("them du lieu thanh cong");
       }
     );
   });
