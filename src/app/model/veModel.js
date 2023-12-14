@@ -16,7 +16,7 @@ class VeModel {
         }
       });
     });
-  }  
+  }
   // getVeById
   async getVeById(idVe) {
     return new Promise((resolve, reject) => {
@@ -36,7 +36,7 @@ class VeModel {
         }
       });
     });
-  }  
+  }
 
   // insertNewVe
   async insertNewVe(insertValues) {
@@ -53,7 +53,7 @@ class VeModel {
   // updateTrangThaive
   async updateTrangThaiVe(idVe, trangThai) {
     return new Promise((resolve, reject) => {
-      const updateTTQuerry = 'UPDATE Ve SET trangThai=? WHERE idVe=?';
+      const updateTTQuerry = "UPDATE Ve SET trangThai=? WHERE idVe=?";
       const updateTTValues = [trangThai, idVe];
 
       connection.query(updateTTQuerry, updateTTValues, (error, results) => {
@@ -64,7 +64,7 @@ class VeModel {
         }
       });
     });
-  }  
+  }
 
   // update trang thai ve: hết hạn
   async updateVeExpired() {
@@ -73,7 +73,7 @@ class VeModel {
         UPDATE VE v
         INNER JOIN lichchieu l ON v.idLichChieu = l.idLichChieu
         SET v.trangThai=2
-        WHERE l.ngayChieu < CURRENT_DATE
+        WHERE l.ngayChieu < CURRENT_DATE AND v.trangThai = 1
       `;
       connection.query(query, (err, result) => {
         if (err) {
@@ -83,7 +83,7 @@ class VeModel {
         }
       });
     });
-  }  
+  }
 }
-  
-  module.exports = VeModel;
+
+module.exports = VeModel;
