@@ -4,7 +4,7 @@ class phimModel {
   //[lịch chiếu]get All phim
   async getAllPhim() {
     return new Promise((resolve, reject) => {
-      const queryPhim = "SELECT * FROM Phim WHERE hienThi=1";
+      const queryPhim = "SELECT * FROM Phim WHERE hienThi=1 ORDER BY trangThai DESC";
       connection.query(queryPhim, (err, resultsPhim) => {
         if (err) {
           reject(err);

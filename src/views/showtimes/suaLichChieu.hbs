@@ -1,9 +1,8 @@
-<link rel="stylesheet" href="/src/resources/css/slidebar.css">
-<ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0; -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+<ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;">
     <li class="breadcrumb-item"><a href="/lichchieu">Lịch Chiếu</a></li>
     <li class="breadcrumb-item active" aria-current="page">Cập nhật lịch chiếu</li>  
 </ol> 
-<div class="container" style="min-height: 100vh;-webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+<div class="container" >
     <h6 style="padding: 10px 20px; font-weight: bold;">Chi tiết lịch chiếu</h6>
     <hr>  
     {{#each objectLichChhieu}}
@@ -17,8 +16,9 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="idPhongChieu">Phòng chiếu</label>
-                    <input type="text" name="" class="form-control" disabled value="{{this.tenPhongChieu}}">
-                    <input type="text" name="phongChieu" class="form-control" hidden="true" value="{{this.idPhongChieu}}">
+                    <input type="text" class="form-control" disabled value="{{this.tenPhongChieu}}">
+                    <input type="text" name="idPhongChieu" class="form-control" hidden value="{{this.idPhongChieu}}" >
+                    
                     
                 </div>
                 <div class="mb-3">
@@ -32,16 +32,16 @@
                 </div>                                
                 <div class="mb-3">
                     <label class="form-label" for="showDate">Ngày chiếu</label>
-                    <input class="form-control" type="date" value="{{parseDate this.ngayChieu}}" name="ngayChieu" required name="ngayChieu" id="dateInut"  data-date-format="DD MMM YYYY"  aria-describedby="helpId" />
+                    <input class="form-control" id="datepicker" type="text" value="{{parseDate this.ngayChieu}}" name="ngayChieu" required readonly autocomplete="off"  aria-describedby="helpId" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="price">Giá phim</label>
-                    <input class="form-control" value="{{ this.giaPhim}}" required type="number" name="giaPhim" id="giaPhim" aria-describedby="helpId" />
+                    <label class="form-label" for="price" style="font-weight: normal;">Giá phim<span id="error-message" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                    <input class="form-control" value="{{ this.giaPhim}}"  oninput="validateGiaPhim(this)"  required type="number" name="giaPhim" id="giaPhim" aria-describedby="helpId" />
                 </div>
             </div>
         </div>
         <div class="text-center">
-            <button class="btn btn-primary" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px;">Cập nhật lịch chiếu</button>
+            <button class="btn btn-primary" id="btn-showtime" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px;">Cập nhật lịch chiếu</button>
         </div>
     </form>
     {{/each}}
@@ -50,9 +50,4 @@
     {{> notifications}}    
 </div>
 
-
-
-
-
-
-
+<script src="../../public/js/validateForm.js"></script>

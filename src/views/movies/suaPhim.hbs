@@ -1,10 +1,9 @@
-  <script src="../../public/js/imagePreview.js" ></script>
-  <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;-webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+  <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;">
     <li class="breadcrumb-item"><a href="#">Quản Lý Phim</a></li>
     <li class="breadcrumb-item"><a href="/quanlyphim/phim">Phim</a></li>
     <li class="breadcrumb-item active" aria-current="page">Cập nhật</li>
   </ol> 
-<div class="container" style="min-height: 100vh;-webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
+<div class="container" style="min-height: 100vh;">
     <h6  style="padding: 10px 20px; font-weight: bold;">Cập nhật phim</h6>
     <hr>  
     {{#each listPhim}}
@@ -25,28 +24,28 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="ngonNgu">Ngôn ngữ</label>
-                    <input class="form-control" name="ngonNgu" id="ngonNgu" aria-describedby="helpId" value="{{this.ngonNgu}}"/>
+                    <label class="form-label" for="ngonNgu">Ngôn ngữ<span id="phimError-Ngôn ngữ" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                    <input class="form-control" value="{{this.ngonNgu}}" name="ngonNgu" id="phimInput-Ngôn ngữ" aria-describedby="helpId" oninput="validateTenPhim('Ngôn ngữ')" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="hangSX">Hãng sản xuất</label>
-                    <input class="form-control" name="hangSX" id="hangSX" aria-describedby="helpId" value="{{this.hangSX}}"/>
+                    <label class="form-label" for="hangSX">Hãng sản xuất<span id="phimError-Hãng sản xuất" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                    <input class="form-control" value="{{this.hangSX}}" name="hangSX" id="phimInput-Hãng sản xuất" aria-describedby="helpId" oninput="validatePhim('Hãng sản xuất')" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="nuocSX">Nước sản xuất</label>
-                    <input class="form-control" name="nuocSX" id="nuocSX" aria-describedby="helpId" value="{{this.nuocSX}}"/>
+                    <label class="form-label" for="nuocSX">Nước sản xuất<span id="phimError-Nước sản xuất" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                    <input required type="text" value="{{this.nuocSX}}" class="form-control" name="nuocSX" id="phimInput-Nước sản xuất" aria-describedby="helpId"  oninput="validateTenPhim('Nước sản xuất')"/>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="thoiLuong">Thời Lượng</label>
-                    <input class="form-control" name="thoiLuong" id="thoiLuong" aria-describedby="helpId"value="{{this.thoiLuong}}" />
+                    <label class="form-label" for="thoiLuong">Thời lượng<span id="phimError-Thời lượng" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                    <input class="form-control" value="{{this.thoiLuong}}" name="thoiLuong" id="phimInput-Thời lượng" aria-describedby="helpId" oninput="validatePhim('Thời lượng')" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="dienVien">Diễn viên</label>
-                    <input class="form-control" name="dienVien" id="dienVien" aria-describedby="helpId" value="{{this.dienVien}}" />
-                </div>                
+                    <label class="form-label" for="dienVien">Diễn viên<span id="phimError-Diễn viên" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                    <input class="form-control" value="{{this.dienVien}}" name="dienVien" id="phimInput-Diễn viên" aria-describedby="helpId" oninput="validateTenPhim('Diễn viên')" />
+                </div>
                 <div class="mb-3">
-                    <label class="form-label" for="daoDien">Đạo diễn</label>
-                    <input class="form-control" name="daoDien" id="daoDien" aria-describedby="helpId" value="{{this.daoDien}}" />
+                    <label class="form-label" for="daoDien">Đạo diễn<span id="phimError-Đạo diễn" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                    <input class="form-control" value="{{this.daoDien}}" name="daoDien" id="phimInput-Đạo diễn" aria-describedby="helpId" oninput="validateTenPhim('Đạo diễn')" />
                 </div>
             </div>
 
@@ -57,15 +56,15 @@
                 </div>
 
                 <div class="mb-3">
-                    <div id="output" class="rounded mx-auto d-block" style="width: 170px; height: 255px; overflow: hidden; background-color: aliceblue;">
+                    <div id="output" class="rounded mx-auto d-block" style="width: 200px; height: 300px; overflow: hidden; background-color: aliceblue;">
                         <img id="img-preview" src="{{this.anh}}" style="width: 100%; height: 100%; object-fit: cover;" alt="Ảnh xem trước" />
                         <input type="text" name="originalUrl" value="{{anh}}" hidden id="originalUrl">
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" for="moTa">Mô tả</label>
-                    <textarea required class="form-control" name="moTa" id="moTa" rows="4"  >{{this.moTa}}</textarea>
+                    <label class="form-label" for="moTa">Mô tả<span id="phimError-Mô tả" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                    <textarea required class="form-control" name="moTa" id="phimInput-Mô tả" aria-describedby="helpId" oninput="validatePhim('Mô tả')" rows="4">{{this.moTa}}</textarea>
                 </div>
 
                 <div class="mb-3">
@@ -76,7 +75,7 @@
         </div>
 
         <div class="text-center">
-            <button name="add" class="btn btn-primary" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px;">Cập nhật</button>
+            <button name="add" class="btn btn-primary" id="btn-submit" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px;">Cập nhật</button>
         </div>
     </form>
     {{/each}}
@@ -84,19 +83,5 @@
 <div>
     {{> notifications}}    
 </div>
-{{!-- <script src="../../public/js/imagePreview.js"></script> --}}
-
-<script>
-    document.getElementById('anh').addEventListener('change', function () {
-    var imgPreview = document.getElementById('img-preview');
-    var input = this;
-
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            imgPreview.src = e.target.result;
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-});
-</script>
+<script src="/js/validateForm.js"></script>
+<script src="/js/imagePreview.js"></script>

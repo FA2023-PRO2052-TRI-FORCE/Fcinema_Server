@@ -27,12 +27,12 @@
                 </div>  
 
                 <div class="mb-3">
-                    <label class="form-label" for="coSan">Số lượng</label>
-                    <input type="number" class="form-control" name="coSan" id="coSan" value="{{this.coSan}}" aria-describedby="helpYear" />
+                    <label class="form-label" for="coSan">Số lượng<span id="soLuongError" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                    <input type="number" class="form-control" value="{{this.coSan}}" name="coSan" id="soLuongInput" aria-describedby="helpYear" oninput="validateSoLuong()"/>
                 </div>  
                 <div class="mb-3">
-                    <label class="form-label" for="giaDoAn">Giá</label>
-                    <input type="number" class="form-control" name="giaDoAn" id="giaDoAn" value="{{this.giaDoAn}}" aria-describedby="helpYear" />
+                    <label class="form-label" for="giaDoAn">Giá sản phẩm<span id="giaError" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                    <input type="number" class="form-control" value="{{this.giaDoAn}}" oninput="validateGiaSP(this)"  name="giaDoAn" id="giaDoAn" aria-describedby="helpYear" />
                 </div>                                                   
             </div>
         </div>
@@ -48,5 +48,4 @@
 </div>
 
 <script src="../../public/js/imagePreview.js"></script>
-
-
+<script src="../../public/js/validateForm.js"></script>

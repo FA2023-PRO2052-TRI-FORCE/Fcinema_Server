@@ -9,10 +9,8 @@
       <div class="row">
         <div class="col-sm-6">
           <div class="mb-3">
-            <label for="anh" class="col-4 form-label">Chọn ảnh</label>
-            <div class="">
+            <label for="anh" class="form-label">Chọn ảnh</label>
               <input type="file" id="anh" name="anh" class="form-control" value="{{anh}}">
-            </div>
           </div>
 
           <div class="mb-3">
@@ -22,48 +20,36 @@
           </div>
 
           <div class="mb-3">
-            <label for="idNhanVien" class="col-4 form-label">Mã nhân viên</label>
-            <div class="">
-              <input id="idNhanVien" name="idNhanVien" placeholder="Mã nhân viên" class="form-control" type="text">
-            </div>
+            <label for="idNhanVien" class="form-label">Mã nhân viên<span id="idNVError" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+              <input id="idNhanVien" name="idNhanVien" class="form-control" type="text" oninput="validateID()">
           </div>
 
           <div class="mb-3">
-            <label for="matKhau" class="col-4 form-label">Mật khẩu</label>
-            <div class="">
-              <input id="matKhau" name="matKhau" placeholder="Mật khẩu" class="form-control" type="text">
-            </div>
+            <label for="matKhau" class="form-label">Mật khẩu</label>
+              <input id="matKhau" name="matKhau" class="form-control" type="text">
           </div>
         </div>
 
         <div class="col-sm-6">
-          <div class="mb-3">
-            <label for="hoTen" class="col-4 form-label">Họ tên</label>
-            <div class="">
-              <input id="hoTen" name="hoTen" placeholder="Họ tên" class="form-control" type="text">
+           <div class="mb-3">
+                <label class=" control-label form-label ">Họ tên<span id="hoTenError" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                <input class="form-control" required type="text" name="hoTen" id="hoTenInput" value="{{hoTen}}" oninput="validateHoTen()">
             </div>
-          </div>
 
-          <div class="mb-3">
-            <label for="email" class="col-4 form-label">Email</label>
-            <div class="">
-              <input id="email" name="email" placeholder="Email" class="form-control" required="required" type="text">
+         <div class="mb-3">
+                <label class="control-label form-label">Email<span id="emailError" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                <input class="form-control" required type="text" id="email" name="email" value="{{email}}" oninput="validateEmail()">
             </div>
-          </div>
 
-          <div class="mb-3">
-            <label for="dienThoai" class="col-4 form-label">Số điện thoại</label>
-            <div class="">
-              <input id="dienThoai" name="dienThoai" placeholder="Số điện thoại" class="form-control" type="text">
+            <div class="mb-3">
+                <label class="control-label form-label">Số điện thoại    <span id="dienThoaiError" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                <input class="form-control" required type="text" id="dienThoai" name="dienThoai" value="{{dienThoai}}" oninput="validateDienThoai()">
             </div>
-          </div>
 
-          <div class="mb-3">
-            <label for="diaChi" class="col-4 form-label">Địa chỉ</label>
-            <div class="">
-              <input id="diaChi" name="diaChi" placeholder="Địa chỉ" class="form-control" type="text">
+            <div class="mb-3">
+                <label class="control-label form-label">Địa chỉ<span id="diaChiError" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                <input class="form-control" required type="text" id="diaChi" name="diaChi" value="{{diaChi}}" oninput="validateDiaChi()">
             </div>
-          </div>
 
             <div class="mb-3">
                 <label class="form-label" for="gioiTinh">Giới tính</label>
@@ -73,19 +59,15 @@
                 </select>
             </div>
 
-          <div class="mb-3">
-            <label for="ngaySinh" class="col-4 form-label">Ngày sinh</label>
-            <div class="">
-              <input id="ngaySinh" name="ngaySinh" placeholder="" class="form-control" type="date">
-            </div>
-          </div>
+            <div class="mb-3">
+                <label class="col-md-3 control-label form-label">Ngày sinh</label>
+                <input class="form-control" required readonly autocomplete="off" type="text" id="pickadatepicker" name="ngaySinh" value="{{parseDate ngaySinh}}"  >
+            </div>  
         </div>
       </div>
 
-      <div class="mb-3">
-        <div class="text-center">
-          <button name="add" class="btn btn-primary" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px;">Thêm mới</button>
-        </div>
+      <div class="mb-3 text-center">
+        <button id="btn-submit" class="btn btn-primary" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px;">Thêm mới</button>
       </div>
     </form>
   </div>
@@ -95,4 +77,5 @@
     {{> notifications}}    
 </div>
 
+<script src="../../public/js/validateForm.js"></script>
 <script src="../../public/js/imagePreview.js"></script>

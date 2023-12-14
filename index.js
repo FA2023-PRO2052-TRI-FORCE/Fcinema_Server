@@ -5,7 +5,6 @@ const morgan = require("morgan");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
 const moment = require("moment");
-const paginateHelper = require("express-handlebars-paginate");
 const flash = require("express-flash");
 const session = require("express-session");
 
@@ -49,7 +48,6 @@ app.engine(
     helpers: {
       sum: (a, b) => a + b,
       formatDate: (date) => moment(date).format("DD/MM/YYYY"),
-      paginate: paginateHelper.createPagination,
       formatCurrency: (number, currencyCode) => {
         const formatter = new Intl.NumberFormat("vi-VN", {
           style: "currency",
@@ -70,7 +68,7 @@ app.engine(
         return trangThai === 1 ? 'Đang hoạt động' : 'Không hoạt động';
       },
       parseDate: function (date) {
-        return date.toString().split('T')[0];
+        return moment(date).format('DD/MM/YYYY');
       },
       convertStatusMovie: function (trangThai) {
         return trangThai === 0 ? 'Phim đã chiếu' :"Phim mới";

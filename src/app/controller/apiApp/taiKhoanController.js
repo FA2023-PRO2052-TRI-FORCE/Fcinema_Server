@@ -3,8 +3,8 @@ const nodemailer = require("nodemailer");
 const path = require("path");
 const fs = require("fs");
 const bcrypt = require('bcrypt');
-const emailPassword = path.join(__dirname, "../../../public/resetPasswordEmail.html");
-const emailAuth = path.join(__dirname, "../../../public/authenciationEmail.html");
+const emailPassword = path.join(__dirname, "../../../public/html/resetPasswordEmail.html");
+const emailAuth = path.join(__dirname, "../../../public/html/authenciationEmail.html");
 
 let originalCode;
 class nguoiDung {

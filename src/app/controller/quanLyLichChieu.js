@@ -1,3 +1,4 @@
+const moment = require('moment');
 const LichChieu = require('../model/lichChieuModel');
 const Phim = require('../model/phimModel');
 const PhongChieu = require('../model/phongChieuModel');
@@ -96,7 +97,9 @@ class lichChieuController {
             const idPhongChieu = req.body.idPhongChieu;
             const idPhim = req.body.idPhim;
 
-            const lichChieuExists = await lichChieu.checkLichChieuExists(caChieu, ngayChieu, idPhongChieu);
+            const formattedNgayChieu = moment(ngayChieu, 'DD-MM-YYYY').format('YYYY-MM-DD');
+            const lichChieuExists = await lichChieu.checkLichChieuExists(caChieu, formattedNgayChieu, idPhongChieu);
+
 
             if (lichChieuExists) {
                 req.flash('notificationErr', 'Ca chiếu trong ngày này đã có lịch chiếu');
@@ -104,7 +107,7 @@ class lichChieuController {
                 return;
             }
 
-            await lichChieu.insertLichChieu(ngayChieu, caChieu, giaPhim, idPhongChieu, idPhim);
+            await lichChieu.insertLichChieu(formattedNgayChieu, caChieu, giaPhim, idPhongChieu, idPhim);
             await lichChieu.updatePhimStatus(idPhim);
 
             req.flash('notificationSuccess', 'Thêm lịch chiếu thành công');
@@ -124,10 +127,14 @@ class lichChieuController {
             const anhND = req.session.user[0].anh;
             const idNhanVien = req.session.user[0].idNhanVien;
             const idLichChieu = req.params.idLichChieu;
-
+            const notificationSuccess = req.flash('notificationSuccess');
+            const notificationErr = req.flash('notificationErr');
             const results = await lichChieu.getChiTietLichChieu(idLichChieu);
+            const resultPC = await phongchieu.getAllPhongChieu();
 
             const objLC = JSON.parse(JSON.stringify(results));
+            const listPC = JSON.parse(JSON.stringify(resultPC));
+            console.log('pc',listPC)
 
             console.log('Results',objLC);
             res.render('showtimes/suaLichChieu', {
@@ -136,6 +143,10 @@ class lichChieuController {
                 anhND: anhND,
                 idNhanVien,
                 objectLichChhieu: objLC,
+                listPC: listPC,
+                notificationSuccess,
+                notificationErr
+
             });
         } catch (err) {
             console.error('Lỗi', err.message);
@@ -153,15 +164,17 @@ class lichChieuController {
             const giaPhim = req.body.giaPhim;
             const idPhongChieu = req.body.idPhongChieu;
             const idPhim = req.body.idPhim;
-
-            const lichChieuExists = await lichChieu.checkLichChieuExists(caChieu, ngayChieu, idPhongChieu);
+            
+            const formattedNgayChieu = moment(ngayChieu, 'DD-MM-YYYY').format('YYYY-MM-DD');
+            const lichChieuExists = await lichChieu.checkLichChieuExists(caChieu, formattedNgayChieu, idPhongChieu);
 
             if (lichChieuExists) {
                 req.flash('notificationErr', 'Ca chiếu trong ngày này đã có lịch chiếu');
-                res.redirect('/lichchieu/them');
+                res.redirect("back");
                 return;
             }
-            await lichChieu.updateLichChieu(ngayChieu, caChieu, giaPhim, idLichChieu);
+
+            await lichChieu.updateLichChieu(formattedNgayChieu, caChieu, giaPhim, idLichChieu);
             req.flash('notificationSuccess', 'Cập nhật lịch chiếu thành công');
             res.redirect('/lichchieu');
 

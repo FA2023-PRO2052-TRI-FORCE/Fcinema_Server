@@ -12,9 +12,6 @@
         </div>          
         <hr>
       <div class="col-12">
-      
-        {{!-- Add --}}
-
         <table id="data-table"  class="table table-bordered">
           <thead class="thead-dark">
             <tr>
@@ -57,12 +54,12 @@
        <form action="/quanlyphim/loaiphim/them" method="POST" class="container-form-add mx-auto" style="max-width: 900px;">
           <div>
             <div class="mb-3 col-auto">
-              <label class="form-label" for="name">Tên loại phim</label>
-              <input  type="text" class="form-control" name="tenTheLoai" id="tenTheLoai" aria-describedby="helpId" />
+              <label class="form-label" for="name">Tên loại phim <span id="tenLoaiError" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+              <input  type="text" class="form-control" oninput="validateTenLoai()" name="tenTheLoai" id="tenLoai" aria-describedby="helpId" />
             </div>
           </div>
            <div class="modal-footer">
-          <button type="submit" id="btn-add-loai-phim" class="btn btn-danger">Thêm</button>
+          <button type="submit" id="btn-submit" class="btn btn-primary">Thêm</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
       </div>
         </form>
@@ -83,15 +80,13 @@
         <div class="modal-body">
          <form action="/quanlyphim/loaiphim/capnhat/luu/{{this.idTheLoai}}" method="POST">
           <div class="mb-3">
-            <label class="form-label" for="tenTheLoai">Tên thể loại phim</label>
-            <input type="text" class="form-control" name="tenTheLoai" id="tenTheLoai" value="{{this.tenTheLoai}}" />
+            <label class="form-label" for="tenTheLoai">Tên thể loại phim<span id="tenLoaiErrorUDT-{{this.idTheLoai}}" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+            <input type="text" class="form-control" name="tenTheLoai" id="tenLoaiUDT-{{this.idTheLoai}}" value="{{this.tenTheLoai}}"oninput="validateTenLoaiUDT('{{this.idTheLoai}}')"  aria-describedby="helpId"/>
           </div>
           <input type="hidden" name="idTheLoai" value="{{this.idTheLoai}}" />
-       
-
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" >Lưu</button>
+          <button type="submit"  id="btn-update-theloai-{{this.idTheLoai}}" class="btn btn-primary" >Lưu</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
         </div>
          </form>
@@ -99,7 +94,6 @@
     </div>
   </div>
 {{/each}}
-
 
 <form name="del-theloai-form" method="POST"></form>
 
@@ -125,3 +119,4 @@
 </div> 
 
 <script src="../../public/js/deleteLoaiPhimScript.js"></script>
+<script src="../../public/js/validateForm.js"></script>

@@ -11,7 +11,7 @@
         <div class="col-sm-6">
             <div class="mb-3">
                 <label class="form-label" for="anh">Chọn ảnh</label>
-                <input  type="file" class="form-control" name="anh" accept="image/*" id="anh" aria-describedby="helpImg" onchange="" />
+                <input  type="file" class="form-control" name="anh" accept="image/*" id="anh" aria-label="Chọn ảnh" aria-describedby="helpImg" lang="vi"/>
             </div>
 
             <div class="mb-3">
@@ -22,18 +22,18 @@
             </div>
 
             <div class="mb-3">
-                <label class="col-lg-3 control-label form-label ">Họ tên</label>
-                <input class="form-control" required type="text" name="hoTen" value="{{hoTen}}">
+                <label class=" control-label form-label ">Họ tên<span id="hoTenError" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                <input class="form-control" required type="text" name="hoTen" id="hoTenInput" value="{{hoTen}}" oninput="validateHoTen()">
             </div>
 
             <div class="mb-3">
                 <label class="col-md-3 control-label form-label">Ngày sinh</label>
-                <input class="form-control" required type="date" name="ngaySinh" value="{{parseDate ngaySinh}}" >
+                <input class="form-control" required readonly autocomplete="off" type="text" id="pickadatepicker" name="ngaySinh" value="{{parseDate ngaySinh}}"  >
             </div>                
         </div>
         <div class="col-sm-6">
             <div class="mb-3">
-                <label class="col-lg-3 control-label form-label">Mã nhân viên</label>
+                <label class="control-label form-label">Mã nhân viên</label>
                 <input class="form-control" disabled required type="text" name="" value="{{idNhanVien}}">
             </div>            
 
@@ -43,19 +43,19 @@
             </div>
 
             <div class="mb-3">
-                <label class="col-lg-3 control-label form-label">Email</label>
-                <input class="form-control" required type="text" name="email" value="{{email}}">
+                <label class="control-label form-label">Email<span id="emailError" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                <input class="form-control" required type="text" id="email" name="email" value="{{email}}" oninput="validateEmail()">
             </div>
 
             <div class="mb-3">
-                <label class="col-md-3 control-label form-label">Số điện thoại</label>
-                <input class="form-control" required type="text" name="dienThoai" value="{{dienThoai}}">
+                <label class="control-label form-label">Số điện thoại    <span id="dienThoaiError" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                <input class="form-control" required type="text" id="dienThoai" name="dienThoai" value="{{dienThoai}}" oninput="validateDienThoai()">
             </div>
 
 
             <div class="mb-3">
-                <label class="col-md-3 control-label form-label">Địa chỉ</label>
-                <input class="form-control" required type="text" name="diaChi" value="{{diaChi}}">
+                <label class="control-label form-label">Địa chỉ<span id="diaChiError" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                <input class="form-control" required type="text" id="diaChi" name="diaChi" value="{{diaChi}}" oninput="validateDiaChi()">
             </div>
 
             <div class="mb-3">
@@ -69,7 +69,7 @@
     </div>
 
     <div class="text-center">
-        <button name="add" class="btn btn-primary" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px;">Cập nhật</button>
+        <button class="btn btn-primary" id="btn-submit" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px;">Cập nhật</button>
     </div>
 </form>
 {{/each}}
@@ -80,3 +80,5 @@
 </div>
 
 <script src="../../public/js/imagePreview.js"></script>
+
+<script src="../../public/js/validateForm.js"></script>

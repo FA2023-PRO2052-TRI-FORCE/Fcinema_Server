@@ -74,7 +74,6 @@ class doAn {
                 console.error("Lỗi khi thêm ảnh: " + err);
                 return;
             }
-
             const tenDoAn = req.body.tenDoAn;
             const coSan = req.body.coSan;
             const giaDoAn = req.body.giaDoAn;
@@ -148,27 +147,26 @@ class doAn {
 
                 try {
                     const result = await cloudinary.uploader.upload(req.file.path, {
-                      resource_type: "image",
-                      folder: "storage/product",
+                        resource_type: "image",
+                        folder: "storage/product",
                     });
                     anhUpload = result.secure_url;
-                  } catch (cloudinaryError) {
+                } catch (cloudinaryError) {
                     console.error("Lỗi khi tải ảnh lên Cloudinary:", cloudinaryError);
                     req.flash("notificationErr", "Lỗi khi tải ảnh lên Cloudinary");
                     res.redirect("/baner");
-                  }
-          
-
-                try {
-                    await sanPham.updateSanPhamById(idDoAn, tenDoAn, coSan, giaDoAn, anhUpload);
-
-                    req.flash("notificationSuccess", "Cập nhật thành công");
-                    res.redirect('/sanpham');
-                } catch (err) {
-                    console.error('Lỗi', err);
-                    req.flash("notificationErr", "Lỗi");
-                    res.redirect('/sanpham');
                 }
+            }
+
+            try {
+                await sanPham.updateSanPhamById(idDoAn, tenDoAn, coSan, giaDoAn, anhUpload);
+
+                req.flash("notificationSuccess", "Cập nhật thành công");
+                res.redirect('/sanpham');
+            } catch (err) {
+                console.error('Lỗi', err);
+                req.flash("notificationErr", "Lỗi");
+                res.redirect('/sanpham');
             }
         });
     }
