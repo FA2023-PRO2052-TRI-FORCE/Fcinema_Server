@@ -69,6 +69,39 @@ function validateDiaChi() {
     }
 }
 
+let matKhauInputValue;
+function validateMatKhau() {
+    var matKhauInput = document.getElementById('matKhauInput');
+    var matKhauError = document.getElementById('matKhauError');
+    var btnUpdate = document.getElementById('btn-change-pass');
+
+    matKhauInputValue = matKhauInput.value;
+
+    if (matKhauInputValue.length < 6) {
+        matKhauError.textContent = 'Mật khẩu phải có ít nhất 6 ký tự';
+        btnUpdate.disabled = true;
+    } else if (matKhauInputValue.length > 12) {
+        matKhauError.textContent = 'Mật khẩu phải có tối đa 12 ký tự';
+        btnUpdate.disabled = true;
+    } else {
+        matKhauError.textContent = '';
+        btnUpdate.disabled = false;
+    }
+}
+
+function validateComfirmMatKhau() {
+    var comfirmMK = document.getElementById('comfirmMK');
+    var comfrimError = document.getElementById('comfrimError');
+    var btnUpdate = document.getElementById('btn-change-pass');
+
+    if (comfirmMK.value === matKhauInputValue) {
+        comfrimError.textContent = '';
+        btnUpdate.disabled = false;
+    } else {
+        comfrimError.textContent = 'Mật khẩu không khớp';
+        btnUpdate.disabled = true;
+    }
+}
 // Loại phim + phim
 function validateTenLoai() {
     var tenLoai = document.getElementById('tenLoai').value;
