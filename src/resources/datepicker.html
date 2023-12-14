@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Date Input</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gijgo@1.9.14/css/gijgo.min.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.14/js/gijgo.min.js"></script>
+</head>
+<body>
+
+<label for="datepicker">Chọn Ngày:</label>
+<input type="text" id="datepicker" autocomplete="off">
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Tìm input type là "text"
+    var dateInput = document.getElementById('datepicker');
+
+    // Tạo một datepicker cho input type là "text" bằng Gijgo
+    $(dateInput).datepicker({
+      format: 'yyyy-mm-dd', // Định dạng ngày cho input type là "text"
+      uiLibrary: 'bootstrap5', // Sử dụng UI của Bootstrap 4
+      minDate: new Date() // Ngăn chọn ngày trước ngày hôm nay
+    });
+  });
+</script>
+
+</body>
+</html>

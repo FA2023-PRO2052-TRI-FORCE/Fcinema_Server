@@ -2,7 +2,7 @@ const connection = require('../../config/connection');
 
 class LichChieuModel {
 
-  // getLichChieu For insert ve 
+  // Lấy danh sách lịch chiếu theo ngày (thêm vé)
   async getAllLichChieu() {
     return new Promise((resolve, reject) => {
       const query = `SELECT p.anh, p.tenPhim, q.idPhongChieu, q.tenPhongChieu, l.idLichChieu, l.ngayChieu, l.caChieu, MAX(l.giaPhim) AS giaPhim, GROUP_CONCAT(g.tenGhe) AS tenGhe    
@@ -30,7 +30,7 @@ class LichChieuModel {
       });
     });
   }
-  // getUpdateLichChieu
+  // Cập nhật những lịch chiếu có ngày chiếu nhỏ hơn ngày hiện tại
   async updateLichChieuByCurrentDate() {
     return new Promise((resolve, reject) => {
       const query = `UPDATE LichChieu SET hienThi=0  WHERE ngayChieu < CURRENT_DATE`;
@@ -59,10 +59,10 @@ class LichChieuModel {
     })
   }
 
-  // get chi tiet lich chieu:idLichChieu
+  // Lấy lịch chiếu theo idLichChieu
   async getChiTietLichChieu(idLichChieu) {
     return new Promise((resolve, reject) => {
-      const query = `SELECT p.tenPhim,t.idLichChieu,t.ngayChieu,t.caChieu,t.giaPhim,t.ngayThem, c.tenPhongChieu FROM lichchieu t, Phim p , phongchieu c
+      const query = `SELECT p.tenPhim,t.idLichChieu,t.ngayChieu,t.caChieu,t.giaPhim,t.ngayThem, c.idPhongChieu, c.tenPhongChieu FROM lichchieu t, Phim p , phongchieu c
             WHERE t.idPhim=p.idPhim and t.idPhongChieu=c.idPhongChieu and t.idLichChieu=?`;
 
       connection.query(query, [idLichChieu], (err, results) => {
@@ -106,7 +106,21 @@ class LichChieuModel {
       });
     });
   }
+  //check lich chieu da ton tai truoc do chua: cập nhật
+  async checkLichChieuUpdate(caChieu, ngayChieu, idPhongChieu) {
+    return new Promise((resolve, reject) => {
+      const checkQuery = `SELECT COUNT(*) AS count FROM lichchieu WHERE caChieu=? AND ngayChieu=? AND idPhongChieu=?`;
+      const checkValues = [caChieu, ngayChieu, idPhongChieu];
 
+      connection.query(checkQuery, checkValues, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result[0].count > 1);
+        }
+      });
+    });
+  }
   // them lich chieu moi
   async insertLichChieu(ngayChieu, caChieu, giaPhim, idPhongChieu, idPhim) {
     return new Promise((resolve, reject) => {

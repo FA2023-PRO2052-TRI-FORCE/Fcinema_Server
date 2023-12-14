@@ -67,8 +67,7 @@ html {
   list-style-type: none !important;
 }
 
-.form-control[readonly],
-.form-control:disabled {
+.form-control[readonly] {
   background-color: #fff !important;
 }
 

@@ -9,6 +9,7 @@ const upload = require("../../middleware/uploadService");
 const cloudinary = require("../../middleware/cloudinary");
 const fs = require("fs");
 const path = require("path");
+const moment = require('moment');
 
 class quanlythongtin {
   // GET[]/taikhoan
@@ -219,11 +220,13 @@ class quanlythongtin {
         const gioiTinh = req.body.gioiTinh;
         let urlAnh = req.body.originalUrlAnh;
 
-        let anhUpload, publicId;
+        let anhUpload =null;
+        let publicId;
         const publicIdMatch = urlAnh.match(/\/v\d+\/(.+?)\.\w+$/);
 
         const emailRegex = /^\S+@\S+\.\S+$/;
         const dienThoaiRegex = /^(\+84|0)[1-9]\d{8}$/;
+        const formattedNgaySinh = moment(ngaySinh, 'DD-MM-YYYY').format('YYYY-MM-DD');
 
         if (!emailRegex.test(email) || !dienThoaiRegex.test(dienThoai)) {
           req.flash('notificationErr', 'Email hoặc điện thoại có định dạng không đúng');
@@ -251,13 +254,13 @@ class quanlythongtin {
           }
         }
 
-        await nhanVien.updateInformationUserByID(idNhanVien, hoTen, dienThoai, email, anhUpload, ngaySinh, diaChi, gioiTinh);
+        await nhanVien.updateInformationUserByID(idNhanVien, hoTen, dienThoai, email, anhUpload, formattedNgaySinh, diaChi, gioiTinh);
 
         req.session.user[0].hoTen = hoTen;
-        req.session.user[0].anh = anhUpload;
+        req.session.user[0].anh = anhUpload !== null ? anhUpload : urlAnh;
         req.session.user[0].dienThoai = dienThoai;
         req.session.user[0].email = email;
-        req.session.user[0].ngaySinh = ngaySinh;
+        req.session.user[0].ngaySinh = formattedNgaySinh;
         req.session.user[0].diaChi = diaChi;
         req.session.user[0].gioiTinh = gioiTinh;
 

@@ -56,10 +56,10 @@ class SanPhamModel {
     }
 
     // insert san pham
-    insertNewSanPham(tenDoAn, coSan, giaDoAn, anhStringBase64) {
+    insertNewSanPham(tenDoAn, coSan, giaDoAn, anh) {
         return new Promise((resolve, reject) => {
             const insertQuery = 'INSERT INTO DoAn (tenDoAn, coSan, giaDoAn, anh, hienThi) VALUES (?, ?, ?, ?, ?)';
-            const insertValues = [tenDoAn, coSan, giaDoAn, anhStringBase64, 1];
+            const insertValues = [tenDoAn, coSan, giaDoAn, anh, 1];
             
             connection.query(insertQuery, insertValues, (err, results) => {
                 if (err) {
@@ -71,14 +71,14 @@ class SanPhamModel {
         });
     }
     // update san pham
-    updateSanPhamById(idDoAn, tenDoAn, coSan, giaDoAn, anhStringBase64) {
+    updateSanPhamById(idDoAn, tenDoAn, coSan, giaDoAn, anh) {
         return new Promise((resolve, reject) => {
             let updateQuery;
             let updateValues;
 
-            if (anhStringBase64) {
+            if (anh) {
                 updateQuery = 'UPDATE DoAn SET tenDoAn=?, coSan=?, giaDoAn=?, anh=? WHERE idDoAn=?';
-                updateValues = [tenDoAn, coSan, giaDoAn, anhStringBase64, idDoAn];
+                updateValues = [tenDoAn, coSan, giaDoAn, anh, idDoAn];
             } else {
                 updateQuery = 'UPDATE DoAn SET tenDoAn=?, coSan=?, giaDoAn=? WHERE idDoAn=?';
                 updateValues = [tenDoAn, coSan, giaDoAn, idDoAn];

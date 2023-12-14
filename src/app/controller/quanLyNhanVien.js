@@ -72,19 +72,6 @@ class qlNhanVien {
           const hienThi = 1;
           let anhUpload;
 
-          var emailRegex = /^\S+@\S+\.\S+$/;
-          var dienThoaiRegex = /^(\+84|0)[1-9]\d{8}$/;
-
-          if (!emailRegex.test(email)) {
-            req.flash("notificationErr", "Email định dạng không đúng");
-            return res.redirect('/nhanvien/them');
-          }
-
-          if (!dienThoaiRegex.test(dienThoai)) {
-            req.flash("notificationErr", "Điện thoại định dạng không đúng");
-            return res.redirect('/nhanvien/them');
-          }
-
           if (!req.file) {
             req.flash("notificationErr", "Chưa chọn ảnh");
             return res.redirect('/nhanvien/them');

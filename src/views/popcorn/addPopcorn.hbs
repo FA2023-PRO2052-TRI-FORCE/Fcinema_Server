@@ -20,23 +20,23 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" for="tenDoAn">Tên đồ ăn</label>
-                    <input class="form-control" name="tenDoAn" id="tenDoAn" aria-describedby="helpYear" />
+                    <label class="form-label" for="tenDoAn">Tên sản phẩm<span id="tenError" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                    <input class="form-control" name="tenDoAn" id="tenInput" aria-describedby="helpYear" oninput="validateTenSP()" />
                 </div>  
 
                 <div class="mb-3">
-                    <label class="form-label" for="coSan">Số lượng</label>
-                    <input type="number" class="form-control" name="coSan" id="coSan" aria-describedby="helpYear" />
+                    <label class="form-label" for="coSan">Số lượng<span id="soLuongError" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                    <input type="number" class="form-control" name="coSan" id="soLuongInput" aria-describedby="helpYear" oninput="validateSoLuong()"/>
                 </div>  
                 <div class="mb-3">
-                    <label class="form-label" for="giaDoAn">Giá</label>
-                    <input type="number" class="form-control" name="giaDoAn" id="giaDoAn" aria-describedby="helpYear" />
+                    <label class="form-label" for="giaDoAn">Giá sản phẩm<span id="giaError" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                    <input type="number" class="form-control" oninput="validateGiaSP(this)"  name="giaDoAn" id="giaDoAn" aria-describedby="helpYear" />
                 </div>                                                   
             </div>
         </div>
 
         <div class="text-center">
-            <button class="btn btn-primary" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px 0px 40px 0;">Thêm mới</button>
+            <button class="btn btn-primary" id="btn-submit" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px 0px 40px 0;">Thêm mới</button>
         </div>
     </form>
 </div>
@@ -45,5 +45,4 @@
 </div>
 
 <script src="../../public/js/imagePreview.js"></script>
-
-
+<script src="../../public/js/validateForm.js"></script>

@@ -164,6 +164,8 @@ class qlVeDat {
     const anhND = req.session.user[0].anh;
     const idNhanVien = req.session.user[0].idNhanVien;
     const idVe = req.params.idVe;
+    const notificationSuccess = req.flash('notificationSuccess');
+    const notificationErr = req.flash('notificationErr');
 
     const veModel = new VeModel();
     const chiTietSanPhamModel = new ChiTietSanPhamModel();
@@ -181,6 +183,8 @@ class qlVeDat {
         idNhanVien,
         objectVe: veData,
         listDoAn: listDoAn,
+        notificationSuccess,
+        notificationErr
       });
     } catch (err) {
       console.error('Lỗi', err.message);

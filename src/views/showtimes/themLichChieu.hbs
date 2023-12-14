@@ -42,26 +42,26 @@
                 </div>                              
                 <div class="mb-3">
                     <label class="form-label" for="showDate">Ngày chiếu</label>
-                    <input class="form-control" value="{{ngayChieu}}" name="ngayChieu" required name="ngayChieu" id="ngayChieu" type="date" data-date="" data-date-format="DD MMMM YYYY"  aria-describedby="helpId" />
+                    <input class="form-control date-show-time" value="{{ngayChieu}}" name="ngayChieu" required name="ngayChieu" id="datepicker" type="text" autocomplete="off" readonly  aria-describedby="helpId" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="price">Giá phim</label>
-                    <input class="form-control" value="{{giaPhim}}" required type="number" name="giaPhim" id="giaPhim" aria-describedby="helpId" />
+                    <label class="form-label" for="price" style="font-weight: normal;">Giá phim<span id="error-message" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
+                    <input class="form-control" value="{{giaPhim}}"  oninput="validateGiaPhim(this)" required type="number" oninput="this.value = Math.abs(this.value)"  name="giaPhim" id="giaPhim" aria-describedby="helpId" />
                 </div>
             </div>
         </div>
         <div class="text-center">
-            <button class="btn btn-primary" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px 0px 40px 0;">Thêm mới</button>
+            <button class="btn btn-primary" id="btn-showtime" type="submit" style="padding: 10px; min-width: 400px; font-weight: bold; margin: 10px 0px 40px 0;">Thêm mới</button>
         </div>
     </form>
 </div>
 <div>
     {{> notifications}}    
 </div>
-
-
-
-
-
-
-
+<script src="../../public/js/validateForm.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var ngayChieuInput = document.getElementById('datepicker');
+    ngayChieuInput.value = new Date().toISOString().split('T')[0];
+});
+</script>
