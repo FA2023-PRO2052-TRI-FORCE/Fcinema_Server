@@ -17,6 +17,7 @@
                 <div class="mb-3">
                     <label class="form-label" for="category">Chọn Phim</label>
                     <select id="category" name="idLichChieu" class="form-control">
+                        <option value="chonPhim" selected>Chọn phim</option>
                         {{#each listLC}}                        
                         <option value="{{this.idLichChieu}}"
                         data-ngaychieu="{{formatDate this.ngayChieu}}"
@@ -51,138 +52,8 @@
             <div class="col-sm-6">
                 <div class="cinema-layout " style="">
                     <label class="form-label d-block" for="category">Chọn ghế</label>
-
-                    <div class="d-flex justify-content-around">
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="A1" id="A1Checkbox">
-                            <label class=" form-check-label">
-                                A1
-                            </label>
-                        </div>
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="A2" id="A2Checkbox">
-                            <label class="form-check-label">
-                                A2
-                            </label>
-                        </div>
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="A3" id="A3Checkbox">
-                            <label class="form-check-label">
-                                A3
-                            </label>
-                        </div>
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="A4" id="A4Checkbox">
-                            <label class="form-check-label">
-                                A4
-                            </label>
-                        </div>
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="A5" id="A5Checkbox">
-                            <label class="form-check-label">
-                                A5
-                            </label>
-                        </div>
-                    </div>
-
-                        <div class="d-flex justify-content-around">
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="B1" id="B1Checkbox">
-                            <label class="form-check-label">
-                                B1
-                            </label>
-                        </div>
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="B2" id="B2Checkbox">
-                            <label class="form-check-label">
-                                B2
-                            </label>
-                        </div>
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="B3" id="B3Checkbox">
-                            <label class="form-check-label">
-                                B3
-                            </label>
-                        </div>
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="B4" id="B4Checkbox">
-                            <label class="form-check-label">
-                                B4
-                            </label>
-                        </div>
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="B5" id="B5Checkbox">
-                            <label class="form-check-label">
-                                B5
-                            </label>
-                        </div>
-                    </div>
-
-                        <div class="d-flex justify-content-around">
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="C1" id="C1Checkbox">
-                            <label class="form-check-label">
-                                C1
-                            </label>
-                        </div>
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="C2" id="C2Checkbox">
-                            <label class="form-check-label">
-                                C2
-                            </label>
-                        </div>
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="C3" id="C3Checkbox">
-                            <label class="form-check-label">
-                                C3
-                            </label>
-                        </div>
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="C4" id="C4Checkbox">
-                            <label class="form-check-label">
-                                C4
-                            </label>
-                        </div>
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="C5" id="C5Checkbox">
-                            <label class="form-check-label">
-                                C5
-                            </label>
-                        </div>
-                    </div>
-
-                        <div class="d-flex justify-content-around">
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="D1" id="D1Checkbox">
-                            <label class="form-check-label">
-                                D1
-                            </label>
-                        </div>
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="D2" id="D2Checkbox">
-                            <label class="form-check-label">
-                                D2
-                            </label>
-                        </div>
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="D3" id="D3Checkbox">
-                            <label class="form-check-label">
-                                D3
-                            </label>
-                        </div>
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="D4" id="D4Checkbox">
-                            <label class="form-check-label">
-                                D4
-                            </label>
-                        </div>
-                        <div class="form-check" style="display: inline-block;">
-                            <input class="form-check-input seat-checkbox" type="checkbox" value="D5" id="D5Checkbox">
-                            <label class="form-check-label">
-                                D5
-                            </label>
-                        </div>
-                    </div>
+                    <script src="../../public/js/autogenerateSeat.js">
+                    </script>
                     <h6 class="form-check-label">Ghi chú</h6>
                     <div class="d-flex justify-content-around">
                         <div class="mb-3">
@@ -281,8 +152,3 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.js"></script>
 <script src="../../public/js/addVeScript.js"></script>
-
-
-
-
-

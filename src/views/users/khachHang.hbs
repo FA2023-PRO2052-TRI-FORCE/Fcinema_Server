@@ -12,7 +12,7 @@
         <th class="p-2 text-center">Email</th>
         <th class="p-2 text-center">Địa chỉ</th>
         <th class="p-2 text-center">Ngày sinh</th>
-        <th class="p-2 text-center">Trạng thái tài khoản</th>
+        {{!-- <th class="p-2 text-center">Trạng thái tài khoản</th> --}}
         <th class="p-2 text-center" style="width: 111.2px;">Thao tác</th>
       </tr>
     </thead>
@@ -25,14 +25,14 @@
          <td class="p-2 text-center align-items-center align-middle">{{this.email}}</td>
          <td class="p-2 text-center align-items-center align-middle">{{this.diaChi}}</td>
          <td class="p-2 text-center align-items-center align-middle">{{formatDate this.ngaySinh}}</td>
-         <td class="p-2 text-center align-items-center align-middle">
+         {{!-- <td class="p-2 text-center align-items-center align-middle">
               <span style="display: inline-block; min-width: 140px; border-radius: 5px; padding: 5px; color: #fff;background-color: 
                 {{#eq this.trangThaiNguoiDung 1}}#28a745{{/eq}}
                 {{#eq this.trangThaiNguoiDung 0}}#332D2D{{/eq}}
                 {{#eq this.trangThaiNguoiDung 2}}#dc3545{{/eq}}">
                {{convertStatusUser this.trangThaiNguoiDung}}
               </span>          
-         </td>         
+         </td>          --}}
          <td class=" align-middle">
           <a href="/khachhang/{{this.email}}" class="btn btn-success" style="margin-bottom: 10px; width: 90px;">Chi tiết</a>
           {{#eq this.trangThaiNguoiDung 2}}
