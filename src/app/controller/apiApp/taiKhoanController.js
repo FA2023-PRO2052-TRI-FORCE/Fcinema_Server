@@ -79,6 +79,7 @@ class nguoiDung {
 
       const { email, matKhau, hoTen, dienThoai, anh, ngaySinh, diaChi } = nguoiDung;
       const hashedMatKhau = await bcrypt.hash(matKhau, 10);
+      const anhDefault="https://res.cloudinary.com/dxkvtjsiq/image/upload/v1702656097/storage/users/gwrpb6o6byk4awzxeh2p.jpg";
 
       const otpCode = resetCodeBody;
       console.log("Request CODE:", otpCode);
@@ -92,7 +93,7 @@ class nguoiDung {
         hoTen,
         hashedMatKhau,
         dienThoai,
-        anh,
+        anhDefault,
         new Date(ngaySinh),
         diaChi,
         1,

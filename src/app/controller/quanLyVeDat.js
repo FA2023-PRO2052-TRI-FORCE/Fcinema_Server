@@ -88,8 +88,12 @@ class qlVeDat {
     const idDoAn = req.body.idDoAn;
     const soLuongChon = req.body.soLuong;
     const coSan = req.body.coSan;
+
+    const numericString = tongTien.replace(/[^\d]/g, '');
+    const tongTienNumber = parseInt(numericString, 10);
+
     const insertCTDAValues = [];
-    const insertVeValues = [idVe, soVe, ngayMua, tongTien, trangThai, phuongThucTT, null, idNhanVien, idLichChieu]
+    const insertVeValues = [idVe, soVe, ngayMua, tongTienNumber, trangThai, phuongThucTT, null, idNhanVien, idLichChieu]
     const insertVTGValues = [JSON.stringify(tenGhe), 1, idPhongChieu, idVe];
     let updateDAValues = [];
 
@@ -189,7 +193,7 @@ class qlVeDat {
     } catch (err) {
       console.error('Lỗi', err.message);
       req.flash("notificationErr", "Lỗi");
-      return res.redirect("/ve/them");
+      return res.redirect("/ve");
     }
   }
   // PUT[]ve/chitiet/:idVe

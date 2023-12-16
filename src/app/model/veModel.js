@@ -73,7 +73,7 @@ class VeModel {
         UPDATE VE v
         INNER JOIN lichchieu l ON v.idLichChieu = l.idLichChieu
         SET v.trangThai=2
-        WHERE l.ngayChieu < CURRENT_DATE AND v.trangThai = 1
+        WHERE l.ngayChieu < CURRENT_DATE
       `;
       connection.query(query, (err, result) => {
         if (err) {
