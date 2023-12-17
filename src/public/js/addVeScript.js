@@ -206,11 +206,12 @@ function resetAll() {
     document.getElementById('phongChieu').value = "";
     document.getElementById('giaPhim').value = "";
     document.getElementById('idPhongChieu').value = "";
-    document.getElementById('tongTienVe').value = '';
-    document.getElementById('tenGhe').value = '';
-    document.getElementById('tongTien').value='';
+    document.getElementById('tongTienVe').value = "";
+    document.getElementById('tenGhe').value = "";
+    document.getElementById('tongTien').value="";
     const totalPriceElements = document.getElementsByName('totalPrice');
     totalPriceElements.forEach(function (element) {
-        element.innerText = '';
+        element.innerText = "";
     });
+    
 }

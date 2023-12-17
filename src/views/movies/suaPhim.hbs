@@ -41,11 +41,11 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="dienVien">Diễn viên<span id="phimError-Diễn viên" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
-                    <input class="form-control" value="{{this.dienVien}}" name="dienVien" id="phimInput-Diễn viên" aria-describedby="helpId" oninput="validateTenPhim('Diễn viên')" />
+                    <input class="form-control" value="{{this.dienVien}}" name="dienVien" id="phimInput-Diễn viên" aria-describedby="helpId" oninput="validateTenDienVien('Diễn viên')" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="daoDien">Đạo diễn<span id="phimError-Đạo diễn" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
-                    <input class="form-control" value="{{this.daoDien}}" name="daoDien" id="phimInput-Đạo diễn" aria-describedby="helpId" oninput="validateTenPhim('Đạo diễn')" />
+                    <input class="form-control" value="{{this.daoDien}}" name="daoDien" id="phimInput-Đạo diễn" aria-describedby="helpId" oninput="validatePhim('Đạo diễn')" />
                 </div>
             </div>
 
@@ -64,7 +64,7 @@
 
                 <div class="mb-3">
                     <label class="form-label" for="moTa">Mô tả<span id="phimError-Mô tả" style="color: red; font-style: italic; margin-left: 10px;"></span></label>
-                    <textarea required class="form-control" name="moTa" id="phimInput-Mô tả" aria-describedby="helpId" oninput="validatePhim('Mô tả')" rows="4">{{this.moTa}}</textarea>
+                    <textarea required class="form-control" name="moTa" id="phimInput-Mô tả" aria-describedby="helpId" oninput="validateMoTa('Mô tả')" rows="4">{{this.moTa}}</textarea>
                 </div>
 
                 <div class="mb-3">

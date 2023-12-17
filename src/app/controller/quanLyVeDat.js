@@ -17,14 +17,24 @@ class qlVeDat {
     const veModel = new VeModel();
 
     try {
-      const result = await veModel.getAllVeDaDat();
-
+      const results = await veModel.getAllVeDaDat();
+      
+      results.forEach(result => {
+        result.tenGhe = result.tenGhe.split(',').map(name => name.trim()).join(',');
+        if (result.tenGhe.startsWith('"')) {
+          result.tenGhe = result.tenGhe.slice(1);
+        }
+        if (result.tenGhe.endsWith('"')) {
+          result.tenGhe = result.tenGhe.slice(0, -1);
+        }
+      });
+      
       res.render('tickets/veDat', {
         title: 'Vé đã đặt',
         hoTenND: hoTenND,
         anhND: anhND,
         idNhanVien,
-        listVe: result,
+        listVe: results,
         notificationSuccess,
         notificationErr,
       });
@@ -179,6 +189,16 @@ class qlVeDat {
         veModel.getVeById(idVe),
         chiTietSanPhamModel.getChiTietDoAnByIdVe(idVe),
       ]);
+
+      veData.forEach(result => {
+        result.tenGhe = result.tenGhe.split(',').map(name => name.trim()).join(',');
+        if (result.tenGhe.startsWith('"')) {
+          result.tenGhe = result.tenGhe.slice(1);
+        }
+        if (result.tenGhe.endsWith('"')) {
+          result.tenGhe = result.tenGhe.slice(0, -1);
+        }
+      });
 
       res.render('tickets/chiTietVe', {
         title: 'Chi tiết vé đặt',
