@@ -26,10 +26,14 @@ for (var i = 0; i < rows; i++) {
 // Check nếu như option "chonPhim" được chọn,(lúc đầu tải trang)
 var categorySelect = document.getElementById('category');
 var soLuongInputs = document.getElementsByName('soLuong');
+
 if (categorySelect.value === 'chonPhim') {
     disableAllCheckboxes();
     document.getElementById('img-preview').setAttribute("src", "../../resources/img/default_img.png");
-
+    let btnSubmit = document.getElementById('btnSubmitVe');
+    if (btnSubmit) {
+        btnSubmit.disabled = true;
+    }
 }
 
 // Thêm nghe sự kiện cho sự thay đổi lựa chọn phim
@@ -37,9 +41,17 @@ categorySelect.addEventListener('change', function () {
     if (this.value === 'chonPhim') {
         disableAllCheckboxes();
         disableAllSoLuongInputs();
+        let btnSubmit = document.getElementById('btnSubmitVe');
+        if (btnSubmit) {
+            btnSubmit.disabled = true;
+        }
     } else {
         enableAllCheckboxes();
         enableAllSoLuongInputs();
+        let btnSubmit = document.getElementById('btnSubmitVe');
+        if (btnSubmit) {
+            btnSubmit.disabled = false;
+        }
     }
 });
 
@@ -71,5 +83,3 @@ function enableAllCheckboxes() {
         checkbox.disabled = false;
     });
 }
-
-

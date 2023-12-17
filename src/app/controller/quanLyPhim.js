@@ -71,6 +71,16 @@ class quanLyPhim {
 
       const results = await phimModel.getPhimById(idPhim);
 
+      results.forEach(result => {
+        result.dienVien = result.dienVien.split(',').map(name => name.trim()).join(',');
+        if (result.dienVien.startsWith('"')) {
+          result.dienVien = result.dienVien.slice(1);
+        }
+        if (result.dienVien.endsWith('"')) {
+          result.dienVien = result.dienVien.slice(0, -1);
+        }
+      });
+
       res.render("movies/suaPhim", {
         title: "Cập nhật phim",
         listPhim: JSON.parse(JSON.stringify(results)),
