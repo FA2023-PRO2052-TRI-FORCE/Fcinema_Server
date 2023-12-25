@@ -13,13 +13,14 @@ FCinema Server là một web server để quản lý rạp phim. Web server sử
 
 ## Chức năng chính
 1. Đăng nhập, phân quyền (Admin có thể thực hiện được tất cả các chức năng, nhân viên chỉ có thể thực hiện chức năng vé đặt và tài khoản)
-2. Thêm, xem, cập nhật, xoá loại phim-phim
-3. Thêm, xem, cập nhật, xoá sản phẩm
-4. Thêm, xem, cập nhật lịch chiếu
-5. Thêm, xem vé đặt
+2. Thêm, xem, cập nhật, xoá loại phim-phim cho hệ thống
+3. Thêm, xem, cập nhật, xoá sản phẩm cho hệ thống
+4. Thêm, xem, cập nhật lịch chiếu cho hệ thống
+5. Thêm vé đặt cho khách hàng mua vé tại quầy, xem chi tiết vé đặt, xem danh sách vé đặt
 6. Thống kê doanh thu (qua 12 tháng, qua tháng, qua 7 ngày) và các thống kê liên quan (tồn kho sản phẩm, phim, lịch chiếu, vé...)
-7. Thêm, xem, xoá nhân viên
-8. Thay đổi thông tin, mật khẩu
+7. Thêm, xem, xoá nhân viên cho rạp
+8. Thay đổi thông tin, mật khẩu cá nhân
+9. Phân trang, lọc, tìm kiếm các thông tin cho từng nhóm chức năng sử dụng datatable bootstrap
 ## Một số giao diện
 
 | |
