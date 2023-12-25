@@ -78,7 +78,15 @@ html {
 .form-check-input[type=checkbox] {
   border-radius: 0;
 }
+.mb-3 label {
+  margin-bottom: 0px;
+}
 
+.mb-3 input,
+.mb-3 select,
+.mb-3 textarea {
+  margin-top: 0px;
+}
 .btn-toggle:hover,
 .btn-toggle:focus,
 .nav-link:hover,
