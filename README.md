@@ -21,6 +21,8 @@ FCinema Server là một web server để quản lý rạp phim. Web server sử
 7. Thêm, xem, xoá nhân viên cho rạp
 8. Thay đổi thông tin, mật khẩu cá nhân
 9. Phân trang, lọc, tìm kiếm các thông tin cho từng nhóm chức năng sử dụng datatable bootstrap
+10. Hiển thị thông báo khi thực hiện thành công, hoặc thất bại 1 một chức năng
+
 ## Một số giao diện
 
 | |
