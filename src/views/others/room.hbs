@@ -1,0 +1,40 @@
+
+    <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important;">
+    <li class="breadcrumb-item active" aria-current="page">Danh sách phòng chiếu</li>
+  </ol> 
+<div class="container" style="background-color: #fff;">
+    <div class="p-3 bg-white shadow-sm rounded">  
+  <table id="data-table" class="table table-bordered"style="width:100%">
+    <thead class="thead-dark">
+      <tr>
+        <th class="p-2 text-center align-middle">#</th>
+        <th class="p-2 text-center align-middle">Tên phòng</th>
+        <th class="p-2 text-center align-middle">Trạng thái</th>
+        <th class="p-2 text-center align-middle">Hành động</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      {{#each listPC}}
+      <tr>
+        <th class="p-2 text-center align-middle" scope="row">{{sum 1 @index }}</th>
+        <td class="text-center align-middle">{{this.tenPhongChieu}}</td>
+        <td class="text-center align-middle"> <span style="display: inline-block; min-width: 140px; border-radius: 5px; padding: 5px; color: #fff;background-color: 
+                {{#eq this.trangThai 1}}#28a745{{/eq}}
+                {{#eq this.trangThai 0}}#332D2D{{/eq}}">
+                {{convertStatusCinemax this.trangThai}}
+              </span>
+        </td>
+        <td class="text-center align-middle">
+
+          <form name="form-reset" action="/phongchieu/{{this.idPhongChieu}}?_method=PUT" method="POST">
+            <button id="btn-reset" class="btn btn-primary btn-reset"data-id-pc="{{this.idPhongChieu}}" style="margin-bottom: 10px; width: 90px;">Thay đổi</button>
+            <input type="text" name="trangThai" value="{{this.trangThai}}" hidden>
+          </form>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  </div>
+</div>

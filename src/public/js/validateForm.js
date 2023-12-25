@@ -1,5 +1,5 @@
-let tenRegax = /^[a-zA-Z\s, ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/;
-let tenRegax2 = /^[a-zA-Z0-9\s ' .ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*$/;
+let tenRegax = /^[a-zA-Z\s,: ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý]+$/;
+let tenRegax2 = /^[a-zA-Z0-9\s ' .ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý]*$/;
 let namRegax = /^[0-9]+$/;
 // Nhân viên, tài khoản
 var btnSubmit = document.getElementById('btn-submit');
@@ -19,7 +19,7 @@ function validateID() {
 function validateHoTen() {
     var hoTenInput = document.getElementById('hoTenInput').value;
     var hoTenError = document.getElementById('hoTenError');
-    var hoTenRegex = /^[a-zA-Z\s ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/;
+    var hoTenRegex = /^[a-zA-Z\s ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý]+$/;
 
     if (!hoTenRegex.test(hoTenInput)) {
         hoTenError.textContent = 'Họ tên không hợp lệ';
@@ -59,7 +59,7 @@ function validateDienThoai() {
 function validateDiaChi() {
     var diaChiInput = document.getElementById('diaChi').value;
     var diaChiError = document.getElementById('diaChiError'); 
-    var diaChiRegex = /^[a-zA-Z0-9\s,.-ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*$/;
+    var diaChiRegex = /^[a-zA-Z0-9\s,.-ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý]*$/;
     if (!diaChiRegex.test(diaChiInput)) {
         diaChiError.textContent = 'Địa chỉ không hợp lệ';
         btnSubmit.disabled = true;
@@ -146,7 +146,7 @@ function validateTenPhim(loai){
 function validateMoTa(loai){
     var phimInput = document.getElementById('phimInput-' + loai).value;
     var phimError = document.getElementById('phimError-' + loai);
-    var motaRegax = /^[a-zA-Z0-9\s,.;-ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*$/;
+    var motaRegax = /^[a-zA-Z0-9\s,.;-ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý]*$/;
 
     if (!motaRegax.test(phimInput) || phimInput.length > 1000) {
         phimError.textContent = loai+' không hợp lệ';
@@ -159,7 +159,7 @@ function validateMoTa(loai){
 function validateTenDienVien(loai){
     var phimInput = document.getElementById('phimInput-' + loai).value;
     var phimError = document.getElementById('phimError-' + loai);
-    var motaRegax = /^[a-zA-Z0-9\s,.'-ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*$/;
+    var motaRegax = /^[a-zA-Z0-9\s,.'-ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý]*$/;
 
     if (!motaRegax.test(phimInput) || phimInput.length > 500) {
         phimError.textContent = loai+' không hợp lệ';
@@ -238,8 +238,8 @@ function validateGiaSP(input) {
     } else if(parseInt(input.value) < 10000){
          giaError.textContent = 'Giá  không được thấp hơn 10.000đ';
         btnSubmit.disabled = true;
-    }else if (parseInt(input.value) > 500000) {
-        giaError.textContent = 'Giá  không được vượt quá 500.000đ.';
+    }else if (parseInt(input.value) > 200000) {
+        giaError.textContent = 'Giá  không được vượt quá 200.000đ.';
         btnSubmit.disabled = true;
     } else {
         giaError.textContent = '';
@@ -261,8 +261,8 @@ function validateGiaPhim(input) {
     } else if(parseInt(input.value) < 50000){
          giaPhimError.textContent = 'Giá phim không được thấp hơn 50.000đ';
         btnUpdate.disabled = true;
-    }else if (parseInt(input.value) > 1000000) {
-        giaPhimError.textContent = 'Giá phim không được vượt quá 1.000.000đ.';
+    }else if (parseInt(input.value) > 500000) {
+        giaPhimError.textContent = 'Giá phim không được vượt quá 500.000đ.';
         btnUpdate.disabled = true;
     } else {
         giaPhimError.textContent = '';

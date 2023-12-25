@@ -1,6 +1,6 @@
 const express=require('express');
 const router=express.Router();
-const baner=require('../app/controller/quanLyBaner');
+const baner=require('../app/controller/banerController');
 const authMiddleware=require('../middleware/authMiddleware');
 
 router.get('/baner',authMiddleware,baner.getAllBaner);

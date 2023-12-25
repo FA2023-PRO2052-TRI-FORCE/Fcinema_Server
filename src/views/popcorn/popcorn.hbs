@@ -1,8 +1,7 @@
-    <ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; col; border-radius:0;    -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,.05);
-    box-shadow: 0 0 13px 0 rgba(82,63,105,.05);">
-    <li class="breadcrumb-item active" aria-current="page">Danh sách sản phẩm</li>
-  </ol> 
-<div class="container" style="min-height: 100vh;">
+<ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important;">
+  <li class="breadcrumb-item active" aria-current="page">Danh sách sản phẩm</li>
+</ol> 
+<div class="container">
     <div class="input-group d-flex justify-content-between" style="align-items: center;"> 
         <h6 style="padding: 0 20px; font-weight: bold;">Danh sách sản phẩm</h6>
         <a type="button" href="/sanpham/them" class="btn btn-primary" style="margin: 20px; border-radius: 5px; font-weight: bold;">Thêm sản phẩm</a>
@@ -37,10 +36,6 @@
     </tbody>
   </table>
 </div>
-<div>
-    {{> notifications}}    
-</div>
-
 {{!-- form xoá sản phẩm --}}
 
 <form name="del-do-an-form" method="POST"></form>
@@ -80,4 +75,4 @@
           deleteForm.action="/sanpham/xoa/"+idDoAn+"?_method=PUT"
           deleteForm.submit();
       }
-  })</script>
+})</script>

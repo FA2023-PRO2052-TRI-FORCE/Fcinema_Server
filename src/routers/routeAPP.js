@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const taiKhoanND = require("../app/controller/apiApp/taiKhoanController");
-const PhimController = require("../app/controller/apiApp/PhimController");
-const VeController = require("../app/controller/apiApp/VeController");
-const TheLoaiController = require("../app/controller/apiApp/TheLoaiController");
-const DoAnController = require("../app/controller/apiApp/DoAnController");
+const taiKhoanND = require("../app/controller/apiApp/accountUserController");
+const PhimController = require("../app/controller/apiApp/movieAppController");
+const VeController = require("../app/controller/apiApp/ticketAppController");
+const TheLoaiController = require("../app/controller/apiApp/GenreAppController");
+const DoAnController = require("../app/controller/apiApp/popcornAppController");
 
 router.post("/nguoidung/dangky", taiKhoanND.registerNguoiDung);
 router.post("/nguoidung/dangnhap", taiKhoanND.loginNguoiDung);

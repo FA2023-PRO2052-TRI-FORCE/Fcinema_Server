@@ -1,0 +1,85 @@
+<ol class="breadcrumb" style="background-color: #fff; font-weight: bold !important; ">
+    <li class="breadcrumb-item active" aria-current="page">Lịch Chiếu</li>  
+</ol> 
+<div class="container">
+    <div class="row" >
+        <div class="input-group d-flex justify-content-between" style="align-items: center;"> 
+        <h6 style="padding: 0 20px; font-weight: bold;">Danh sách lịch chiếu phim</h6>
+        <a type="button" href="/lichchieu/them" class="btn btn-primary" style="margin: 20px; border-radius: 5px; font-weight: bold;">Thêm lịch chiếu phim</a>
+        </div>          
+        <hr>
+        
+      <div class="col-12">
+        <div style=" overflow-y: scroll;height: 700px;">
+        <table id="data-table" class="table table-bordered table-sm" >
+          <thead class="thead-dark">
+            <tr>
+              <th class="p-2 text-center align-middle" scope="col">#</th>
+              <th class="p-2 text-center align-middle" scope="col">Tên phim</th>
+              <th class="p-2 text-center align-middle" scope="col">Ngày chiếu</th>   
+              <th class="p-2 text-center align-middle" scope="col">Thời Lượng</th> 
+              <th class="p-2 text-center align-middle" scope="col">Phòng chiếu</th>
+              <th class="p-2 text-center align-middle" scope="col">Ca chiếu</th>
+              <th class="p-2 text-center align-middle" scope="col">Giá phim</th>
+              <th class="p-2 text-center align-middle" scope="col">Hành động</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each listLC}}
+            <tr>
+              <th class="p-2 text-center align-middle" scope="row">{{sum 1 @index }}</th>
+              <th class="p-2 text-center align-middle" >{{this.tenPhim}}</th>
+              <td class="p-2 text-center align-middle" scope="col">{{formatDate this.ngayChieu }}</td>
+              <td class="p-2 text-center align-middle" >{{this.thoiLuong}}</td>
+              <td class="p-2 text-center align-middle" scope="col" >{{this.tenPhongChieu}}</td>
+              <td class="p-2 text-center align-middle" scope="col">{{this.caChieu}}</td>
+              <td class="p-2 text-center align-middle" scope="col">{{formatCurrency this.giaPhim 'vnd'}}</td>             
+              <td class="p-2 text-center align-middle">
+                <a href="/lichchieu/sua/{{this.idLichChieu}}" type="button" style="margin-bottom: 10px; width: 90px;" class="btn btn-success">Cập nhật</a>
+                {{!-- <button type="button" data-bs-toggle="modal" data-id-lich-chieu="{{this.idLichChieu}}" data-bs-target="#delete-lich-chieu" data-target="#delete-lich-chieu" style="margin-bottom: 10px; width: 90px;" class="btn btn-danger">Xoá</button> --}}
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{{!-- form xoá lịch chiếu --}}
+
+<form name="del-lichchieu-form" method="POST"></form>
+
+<!--modal xác nhận xoá -->
+<div class="modal fade" tabindex="-1" role="dialog" id="delete-lich-chieu">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xác nhận xóa</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>        
+      </div>
+      <div class="modal-body">
+        <p>Bạn có chắc chắn muốn xóa lịch chiếu này?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btn-del-lichchieu" class="btn btn-danger">Xóa</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../../public/js/deleteShowTimeScript.js"></script>
+
+<script>
+  var tenPhimSearchInput = document.getElementById('tenPhimSearch');
+  var btnSearch = document.getElementById('btn-search-phim');
+  var formSearch = document.forms["search-phim-form"];
+
+  btnSearch.onclick = function() {
+    var tenPhimSearchValue = tenPhimSearchInput.value; 
+
+    formSearch.action = "/lichchieu/tim/" + tenPhimSearchValue;
+    formSearch.submit();
+}
+</script>

@@ -1,31 +1,30 @@
-const express = require('express');
-const loaiPhim=require('./routeQuanLyLoaiPhim');
-const thongKe=require('./routeThongKe');
-const phim = require("./routeQuanLyPhim");
-const thongtin = require("./routeQLTK");
-const thongBao=require('./routeThongBao');
-const khachHang = require('./routeKhachHang');
-const nhanVien = require('./routeNhanVien');
-const phongChieu = require('./routeQuanLyPhongChieu');
-const lichChieu=require('./routeQuanLyLichChieu');
+const genre=require('./routeGenre');
+const statistic=require('./routeStatistic');
+const movie = require("./routeMovie");
+const account = require("./routeAccount");
+const notify=require('./routeNotify');
+const user = require('./routeUser');
+const emp = require('./routeEmployee');
+const room = require('./routeRoom');
+const showtime=require('./routeShowtime');
 const routeApp=require('./routeAPP');
-const doAn=require('./routeDoAn');
-const veDat=require('./routeQuanLyVeDat');
+const popcorn=require('./routePopcorn');
+const ticket=require('./routeTicket');
 const baner=require('./routeBaner');
 
 function route(app) {
-  app.use('/', phim);
-  app.use('/',loaiPhim);
-  app.use('/',thongKe);
-  app.use("/",thongtin);
-  app.use('/',thongBao);
-  app.use('/',khachHang);
-  app.use('/',nhanVien);
-  app.use('/',phongChieu)
-  app.use('/',lichChieu)
+  app.use('/', movie);
+  app.use('/',genre);
+  app.use('/',statistic);
+  app.use("/",account);
+  app.use('/',notify);
+  app.use('/',user);
+  app.use('/',emp);
+  app.use('/',room)
+  app.use('/',showtime)
   app.use('/',routeApp);
-  app.use('/',doAn);
-  app.use('/',veDat);
+  app.use('/',popcorn);
+  app.use('/',ticket);
   app.use('/',baner);
 }
 
