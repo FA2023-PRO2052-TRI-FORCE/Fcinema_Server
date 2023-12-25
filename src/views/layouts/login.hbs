@@ -24,22 +24,23 @@
     <div style="height: 50px;">
         {{> notifications}}    
     </div>
-    <div class="col-sm-12 mx-auto" style="margin: 0 auto; display: flex; justify-content: center; align-items: center;">
+    <div style="margin: 0 auto; display: flex; justify-content: center; align-items: center;">
         <div class="form-custom">
             <div class="row">
-                <div class="col-sm-6">
-                    <img src="../img/poly.webp" style="width: 150px;">
-                </div>
-                <div class="col-sm-6 text-center">
-                    <div>
-                        <h6 style="font-family: Notable; color: black; margin-bottom: 0; margin-top: 15px;">FCinema</h6>
-                        <span style="font-family: Merienda; color: black; font-size: 10px;">"Mua vé, Trải nghiệm, Thư giãn."</span>
+                <div class="col-sm-12 text-center">
+                    <div >
+                        <div class="col-sm-12 d-flex justify-content-center">
+                            <div style="width: 75px; height: 75px; overflow: hidden;">
+                                <img style="width: 100%; height: 100%; object-fit: cover;" class="img-thumbnail rounded-circle me-2" src="../../resources/img/270253922_152001160514550_6484994815700574678_n.jpg" alt="">
+                            </div>
+                        </div>
+                        <h6 style="font-family: Notable; color: black; margin-bottom: 0; font-size: 32px;">FCinema</h6>
                     </div>
                 </div>
             </div>
 
             <form method="post" action="/login-account" style="margin-top: 40px;">
-                <div style="margin-top: 100px !important;">
+                <div style="margin-top: 60px !important;">
                     <input
                         required
                         class="form-control"
@@ -70,7 +71,6 @@
             </form>
         </div>
     </div>
-
 
     <!-- Optional JavaScript -->
     <!-- jQuery, Popper.js, Bootstrap JS -->
