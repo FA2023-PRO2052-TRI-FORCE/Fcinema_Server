@@ -18,6 +18,8 @@ FCinema Server là một web server để quản lý rạp phim. Web server sử
 4. Thêm, xem, cập nhật lịch chiếu
 5. Thêm, xem vé đặt
 6. Thống kê doanh thu (qua 12 tháng, qua tháng, qua 7 ngày) và các thống kê liên quan (tồn kho sản phẩm, phim, lịch chiếu, vé...)
+7. Thêm, xem, xoá nhân viên
+8. Thay đổi thông tin, mật khẩu
 ## Một số giao diện
 
 | |
@@ -32,6 +34,7 @@ FCinema Server là một web server để quản lý rạp phim. Web server sử
 ![Giao diện màn hình phim](./src/resources/img/readme/7.png)<h4 align="center">Giao diện màn hình phim</h4> |
 ![Giao diện màn hình lịch chiếu](./src/resources/img/readme/10.png)<h4 align="center">Giao diện màn hình lịch chiếu</h4> |
 ![Giao diện màn hình sản phẩm](./src/resources/img/readme/3.png)<h4 align="center">Giao diện màn hình sản phẩm</h4> |
+![Giao diện màn hình nhân viên](./src/resources/img/readme/17.png)<h4 align="center">Giao diện màn hình nhân viên</h4> |
 ![Giao diện màn hình tài khoản](./src/resources/img/readme/20.png)<h4 align="center">Giao diện màn hình tài khoản</h4> |
 ![Giao diện modal đổi mật khẩu ](./src/resources/img/readme/21.png)<h4 align="center">Giao diện modal đổi mật khẩu </h4> |
 ![Giao diện màn hình thêm phim](./src/resources/img/readme/8.png)<h4 align="center">Giao diện màn hình thêm phim/h4> |
